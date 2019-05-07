@@ -40,6 +40,14 @@
 <td><input type='text' name='keterangan' /></td>
 </tr>
 <tr>
+<td>Fasilitas</td>
+<td><input type='text' name='fasilitas' /></td>
+</tr>
+<tr>
+<td>Alamat</td>
+<td><input type='text' name='alamat' /></td>
+</tr>
+<tr>
 <td>Harga</td>
 <td><input type='text' name='harga' /></td>
 </tr>

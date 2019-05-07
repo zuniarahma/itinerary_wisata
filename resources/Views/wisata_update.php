@@ -44,6 +44,16 @@ value = '<?php echo$wisata[0]->foto; ?>'/></td></td>
 value = '<?php echo$wisata[0]->keterangan; ?>'/></td>
 </tr>
 <tr>
+<td>Fasilitas</td>
+<td><input type='text' name='fasilitas' 
+value = '<?php echo$wisata[0]->fasilitas; ?>'/></td>
+</tr>
+<tr>
+<td>Alamat</td>
+<td><input type='text' name='alamat' 
+value = '<?php echo$wisata[0]->alamat; ?>'/></td>
+</tr>
+<tr>
 <td>Harga</td>
 <td><input type='text' name='harga' 
 value = '<?php echo$wisata[0]->harga; ?>'/></td>
@@ -71,7 +81,7 @@ value = '<?php echo$wisata[0]->longitude; ?>'/></td>
 
 <tr>
 <td colspan = '2'>
-<input type = 'submit' value = "Update student" />
+<input type = 'submit' value = "Update Wisata" />
 </td>
 </tr>
 </table>

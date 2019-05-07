@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Wisata Management</title>
+  <title>Jenis Wisata Management</title>
 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -353,7 +353,7 @@
       <li class="treeview">
         <a href="#">
           <i class="fa fa-users"></i>
-          <span>Users</span>
+          <span>Pengguna</span>
           <!-- <span class="pull-right-container">
             <span class="label label-primary pull-right">4</span>
           </span> -->
@@ -397,41 +397,20 @@
                 <div class="box-body">
                     <table border = "1">
 
-                    <a href="{{url('/insertwisata')}}">insert</a>
+                    <a href="{{url('/insertjenis')}}">insert</a>
                     <tr>
-                    <td>ID Wisata</td>
-                    <td>ID Kota</td>
+                    
                     <td>ID Jenis Wisata</td>
-                    <td>Nama Wisata</td>
-                    <td>Foto</td>
-                    <td>Keterangan</td>
-                    <td>Fasilitas</td>
-                    <td>Alamat</td>
-                    <td>Harga</td>
-                    <td>Jam Buka</td>
-                    <td>Jam Tutup</td>
-                    <td>Latitude</td>
-                    <td>Longitude</td>
+                    <td>Nama Jenis Wisata</td>
                     <td>Action</td>
                     <td>Action</td>
                     </tr>
-                    @foreach ($wisata as $wisatas)
+                    @foreach ($jenis_wisata as $jenis_wisatas)
                     <tr>
-                    <td>{{ $wisatas->id_wisata }}</td>
-                    <td>{{ $wisatas->id_kota }}</td>
-                    <td>{{ $wisatas->id_jenis_wisata }}</td>
-                    <td>{{ $wisatas->nama_wisata }}</td>
-                    <td>{{ $wisatas->foto }}</td>
-                    <td>{{ $wisatas->keterangan }}</td>
-                    <td>{{ $wisatas->fasilitas }}</td>
-                    <td>{{ $wisatas->alamat }}</td>
-                    <td>{{ $wisatas->harga }}</td>
-                    <td>{{ $wisatas->jam_buka }}</td>
-                    <td>{{ $wisatas->jam_tutup }}</td>
-                    <td>{{ $wisatas->latitude }}</td>
-                    <td>{{ $wisatas->longitude }}</td>
-                    <td><a href = 'edit/{{ $wisatas->id_wisata }}'>Edit</a></td>
-                    <td><a href = 'delete/{{ $wisatas->id_wisata }}'>Delete</a></td>
+                    <td>{{ $jenis_wisatas->id_jenis_wisata }}</td>
+                    <td>{{ $jenis_wisatas->nama_jenis }}</td>
+                    <td><a href = 'edit/{{ $jenis_wisatas->id_jenis_wisata }}'>Edit</a></td>
+                    <td><a href = 'delete/{{ $jenis_wisatas->id_jenis_wisata }}'>Delete</a></td>
                     </tr>
                     @endforeach
                     </table>

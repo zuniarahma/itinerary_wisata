@@ -1,25 +1,28 @@
-<option value="kabupaten_bangkalan">Kabupaten Bangkalan</option>
-<option value="kabupaten_banyuwangi">Kabupaten Banyuwangi</option>
-<option value="kabupaten_blitar">Kabupaten Blitar</option>
-<option value="kabupaten_bojonegoro">Kabupaten Bojonegoro</option>
-<option value="kabupaten_bondowoso">Kabupaten Bondowoso</option>
-<option value="kabupaten_gresik">Kabupaten Gresik</option>
-<option value="kabupaten_jember">Kabupaten Jember</option>
-<option value="kabupaten_jombang">Kabupaten Jombang</option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
-<option value="kabupaten_">Kabupaten </option>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kota Management | Add</title>
+</head>
+<body>
+<form action = "kota_create" method = "post">
+<input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
+<table>
+<tr>
+<td>ID Kota</td>
+<td><input type='text' name='id_kota' /></td>
+</tr>
+<tr>
+<td>Nama Kota</td>
+<td><input type='text' name='nama_kota' /></td>
+</tr>
+</tr>
+<tr>
+<td colspan = '2'>
+<input type = 'submit' value = "Tambah Kota/Kabupaten"/>
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
+

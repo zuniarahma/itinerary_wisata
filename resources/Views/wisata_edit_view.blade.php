@@ -1,7 +1,7 @@
 <!Doctype html>
 <html>
 <head>
-<title>View Student Records</title>
+<title>Wisata Management | Edit</title>
 </head>
 <body>
 <table border = "1">
@@ -12,6 +12,8 @@
 <td>Nama Wisata</td>
 <td>Foto</td>
 <td>Keterangan</td>
+<td>Fasilitas</td>
+<td>Alamat</td>
 <td>Harga</td>
 <td>Jam Buka</td>
 <td>Jam Tutup</td>
@@ -28,6 +30,8 @@
 <td>{{ $wisatas->nama_wisata }}</td>
 <td>{{ $wisatas->foto }}</td>
 <td>{{ $wisatas->keterangan }}</td>
+<td>{{ $wisatas->Fasilitas }}</td>
+<td>{{ $wisatas->Alamat }}</td>
 <td>{{ $wisatas->harga }}</td>
 <td>{{ $wisatas->jam_buka }}</td>
 <td>{{ $wisatas->jam_tutup }}</td>

@@ -1,7 +1,7 @@
 <!DOCTPE html>
 <html>
 <head>
-<title>View Wisata</title>
+<title>Wisata Management | Delete</title>
 </head>
 <body>
 <table border = "1">
@@ -14,6 +14,8 @@
 <td>Nama Wisata</td>
 <td>Foto</td>
 <td>Keterangan</td>
+<td>Keterangan</td>
+<td>Fasilitas</td>
 <td>Harga</td>
 <td>Jam Buka</td>
 <td>Jam Tutup</td>
@@ -29,6 +31,8 @@
 <td>{{ $wisatas->nama_wisata }}</td>
 <td>{{ $wisatas->foto }}</td>
 <td>{{ $wisatas->keterangan }}</td>
+<td>{{ $wisatas->fasilitas }}</td>
+<td>{{ $wisatas->alamat }}</td>
 <td>{{ $wisatas->harga }}</td>
 <td>{{ $wisatas->jam_buka }}</td>
 <td>{{ $wisatas->jam_tutup }}</td>

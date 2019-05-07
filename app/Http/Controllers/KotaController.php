@@ -7,67 +7,43 @@ use App\Http\Controllers\Controller;
 
 class KotaController extends Controller {
     public function index(){
-        $wisata = DB::select('select * from kota');
-        return view('kota_view',['kota'=>$wisata]);
+        $kota = DB::select('select * from kota');
+        return view('kota_view',['kota'=>$kota]);
     }
 
     public function insertform(){
         return view('kota_create');
     } 
-    public function insert(Request $request){
-        $id_wisata = $request->input('id_wisata');
+    public function insertkota(Request $request){
         $id_kota = $request->input('id_kota');
-        $id_jenis_wisata = $request->input('id_jenis_wisata');
-        $nama_wisata = $request->input('nama_wisata');
-        $foto = $request->input('foto');
-        $keterangan = $request->input('keterangan');
-        $harga = $request->input('harga');
-        $jam_buka = $request->input('jam_buka');
-        $jam_tutup = $request->input('jam_tutup');
-        $latitude = $request->input('latitude');
-        $longitude = $request->input('longitude');
+        $nama_kota = $request->input('nama_kota');
 
-        $data=array('id_wisata'=>$id_wisata,"id_kota"=>$id_kota,"id_jenis_wisata"=>$id_jenis_wisata,"nama_wisata"=>$nama_wisata,
-        "foto"=>$foto,"keterangan"=>$keterangan,"harga"=>$harga,"jam_buka"=>date("H:i:s", strtotime($jam_buka)),"jam_tutup"=>date("H:i:s", strtotime($jam_tutup)),
-        "latitude"=>$latitude,"longitude"=>$longitude);
+        $data=array("id_kota"=>$id_kota,"nama_kota"=>$nama_kota);
 
-        DB::table('wisata')->insert($data);
+        DB::table('kota')->insert($data);
         // echo "Record inserted successfully.<br/>";
         // echo '<a href = "/insert">Click Here</a> to go back.';
 
-        return redirect('/wisata_view');
+        return redirect('/kota_view');
     }
     
     public function show($id) {
-        $wisata = DB::select('select * from kota where id_kota = ?',[$id]);
-        return view('kota_update',['kota'=>$wisata]);
+        $kota = DB::select('select * from kota where id_kota = ?',[$id]);
+        return view('kota_update',['kota'=>$kota]);
     }
 
     public function edit(Request $request,$id) {
-        $id_wisata = $request->input('id_wisata');
         $id_kota = $request->input('id_kota');
-        $id_jenis_wisata = $request->input('id_jenis_wisata');
-        $nama_wisata = $request->input('nama_wisata');
-        $foto = $request->input('foto');
-        $keterangan = $request->input('keterangan');
-        $harga = $request->input('harga');
-        $jam_buka = $request->input('jam_buka');
-        $jam_tutup = $request->input('jam_tutup');
-        $latitude = $request->input('latitude');
-        $longitude = $request->input('longitude');
+        $nama_kota = $request->input('nama_kota');
         
-        //$data=array('first_name'=>$first_name,"last_name"=>$last_name,"city_name"=>$city_name,"email"=>$email);
-        //DB::table('student')->update($data);
-        // DB::table('student')->whereIn('id', $id)->update($request->all());
-        DB::update('update wisata set id_kota=?,id_jenis_wisata=?,nama_wisata=?,foto=?,keterangan=?,harga=?,jam_buka=?,jam_tutup=?,latitude=?,longitude=? where id_wisata = ?',
-        [$id_kota,$id_jenis_wisata,$nama_wisata,$foto,$keterangan,$harga,$jam_buka,$jam_tutup,$latitude,$longitude,$id_wisata]);
-        // var_dump([$id_kota,$id_jenis_wisata,$foto,$keterangan,$harga,$jam_buka,$jam_tutup,$latitude,$longitude,$id_wisata]);
+        DB::update('update kota set nama_kota=? where id_kota = ?',
+        [$nama_kota,$id_kota]);
         
         // echo "Record updated successfully.
         // ";
         // echo 'Click Here to go back.';
 
-        return redirect('/wisata_view');
+        return redirect('kota_view');
     }
 
     public function destroy($id) {
@@ -75,6 +51,6 @@ class KotaController extends Controller {
         // echo "Record deleted successfully.";
         // echo 'Click Here to go back.';
 
-        return redirect('/wisata_view');
+        return redirect('/kota_view');
     }
 }
