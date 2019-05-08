@@ -108,3 +108,7 @@ Route::post('edit/{id}','UserController@edit');
 //delete data
 Route::get('delete-records','UserController@index');
 Route::get('delete/{id}','UserController@destroy'); 
+
+//====================================================
+///GMAPS
+Route::get('gmaps', 'GmapsController@gmaps');
