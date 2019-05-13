@@ -1,3 +1,20 @@
+
+  // <script>
+  //   var datadurasi = [A, B, C, D, E];
+  //   var lokal = [];
+  //   var db = [];
+  //   var asal;
+  //   var tujuan;
+
+  //   function getTransit(asal, tujuan){
+
+  //   }
+
+
+  //   </script>
+    
+//======================
+
 var nodes = [];
 var durations = [];
 var directionsService;
@@ -187,8 +204,8 @@ var directionsDisplay;
           directionsService.route({
             origin: nodes[0],
             destination: document.getElementById('end').value,
-            waypoints: rute,
-            optimizeWaypoints: true,
+            // waypoints: rute,
+            // optimizeWaypoints: true,
             travelMode: google.maps.TravelMode[selectedMode]
 
           }, function(response, status) {
@@ -224,3 +241,7 @@ var directionsDisplay;
 
 
       
+    
+
+
+

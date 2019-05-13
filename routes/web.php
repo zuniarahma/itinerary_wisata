@@ -112,3 +112,5 @@ Route::get('delete/{id}','UserController@destroy');
 //====================================================
 ///GMAPS
 Route::get('gmaps', 'GmapsController@gmaps');
+
+Route::get('transit', 'GmapsController@transit');

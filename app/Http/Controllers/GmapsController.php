@@ -12,6 +12,12 @@ class GmapsController extends Controller{
     	$wisata = DB::table('wisata')->get();
     	return view('gmaps',compact('wisata'));
     }
+
+    public function transit()
+    {
+    	$wisata = DB::table('wisata')->get();
+    	return view('transit',compact('wisata'));
+    }
 }
 
 ?>
