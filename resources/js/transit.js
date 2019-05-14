@@ -212,20 +212,41 @@ var tujuan;
           console.log(rute);
           
           // getTransit(nodes[0], document.getElementById('end').value);
-
+          var transitPanel = document.getElementById('transits-panel');
+          transitPanel.innerHTML = '';          
+          
           for (let i = 0; i <= rute.length; i++) {
             if (i == 0) {
               console.log(nodes[0])
               console.log(rute[0])
-              getTransit(node[0], rute[0])
+              // getTransit(nodes[0], rute[0])
+              
+              transitPanel.innerHTML += '<button id="transit'+i+'">Rute Transit ' + (i+1) +
+                '</button><br>';
+
+                document.getElementById('transit'+i).addEventListener('click', function() {
+                  getTransit(nodes[0], rute[0]);
+                });
             } else if (i == rute.length) {
               console.log(rute[i-1])
               console.log(document.getElementById('end').value)
-              getTransit(rute[i-1], document.getElementById('end').value)
+              // getTransit(rute[i-1], document.getElementById('end').value)
+              transitPanel.innerHTML += '<button  id="transit'+i+'">Rute Transit ' + (i+1) +
+                '</button><br>';
+
+                document.getElementById('transit'+i).addEventListener('click', function() {
+                  getTransit(rute[i-1], document.getElementById('end').value);
+                });
             } else {
               console.log(rute[i-1])
               console.log(rute[i])
-              getTransit(rute[i-1].location, rute[i].location)
+              //getTransit(rute[i-1].location, rute[i].location)
+              transitPanel.innerHTML += '<button  id="transit'+i+'">Rute Transit ' + (i+1) +
+                '</button><br>';
+
+                document.getElementById('transit'+i).addEventListener('click', function() {
+                  getTransit(rute[i-1].location, rute[i].location);
+                });
             }
           }
           
@@ -271,6 +292,8 @@ var tujuan;
         } else {
           window.alert('Directions request failed due to ' + status);
         }
+        
+        
       });
     }
 

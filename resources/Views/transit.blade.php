@@ -50,6 +50,13 @@
         overflow: scroll;
         height: 174px;
       }
+      #transits-panel {
+        margin-top: 10px;
+        background-color: #FFEE77;
+        padding: 10px;
+        overflow: scroll;
+        height: 174px;
+      }
       #floating-panel {
         position: absolute;
         top: 10px;
@@ -129,6 +136,7 @@
       <input type="submit" id="submit">
     </div>
     <div id="directions-panel"></div>
+    <div id="transits-panel"></div>
     </div>
     <script type="text/javascript"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
