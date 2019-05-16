@@ -2,7 +2,8 @@ var nodes = [];
 var durations = [];
 var directionsService;
 var directionsDisplay;
-    
+var asal;
+var tujuan;
 
       function initMap() {
         directionsService = new google.maps.DirectionsService;
@@ -45,7 +46,6 @@ var directionsDisplay;
                   });
               });
           }
-
       }
       
       // Get all durations depending on travel type
@@ -84,6 +84,12 @@ var directionsDisplay;
     // Create listeners
     $(document).ready(function() {
       document.getElementById('submit').addEventListener('click', function() {
+
+        if{
+            
+        } else{
+            
+        }
         calculateAndDisplayRoute(directionsService, directionsDisplay);
         document.getElementById('mode').addEventListener('change', function() {
           calculateAndDisplayRoute(directionsService, directionsDisplay);
@@ -95,7 +101,7 @@ var directionsDisplay;
         var selectedMode = document.getElementById('mode').value;
         var checkboxArray = document.getElementById('waypoints');
         
-        //Waypoints
+        // Select Waypoints
         for (var i = 0; i < checkboxArray.length; i++) {
           if (checkboxArray.options[i].selected) {
             waypts.push({
@@ -105,8 +111,9 @@ var directionsDisplay;
             nodes.push(checkboxArray[i].value);
           }
         }
-        console.log(waypts);
-        console.log(selectedMode);
+        //console.log(waypts);     
+        
+        //Nearest Neighbour Algorithm
         getDurations(function () {
           var datadurasi = durations;
           var rute = [];
@@ -114,7 +121,7 @@ var directionsDisplay;
           console.log(datadurasi.length);
           var DataRoute = getRute(0,datadurasi.length);
           console.log(DataRoute);
-                
+                    
           function getRute(myLocIndex, jumlahKota) {
             var ruteNN = initZeros(jumlahKota);
             ruteNN[0] = myLocIndex;
@@ -183,45 +190,139 @@ var directionsDisplay;
             rute.push(waypts[DataRoute[i]-1]);
           }
 
-          console.log(rute);
+          //console.log(rute);
+          
+          // Transit Panel
+          var transitPanel = document.getElementById('transits-panel');
+          transitPanel.innerHTML = '';          
+          console.log(rute)
+          for (let i = 0; i <= rute.length; i++) {
+            
+            //rute Start to End
+            if (i == 0 && rute.length == 0) {
+              console.log(nodes[0], document.getElementById('end').value)              
+              transitPanel.innerHTML += '<button  id="transit'+i+'">Rute Transit ' + (i+1) +
+                '</button><br>';
+              $(document).on('click','#transit'+i,function(){
+                getTransit(nodes[0], document.getElementById('end').value);
+              });
+            } 
 
-          directionsService.route({
+            //rute Start
+            else if (i == 0) {
+              console.log(nodes[0], rute[0])
+              // getTransit(nodes[0], rute[0])            
+              transitPanel.innerHTML += '<button id="transit'+i+'">Rute Transit ' + (i+1) +
+                '</button><br>';
+              $(document).on('click','#transit'+i,function(){
+                getTransit(nodes[0], rute[0].location);
+              });
+            } 
+
+            //rute End
+            else if (i == rute.length) {
+              console.log(rute[i-1], document.getElementById('end').value)              
+              transitPanel.innerHTML += '<button  id="transit'+i+'">Rute Transit ' + (i+1) +
+                '</button><br>';
+              $(document).on('click','#transit'+i,function(){
+                getTransit(rute[i-1].location, document.getElementById('end').value);
+              });
+            } 
+
+            //rute Waypoints
+            else {
+              console.log(rute[i-1].location, rute[i].location)
+              transitPanel.innerHTML += '<button  id="transit'+i+'">Rute Transit ' + (i+1) +
+                '</button><br>';
+              $(document).on('click','#transit'+i,function(){
+                getTransit(rute[i-1].location, rute[i].location);
+              });     
+            }
+          }        
+        });        
+      }
+    })
+
+    //fungsi get Transit
+    function getTransit(asal, tujuan){
+      directionsService.route({
+        origin: asal,
+        destination: tujuan,
+        transitOptions: {
+          modes: ['BUS'],
+          routingPreference: 'FEWER_TRANSFERS'
+        },
+        travelMode: google.maps.TravelMode["TRANSIT"]
+
+      }, function(response, status) {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+          var route = response.routes[0];
+          var summaryPanel = document.getElementById('directions-panel');
+          summaryPanel.innerHTML = '';
+          
+          // Informasi Detail jalan
+          for (var i = 0; i < route.legs.length; i++) {
+            var routeSegment = i + 1;
+            summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                '</b><br>';
+            summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+            summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+            summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+            summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
+            var duration = route.legs[i].duration.text + '<br><br>';
+            console.log (duration);            
+          }
+          var jumlahTujuan = route.legs.length;
+          console.log ( route.legs.length);
+          console.log(route);
+        } else {
+          window.alert(status + '\n Oops! Data Kendaraan umum belum tersedia');
+        } 
+      });
+    }
+
+    // Fungsi Get Driving
+    function getDriving(asal, tujuan){
+        directionsService.route({
             origin: nodes[0],
             destination: document.getElementById('end').value,
             waypoints: rute,
             optimizeWaypoints: true,
-            travelMode: google.maps.TravelMode[selectedMode]
+            travelMode: google.maps.TravelMode["DRIVING"]
 
-          }, function(response, status) {
-            if (status === 'OK') {
-              directionsDisplay.setDirections(response);
-              var route = response.routes[0];
-              var summaryPanel = document.getElementById('directions-panel');
-              summaryPanel.innerHTML = '';
-              
-              // For each route, display summary information.
-              for (var i = 0; i < route.legs.length; i++) {
-                var routeSegment = i + 1;
-                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                    '</b><br>';
-                summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-                summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
-                var duration = route.legs[i].duration.text + '<br><br>';
-                console.log (duration);            
-              }
-              var jumlahTujuan = route.legs.length;
-              console.log ( route.legs.length);
-              console.log(route);
-            } else {
-              window.alert('Directions request failed due to ' + status);
+        }, function(response, status) {
+        if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            var route = response.routes[0];
+            var summaryPanel = document.getElementById('directions-panel');
+            summaryPanel.innerHTML = '';
+            
+            // Informasi Detail jalan
+            for (var i = 0; i < route.legs.length; i++) {
+            var routeSegment = i + 1;
+            summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                '</b><br>';
+            summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+            summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+            summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+            summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
+            var duration = route.legs[i].duration.text + '<br><br>';
+            console.log (duration);            
             }
-          });
+            var jumlahTujuan = route.legs.length;
+            console.log ( route.legs.length);
+            console.log(route);
+        } else {
+            window.alert(status + + '\n Oops! Maaf ada kesalahan');
+        }
         });
- 
-      }
-    })
+    }
+
 
 
       
+    
+
+
+

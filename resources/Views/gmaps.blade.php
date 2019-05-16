@@ -50,6 +50,13 @@
         overflow: scroll;
         height: 174px;
       }
+      #transits-panel {
+        margin-top: 10px;
+        background-color: #FFEE77;
+        padding: 10px;
+        overflow: scroll;
+        height: 174px;
+      }
       #floating-panel {
         position: absolute;
         top: 10px;
@@ -64,6 +71,8 @@
         padding-left: 10px;
       }
       #button {
+        margin-top: 10px;
+        margin-right: 9px;
         position: right;
         top: 10px;
         left: 25%;
@@ -84,10 +93,8 @@
     <div id="floating-panel">
       <b>Mode of Travel: </b>
       <select id="mode">
-        <option value="DRIVING">Driving</option>
-        <option value="WALKING">Walking</option>
-        <option value="BICYCLING">Bicycling</option>
-        <option value="TRANSIT">Transit</option>
+        <option value="DRIVING">Kendaraan Pribadi</option>
+        <option value="TRANSIT">Kendaraan Umum</option>
         
       </select>
     </div>
@@ -128,6 +135,9 @@
     <br>
       <input type="submit" id="submit">
     </div>
+    <h3>Transit</h3>
+    <div id="transits-panel"></div>
+    <h3>Detail Informasi</h3>
     <div id="directions-panel"></div>
     </div>
     <script type="text/javascript"></script>
@@ -137,7 +147,7 @@
 		<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap">    
     </script>
-    <script type="text/javascript" src="../resources/js/waypoints.js"></script>
+    <script type="text/javascript" src="../resources/js/waypoints_v2.js"></script>
    
   </body>
 

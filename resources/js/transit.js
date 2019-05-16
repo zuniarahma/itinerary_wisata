@@ -258,38 +258,12 @@ var tujuan;
                 getTransit(rute[i-1].location, rute[i].location);
               });     
             }
-          }
-
-          // for (let i = 0; i <= rute.length; i++) {
-
-          //   //rute Start
-          //   if (i == 0) {
-          //     document.getElementById('transit'+i).addEventListener('click', function() {
-          //       getTransit(nodes[0], rute[0].location);
-          //     });
-          //   } 
-
-          //   //rute End
-          //   else if (i == rute.length) {
-          //     document.getElementById('transit'+i).addEventListener('click', function() {
-          //       getTransit(rute[i-1].location, document.getElementById('end').value);
-          //     });
-          //   }
-
-          //   //rute Waypoints
-          //   else {
-          //     document.addEventListener('DOMContentLoaded', function () {
-          //       document.getElementById('transit'+i).addEventListener('click', function() {
-          //         getTransit(rute[i-1].location, rute[i].location);
-          //       }, true);
-          //     })                   
-          //   }
-          // }          
+          }        
         });        
       }
     })
 
-    //****/
+    //fungsi get Transit
     function getTransit(asal, tujuan){
       directionsService.route({
         origin: asal,
@@ -307,7 +281,7 @@ var tujuan;
           var summaryPanel = document.getElementById('directions-panel');
           summaryPanel.innerHTML = '';
           
-          // For each route, display summary information.
+          // Informasi Detail jalan
           for (var i = 0; i < route.legs.length; i++) {
             var routeSegment = i + 1;
             summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
