@@ -122,7 +122,7 @@
       <option value="Alun - Alun Kota Wisata Batu, ID">Alun - Alun Kota Wisata Batu, Batu</option>
       <option value="Batu Night Spectacular (BNS)">Batu Night Spectacular (BNS), Batu</option>
       <option value="Puncak B29, ID">Puncak B29, Lumajang</option>
-      <option value="Mount Bromo, ID">Mount Bromo, Pasuruan</option>
+      <option value="Mt Bromo, Area Gn. Bromo, Podokoyo, Tosari, Pasuruan, East Java">Mount Bromo, Pasuruan</option>
       <option value="Pantai Tiga Warna, ID">Pantai Tiga Warna, Malang</option>
     </select>
     <br>

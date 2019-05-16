@@ -214,10 +214,21 @@ var tujuan;
           // Transit Panel
           var transitPanel = document.getElementById('transits-panel');
           transitPanel.innerHTML = '';          
-          
+          console.log(rute)
           for (let i = 0; i <= rute.length; i++) {
+            
+            //rute Start to End
+            if (i == 0 && rute.length == 0) {
+              console.log(nodes[0], document.getElementById('end').value)              
+              transitPanel.innerHTML += '<button  id="transit'+i+'">Rute Transit ' + (i+1) +
+                '</button><br>';
+              $(document).on('click','#transit'+i,function(){
+                getTransit(nodes[0], document.getElementById('end').value);
+              });
+            } 
+
             //rute Start
-            if (i == 0) {
+            else if (i == 0) {
               console.log(nodes[0], rute[0])
               // getTransit(nodes[0], rute[0])            
               transitPanel.innerHTML += '<button id="transit'+i+'">Rute Transit ' + (i+1) +
@@ -312,7 +323,7 @@ var tujuan;
           console.log ( route.legs.length);
           console.log(route);
         } else {
-          window.alert('Directions request failed due to ' + status);
+          window.alert(status + '\n Oops! Data Kendaraan umum belum tersedia');
         }
         
         
