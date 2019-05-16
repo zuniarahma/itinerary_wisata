@@ -32,7 +32,7 @@
         height: 100%;
         float: left;
         width: 70%;
-        height: 100%;
+        height: 130%;
       }
       #right-panel {
         margin: 20px;
@@ -71,6 +71,8 @@
         padding-left: 10px;
       }
       #button {
+        margin-top: 10px;
+        margin-right: 9px;
         position: right;
         top: 10px;
         left: 25%;
@@ -135,8 +137,10 @@
     <br>
       <input type="submit" id="submit">
     </div>
-    <div id="directions-panel"></div>
+    <h3>Transit</h3>
     <div id="transits-panel"></div>
+    <h3>Detail Informasi</h3>
+    <div id="directions-panel"></div>
     </div>
     <script type="text/javascript"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
