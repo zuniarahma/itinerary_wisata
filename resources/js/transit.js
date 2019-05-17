@@ -64,7 +64,6 @@ var tujuan;
                   });
               });
           }
-
       }
       
       // Get all durations depending on travel type

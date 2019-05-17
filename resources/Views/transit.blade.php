@@ -93,10 +93,10 @@
     <div id="floating-panel">
       <b>Mode of Travel: </b>
       <select id="mode">
-        <option value="DRIVING">Driving</option>
-        <option value="WALKING">Walking</option>
-        <option value="BICYCLING">Bicycling</option>
-        <option value="TRANSIT">Transit</option>
+        <option value="TRANSIT">Kendaraan Umum</option>
+        {{-- <option value="WALKING">Walking</option>
+        <option value="BICYCLING">Bicycling</option> --}}
+        <option value="DRIVING">Transit</option>
         
       </select>
     </div>
@@ -122,7 +122,7 @@
       <option value="Alun - Alun Kota Wisata Batu, ID">Alun - Alun Kota Wisata Batu, Batu</option>
       <option value="Batu Night Spectacular (BNS)">Batu Night Spectacular (BNS), Batu</option>
       <option value="Puncak B29, ID">Puncak B29, Lumajang</option>
-      <option value="Mt Bromo, Area Gn. Bromo, Podokoyo, Tosari, Pasuruan, East Java">Mount Bromo, Pasuruan</option>
+      <option value="Mount Bromo">Mount Bromo, Pasuruan</option>
       <option value="Pantai Tiga Warna, ID">Pantai Tiga Warna, Malang</option>
     </select>
     <br>
