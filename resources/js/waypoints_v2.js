@@ -101,8 +101,9 @@ $(document).ready(function () {
             calculateAndDisplayRoute(directionsService, directionsDisplay);
             console.log("TRANSIT");
         } else {
-            getDriving(a, b);
+            //getDriving(a, b);
             console.log("DRIVING");
+            calculateAndDisplayRoute(directionsService, directionsDisplay);
         }
     });
 
@@ -206,60 +207,71 @@ $(document).ready(function () {
 
             console.log("RUTE: " + rute);
 
-            // Transit Panel
-            var transitPanel = document.getElementById('transits-panel');
-            transitPanel.innerHTML = '';
-            console.log("RUTE: " + rute)
-            for (let i = 0; i <= rute.length; i++) {
-
-                //rute Start to End
-                if (i == 0 && rute.length == 0) {
-                    console.log("RUTE DARI " + nodes[0] + "KE " + document.getElementById('end').value)
-                    transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
-                        '</button><br>';
-                    $(document).on('click', '#transit' + i, function () {
-                        getTransit(nodes[0], document.getElementById('end').value);
-                    });
-                }
-
-                //rute Start
-                else if (i == 0) {
-                    console.log("RUTE DARI " + nodes[0] +"KE " + rute[0])
-                    // getTransit(nodes[0], rute[0])            
-                    transitPanel.innerHTML += '<button id="transit' + i + '">Rute Transit ' + (i + 1) +
-                        '</button><br>';
-                    $(document).on('click', '#transit' + i, function () {
-                        getTransit(nodes[0], rute[0].location);
-                    });
-                }
-
-                //rute End
-                else if (i == rute.length) {
-                    console.log("RUTE DARI " + rute[i - 1] +"KE " + document.getElementById('end').value)
-                    transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
-                        '</button><br>';
-                    $(document).on('click', '#transit' + i, function () {
-                        getTransit(rute[i - 1].location, document.getElementById('end').value);
-                    });
-                }
-
-                //rute Waypoints
-                else {
-                    console.log("RUTE DARI " + rute[i - 1].location +"KE " + rute[i].location)
-                    transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
-                        '</button><br>';
-                    $(document).on('click', '#transit' + i, function () {
-                        getTransit(rute[i - 1].location, rute[i].location);
-                    });
-                }
+            if (selectedMode == "TRANSIT") {
+                TransitCondition();
+                //console.log("TRANSIT");
+            } else {
+                getDriving(a, b)
             }
+
         });
+    }
+
+    // Transit Panel
+    var transitPanel = document.getElementById('transits-panel');
+    transitPanel.innerHTML = '';
+    console.log("RUTE: " + rute)
+
+    function TransitCondition() {
+        for (let i = 0; i <= rute.length; i++) {
+
+            //rute Start to End
+            if (i == 0 && rute.length == 0) {
+                console.log("RUTE DARI " + nodes[0] + "KE " + document.getElementById('end').value)
+                transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
+                    '</button><br>';
+                $(document).on('click', '#transit' + i, function () {
+                    getTransit(nodes[0], document.getElementById('end').value);
+                });
+            }
+
+            //rute Start
+            else if (i == 0) {
+                console.log("RUTE DARI " + nodes[0] + "KE " + rute[0])
+                // getTransit(nodes[0], rute[0])            
+                transitPanel.innerHTML += '<button id="transit' + i + '">Rute Transit ' + (i + 1) +
+                    '</button><br>';
+                $(document).on('click', '#transit' + i, function () {
+                    getTransit(nodes[0], rute[0].location);
+                });
+            }
+
+            //rute End
+            else if (i == rute.length) {
+                console.log("RUTE DARI " + rute[i - 1] + "KE " + document.getElementById('end').value)
+                transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
+                    '</button><br>';
+                $(document).on('click', '#transit' + i, function () {
+                    getTransit(rute[i - 1].location, document.getElementById('end').value);
+                });
+            }
+
+            //rute Waypoints
+            else {
+                console.log("RUTE DARI " + rute[i - 1].location + "KE " + rute[i].location)
+                transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
+                    '</button><br>';
+                $(document).on('click', '#transit' + i, function () {
+                    getTransit(rute[i - 1].location, rute[i].location);
+                });
+            }
+        }
     }
 })
 
 //fungsi get Transit
 function getTransit(asal, tujuan) {
-  console.log("asal: " + asal)
+    console.log("asal: " + asal)
     directionsService.route({
         origin: asal,
         destination: tujuan,
@@ -299,10 +311,10 @@ function getTransit(asal, tujuan) {
 
 // Fungsi Get Driving    
 function getDriving(asal, tujuan) {
-    console.log("asal: " + asal)
+    console.log(": " + asal)
     directionsService.route({
         origin: asal,
-        destination: rute,
+        destination: tujuan,
         waypoints: rute,
         optimizeWaypoints: true,
         travelMode: google.maps.TravelMode["DRIVING"]
