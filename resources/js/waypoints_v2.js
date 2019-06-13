@@ -9,6 +9,30 @@ var b;
 var selectedMode = document.getElementById('mode').value;
 var rute = [];
 
+//Jalankan Ambil data ketika web sudah ready
+$(document).ready(function () {
+    $.ajax("api/wisata")
+        .done(function (data) {
+            console.log("success");
+            console.log(data);
+            var selector = $('#waypoints');
+            selector.find('option').remove();
+            $.each(data, function (key, value) {
+                //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
+                selector.append("<option value='" + value.latitude + ","+ value.longitude +"'>" + value.nama_wisata + "</option>");
+                
+                console.log('key', key);
+                console.log('value', value.nama_wisata);
+            });
+        })
+        .fail(function () {
+            console.log("error");
+        })
+        .always(function () {
+            console.log("complete");
+        });
+});
+
 function initMap() {
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer;
@@ -231,7 +255,8 @@ $(document).ready(function () {
                 transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
-                    getTransit(nodes[0], document.getElementById('end').value);
+                    //getTransit(nodes[0], document.getElementById('end').value);
+                    getTransit(document.getElementById('start').value, document.getElementById('end').value);
                 });
             }
 
@@ -242,7 +267,8 @@ $(document).ready(function () {
                 transitPanel.innerHTML += '<button id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
-                    getTransit(nodes[0], rute[0].location);
+                    //getTransit(nodes[0], rute[0].location);
+                    getTransit(document.getElementById('start').value, rute[0].location);
                 });
             }
 

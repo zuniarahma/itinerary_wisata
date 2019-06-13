@@ -96,7 +96,7 @@
         <option value="TRANSIT">Kendaraan Umum</option>
         {{-- <option value="WALKING">Walking</option>
         <option value="BICYCLING">Bicycling</option> --}}
-        <option value="DRIVING">Transit</option>
+        <option value="DRIVING">Kendaraan Pribadi</option>
         
       </select>
     </div>
