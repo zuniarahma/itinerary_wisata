@@ -6,7 +6,7 @@
 <body>
 <table border = "1">
 
-<a href="{{url('/insert')}}">insert</a>
+<a href="{{url('/insertuser')}}">insert</a>
 <tr>
 <td>ID User</td>
 <td>ID Role</td>
@@ -25,7 +25,7 @@
 <td>{{ $users->username }}</td>
 <td>{{ $users->password }}</td>
 <td>{{ $users->alamat }}</td>
-<td><a href = 'delete/{{ $users->id_user }}'>Delete</a></td>
+<td><a href = 'deleteuser/{{ $users->id_user }}'>Delete</a></td>
 </tr>
 @endforeach
 </table>

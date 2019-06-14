@@ -38,7 +38,7 @@ class UserController extends Controller {
         return view('user_update',['user'=>$user]);
     }
 
-    public function edit(Request $request,$id) {
+    public function edituser(Request $request,$id) {
         $id_user = $request->input('id_user');
         $id_role = $request->input('id_role');
         $nama_user = $request->input('nama_user');

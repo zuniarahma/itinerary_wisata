@@ -4,7 +4,7 @@
 <title>Wisata Management | Edit</title>
 </head>
 <body>
-<form action = "/TA/itinerary/public/edit/<?php echo $wisata[0]->id_wisata; ?>" method = "post">
+<form action = "/TA/itinerary/public/editwisata/<?php echo $wisata[0]->id_wisata; ?>" method = "post">
 <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
 <table>
 <tr>
@@ -42,6 +42,14 @@ value = '<?php echo$wisata[0]->foto; ?>'/></td></td>
 <td>Keterangan</td>
 <td><input type='text' name='keterangan' 
 value = '<?php echo$wisata[0]->keterangan; ?>'/></td>
+</tr>
+<td>Fasilitas</td>
+<td><input type='text' name='fasilitas' 
+value = '<?php echo$wisata[0]->fasilitas; ?>'/></td>
+</tr>
+<td>Alamat</td>
+<td><input type='text' name='alamat' 
+value = '<?php echo$wisata[0]->alamat; ?>'/></td>
 </tr>
 <tr>
 <td>Fasilitas</td>

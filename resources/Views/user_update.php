@@ -4,7 +4,7 @@
 <title>Kota Management | Edit</title>
 </head>
 <body>
-<form action = "/TA/itinerary/public/edit/<?php echo $user[0]->id_user; ?>" method = "post">
+<form action = "/TA/itinerary/public/edituser/<?php echo $user[0]->id_user; ?>" method = "post">
 <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
 <table>
 

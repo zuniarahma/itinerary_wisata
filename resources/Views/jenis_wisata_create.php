@@ -4,7 +4,7 @@
 <title>Jenis Wisata Management | Add</title>
 </head>
 <body>
-<form action = "wisata_create" method = "post">
+<form action = "jenis_wisata_create" method = "post">
 <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
 <table>
 <tr>

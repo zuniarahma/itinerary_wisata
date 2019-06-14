@@ -32,7 +32,7 @@ class KotaController extends Controller {
         return view('kota_update',['kota'=>$kota]);
     }
 
-    public function edit(Request $request,$id) {
+    public function editkota(Request $request,$id) {
         $id_kota = $request->input('id_kota');
         $nama_kota = $request->input('nama_kota');
         

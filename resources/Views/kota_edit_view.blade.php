@@ -15,7 +15,7 @@
 <td>{{ $kotas->id_kota }}</td>
 <td>{{ $kotas->nama_kota }}</td>
 
-<td><a href = 'edit/{{ $kotas->id_kota }}'>Edit</a></td>
+<td><a href = 'editkota/{{ $kotas->id_kota }}'>Edit</a></td>
 </tr>
 @endforeach
 </table>

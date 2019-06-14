@@ -37,7 +37,7 @@
 <td>{{ $wisatas->jam_tutup }}</td>
 <td>{{ $wisatas->latitude }}</td>
 <td>{{ $wisatas->longitude }}</td>
-<td><a href = 'edit/{{ $wisatas->id_wisata }}'>Edit</a></td>
+<td><a href = 'editwisata/{{ $wisatas->id_wisata }}'>Edit</a></td>
 </tr>
 @endforeach
 </table>

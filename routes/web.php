@@ -39,16 +39,16 @@ Route::get('wisata_view','WisataController@index');
 
 //insert data
 Route::get('insertwisata','WisataController@insertform');
-Route::post('wisata_create','WisataController@insert'); 
+Route::post('wisata_create','WisataController@insertwisata'); 
 
 //Update data
 Route::get('edit-records','WisataController@index');
-Route::get('edit/{id}','WisataController@show');
-Route::post('edit/{id}','WisataController@edit'); 
+Route::get('editwisata/{id}','WisataController@show');
+Route::post('editwisata/{id}','WisataController@editwisata'); 
 
 //delete data
 Route::get('delete-records','WisataController@index');
-Route::get('delete/{id}','WisataController@destroy'); 
+Route::get('deletewisata/{id}','WisataController@destroy'); 
 
 //====================================================
 ///JENIS WISATA
@@ -58,37 +58,55 @@ Route::get('jenis_wisata_view','JenisWisataController@index');
 
 //insert data
 Route::get('insertjenis','JenisWisataController@insertform');
-Route::post('wisata_create','JenisWisataController@insert'); 
+Route::post('jenis_wisata_create','JenisWisataController@insertjenis'); 
 
 //Update data
 Route::get('edit-records','JenisWisataController@index');
-Route::get('edit/{id}','JenisWisataController@show');
-Route::post('edit/{id}','JenisWisataController@edit'); 
+Route::get('editjenis/{id}','JenisWisataController@show');
+Route::post('editjenis/{id}','JenisWisataController@editjenis'); 
 
 //delete data
 Route::get('delete-records','JenisWisataController@index');
-Route::get('delete/{id}','JenisWisataController@destroy'); 
+Route::get('deletejenis/{id}','JenisWisataController@destroy'); 
 
 
 //====================================================
 ///KOTA
 
 // View Data
-Route::get('kota_view','KotaController@index'); 
+Route::get('/kota_view','KotaController@index'); 
 
 //insert data
 Route::get('insertkota','KotaController@insertform');
-Route::post('kota_create','KotaController@insert'); 
+Route::post('kota_create','KotaController@insertkota'); 
 
 //Update data
 Route::get('edit-records','KotaController@index');
-Route::get('edit/{id}','KotaController@show');
-Route::post('edit/{id}','KotaController@edit'); 
+Route::get('editkota/{id}','KotaController@show');
+Route::post('editkota/{id}','KotaController@editkota'); 
 
 //delete data
 Route::get('delete-records','KotaController@index');
-Route::get('delete/{id}','KotaController@destroy');
+Route::get('deletekota/{id}','KotaController@destroy');
 
+//====================================================
+///FOTO
+
+// View Data
+Route::get('foto_view','FotoController@index'); 
+
+//insert data
+Route::get('insertfoto','FotoController@insertform');
+Route::post('foto_create','FotoController@insertfoto'); 
+
+//Update data
+Route::get('edit-records','FotoController@index');
+Route::get('editfoto/{id}','FotoController@show');
+Route::post('editfoto/{id}','FotoController@editfoto'); 
+
+//delete data
+Route::get('delete-records','FotoController@index');
+Route::get('deletefoto/{id}','FotoController@destroy'); 
 
 //====================================================
 ///USER
@@ -98,16 +116,17 @@ Route::get('user_view','UserController@index');
 
 //insert data
 Route::get('insertuser','UserController@insertform');
-Route::post('user_create','UserController@insert'); 
+Route::post('user_create','UserController@insertuser'); 
 
 //Update data
 Route::get('edit-records','UserController@index');
-Route::get('edit/{id}','UserController@show');
-Route::post('edit/{id}','UserController@edit'); 
+Route::get('edituser/{id}','UserController@show');
+Route::post('edituser/{id}','UserController@edituser'); 
 
 //delete data
 Route::get('delete-records','UserController@index');
-Route::get('delete/{id}','UserController@destroy'); 
+Route::get('deleteuser/{id}','UserController@destroy'); 
+
 
 //====================================================
 ///GMAPS

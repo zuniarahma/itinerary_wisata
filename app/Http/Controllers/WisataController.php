@@ -45,7 +45,7 @@ class WisataController extends Controller {
         return view('wisata_update',['wisata'=>$wisata]);
     }
 
-    public function edit(Request $request,$id) {
+    public function editwisata(Request $request,$id) {
         $id_wisata = $request->input('id_wisata');
         $id_kota = $request->input('id_kota');
         $id_jenis_wisata = $request->input('id_jenis_wisata');
@@ -63,7 +63,7 @@ class WisataController extends Controller {
         //$data=array('first_name'=>$first_name,"last_name"=>$last_name,"city_name"=>$city_name,"email"=>$email);
         //DB::table('student')->update($data);
         // DB::table('student')->whereIn('id', $id)->update($request->all());
-        DB::update('update wisata set id_kota=?,id_jenis_wisata=?,nama_wisata=?,foto=?,keterangan=?,harga=?,jam_buka=?,jam_tutup=?,latitude=?,longitude=? where id_wisata = ?',
+        DB::update('update wisata set id_kota=?,id_jenis_wisata=?,nama_wisata=?,foto=?,keterangan=?,fasilitas=?,alamat=?,harga=?,jam_buka=?,jam_tutup=?,latitude=?,longitude=? where id_wisata = ?',
         [$id_kota,$id_jenis_wisata,$nama_wisata,$foto,$keterangan,$fasilitas,$alamat,$harga,$jam_buka,$jam_tutup,$latitude,$longitude,$id_wisata]);
         // var_dump([$id_kota,$id_jenis_wisata,$foto,$keterangan,$harga,$jam_buka,$jam_tutup,$latitude,$longitude,$id_wisata]);
         

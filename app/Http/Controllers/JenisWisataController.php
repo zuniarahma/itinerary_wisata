@@ -32,7 +32,7 @@ class JenisWisataController extends Controller {
         return view('jenis_wisata_update',['jenis_wisata'=>$jenis_wisata]);
     }
 
-    public function edit(Request $request,$id) {
+    public function editjenis(Request $request,$id) {
         $id_jenis_wisata = $request->input('id_jenis_wisata');
         $nama_jenis = $request->input('nama_jenis');
         

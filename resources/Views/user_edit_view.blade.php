@@ -25,7 +25,7 @@
 <td>{{ $users->password }}</td>
 <td>{{ $users->alamat }}</td>
 
-<td><a href = 'edit/{{ $kotas->id_kota }}'>Edit</a></td>
+<td><a href = 'edituser/{{ $kotas->id_kota }}'>Edit</a></td>
 </tr>
 @endforeach
 </table>

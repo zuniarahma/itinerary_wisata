@@ -334,36 +334,36 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
-      <li class="active treeview">
-        <a href="#">
-          <i class="fa fa-tree"></i> <span>Wisata Jawa Timur</span>
-        </a>
-        
-      <li class="treeview">
-      <a href="#">
-        <i class="fa fa-building"></i> <span>Kota dan Kabupaten</span>
-      </a>
 
-      <li class="treeview">
-      <a href="#">
-        <i class="fa fa-home"></i> <span>Jenis-Jenis Wisata</span>
-      </a>
-      
+      <li>
+          <a href="{{url('wisata_view')}}">
+              <i class="fa fa-tree"></i> <span>Wisata Jawa Timur</span>
+          </a>
       </li>
-      <li class="treeview">
-        <a href="#">
+
+      <li class="active treeview">
+          <a href="{{url('kota_view')}}">
+              <i class="fa fa-building"></i> <span>Kota dan Kabupaten</span>
+          </a>
+      </li>
+
+      <li>
+          <a href="{{url('/jenis_wisata_view')}}">
+              <i class="fa fa-home"></i> <span>Jenis-Jenis Wisata</span>
+          </a>
+      </li>
+
+      <li>
+          <a href="{{url('/foto_view')}}">
+              <i class="fa fa-image"></i> <span>Foto Wisata</span>
+          </a>
+      </li>
+
+      <li>
+        <a href="{{url('/user_view')}}">
           <i class="fa fa-users"></i>
           <span>Pengguna</span>
-          <!-- <span class="pull-right-container">
-            <span class="label label-primary pull-right">4</span>
-          </span> -->
         </a>
-        <ul class="treeview-menu">
-          <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-          <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-          <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-          <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-        </ul>
       </li>
 
       <li class="header">LABELS</li>
@@ -409,8 +409,8 @@
                     <tr>
                     <td>{{ $kotas->id_kota }}</td>
                     <td>{{ $kotas->nama_kota }}</td>
-                    <td><a href = 'edit/{{ $kotas->id_kota }}'>Edit</a></td>
-                    <td><a href = 'delete/{{ $kotas->id_kota }}'>Delete</a></td>
+                    <td><a href = 'editkota/{{ $kotas->id_kota }}'>Edit</a></td>
+                    <td><a href = 'deletekota/{{ $kotas->id_kota }}'>Delete</a></td>
                     </tr>
                     @endforeach
                     </table>
