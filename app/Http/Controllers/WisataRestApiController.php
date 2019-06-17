@@ -12,4 +12,21 @@ class WisataRestApiController extends Controller
         $wisata = DB::select('select * from wisata');
         return response()->json($wisata,200);
     }
+
+    public function dataAjax(Request $request){
+        if($request->has('q')){
+
+            $search = $request->q;
+            $wisata = DB::table("wisata")
+                        ->select("*")
+                        ->where('nama_wisata','LIKE',"%$search%")
+                        ->get();
+            return response()->json($wisata,200);
+        }
+        else{
+            $wisata = DB::select('select * from wisata');
+            return response()->json($wisata,200);
+        }
+        
+    }
 }

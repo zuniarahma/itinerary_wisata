@@ -19,8 +19,8 @@ $(document).ready(function () {
             selector.find('option').remove();
             $.each(data, function (key, value) {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
-                selector.append("<option value='" + value.latitude + ","+ value.longitude +"'>" + value.nama_wisata + "</option>");
-                
+                selector.append("<option value='" + value.latitude + "," + value.longitude + "'>" + value.nama_wisata + "</option>");
+
                 console.log('key', key);
                 console.log('value', value.nama_wisata);
             });
@@ -90,7 +90,8 @@ function getDurations(callback) {
     service.getDistanceMatrix({
         origins: nodes,
         destinations: nodes,
-        travelMode: google.maps.TravelMode[selectedMode]
+        travelMode: google.maps.TravelMode["DRIVING"]
+        // travelMode: google.maps.TravelMode[selectedMode]
         //travelMode: google.maps.TravelMode[$('#travel-type').val()],
         //avoidHighways: parseInt($('#avoid-highways').val()) > 0 ? true : false,
         //avoidTolls: false,
@@ -142,16 +143,24 @@ $(document).ready(function () {
         var checkboxArray = document.getElementById('waypoints');
 
         // Select Waypoints
-        for (var i = 0; i < checkboxArray.length; i++) {
-            if (checkboxArray.options[i].selected) {
-                waypts.push({
-                    location: checkboxArray[i].value,
-                    stopover: true
-                });
-                nodes.push(checkboxArray[i].value);
-            }
-        }
-        //console.log(waypts);     
+        // for (var i = 0; i < checkboxArray.length; i++) {
+        //     if (checkboxArray.options[i].selected) {
+        //         waypts.push({
+        //             location: checkboxArray[i].value,
+        //             stopover: true
+        //         });
+        //         nodes.push(checkboxArray[i].value);
+        //     }
+        // }
+        $('.select_wisata').each(function () {
+            console.log($(this).val());
+            waypts.push({
+                location: $(this).val(),
+                stopover: true
+            });
+            nodes.push($(this).val());
+        });
+        console.log(waypts);     
 
         //Nearest Neighbour Algorithm
         getDurations(function () {

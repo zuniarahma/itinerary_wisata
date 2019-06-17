@@ -3,8 +3,11 @@
 <html>
 
 <head>
+
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <title>Waypoints in Directions</title>
     <style>
         #right-panel {
@@ -96,6 +99,19 @@
             padding-left: 10px;
         }
 
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 7px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 1px 2px;
+            border-radius: 4px;
+        }
+
     </style>
 </head>
 
@@ -116,20 +132,25 @@
     <div id="right-panel">
         <div>
             <b>Start:</b>
-            <select id="start">
+            <select class="form-control" id="start">
                 <option value="Surabaya">Surabaya, ID</option>
                 <option value="Lamongan, ID">Lamongan, ID</option>
                 <option value="Gresik">Gresik</option>
                 <option value="Bojonegoro, ID">Bojonegoro, ID</option>
             </select>
             <br>
-            <b>Waypoints:</b> <br>
+
+            {{-- <b>Waypoints:</b> <br>
             <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
-            <select multiple id="waypoints">
-            </select>
+            <select multiple id="waypoints"></select> --}}
+
+            <select class="itemName form-control" name="itemName"></select>
+            <button id="tambah_wisata" class="button">Add</button>
+            <div class="input_fields_wrap"></div>
             <br>
+            
             <b>End:</b>
-            <select id="end">
+            <select class="form-control" id="end">
                 <option value="Probolinggo">Probolinggo, ID</option>
                 <option value="Pacitan, ID">Pacitan, ID</option>
                 <option value="Banyuwangi, ID">Banyuwangi, ID</option>
@@ -137,7 +158,7 @@
                 <option value="Surabaya,ID">Surabaya, ID</option>
             </select>
             <br>
-            <input type="submit" id="submit">
+            <input class="button" type="submit" id="submit">
         </div>
         <h3>Transit</h3>
         <div id="transits-panel"></div>
@@ -152,27 +173,67 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap">
     </script>
     <script type="text/javascript" src="../resources/js/waypoints_v2.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script type="text/javascript">
+        // $('#tambah_wisata').click(function () {
+        //     console.log($('.itemName :selected').text());
+        //     var nama_wisata = $('.itemName :selected').text();
+        //     $('.tambah').val(nama_wisata);
+        // });
 
-{{-- <body>
-
-  <h1>Laravel 5 - Multiple markers in google map using gmaps.js</h1>
-
-	<div id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
+        $('.itemName').each(function () {
+            console.log($(this));
+            $(this).select2({
+                placeholder: 'Pilih tempat wisata',
+                ajax: {
+                    url: 'api/searchwisata',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.nama_wisata,
+                                    id: item.id_wisata
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
         });
-      }
+
+        $(document).ready(function () {
+            var max_fields = 10; //maximum input boxes allowed
+            var wrapper = $(".input_fields_wrap"); //Fields wrapper
+            var add_button = $("#tambah_wisata"); //Add button ID
+
+            var x = 1; //initlal text box count
+            $(add_button).click(function (e) { //on add input button click
+                e.preventDefault();
+                if (x < max_fields) { //max input box allowed
+                    x++; //text box increment
+                    var nama_wisata = $('.itemName :selected').text();
+                    $(wrapper).append(
+                        // '<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'
+                        // '<div><select class="itemName form-control" name="itemName[]"></select><a href="#" class="remove_field">Remove</a></div>'
+                        '<div><input class="select_wisata" type="text" name="daftar_wisata[]" value="' + nama_wisata + '"> <input type="time" name="waktu_wisata" ></input><a href="#" class="remove_field">Remove</a></div>'
+                    ); //add input box
+                }
+            });
+
+            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault();
+                $(this).parent('div').remove();
+                x--;
+            })
+        });
+
     </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap" async defer></script>
-
-</body> --}}
+</body>
 
 </html>
