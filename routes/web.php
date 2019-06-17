@@ -135,10 +135,13 @@ Route::get('gmaps', 'GmapsController@gmaps');
 Route::get('transit', 'GmapsController@transit');
 
 //====================================================
-///REST API WISATA
+///REST API
 
 Route::get('api/wisata', 'WisataRestApiController@index');
 Route::get('api/searchwisata', 'WisataRestApiController@dataAjax');
+
+Route::get('api/kota', 'KotaRestApiController@index');
+//Route::get('api/searchkota', 'KotaRestApiController@dataAjax');
 
 //====================================================
 ///COBA TEMPLATE

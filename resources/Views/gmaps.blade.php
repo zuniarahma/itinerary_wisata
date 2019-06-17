@@ -97,6 +97,7 @@
             font-family: 'Roboto', 'sans-serif';
             line-height: 30px;
             padding-left: 10px;
+            font-size: 13.5px;
         }
 
         .button {
@@ -107,9 +108,10 @@
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
-            margin: 1px 2px;
+            font-size: 14px;
+            margin: 2px 2px;
             border-radius: 4px;
+            width: 50pt;
         }
 
     </style>
@@ -132,12 +134,14 @@
     <div id="right-panel">
         <div>
             <b>Start:</b>
-            <select class="form-control" id="start">
+            <select class="kota form-control" id="start">
                 <option value="Surabaya">Surabaya, ID</option>
                 <option value="Lamongan, ID">Lamongan, ID</option>
                 <option value="Gresik">Gresik</option>
                 <option value="Bojonegoro, ID">Bojonegoro, ID</option>
             </select>
+
+            <input class="form-control" type="time" name="waktu_start" ></input>
             <br>
 
             {{-- <b>Waypoints:</b> <br>
@@ -150,7 +154,7 @@
             <br>
             
             <b>End:</b>
-            <select class="form-control" id="end">
+            <select class="kota form-control" id="end">
                 <option value="Probolinggo">Probolinggo, ID</option>
                 <option value="Pacitan, ID">Pacitan, ID</option>
                 <option value="Banyuwangi, ID">Banyuwangi, ID</option>
@@ -177,12 +181,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script type="text/javascript">
-        // $('#tambah_wisata').click(function () {
-        //     console.log($('.itemName :selected').text());
-        //     var nama_wisata = $('.itemName :selected').text();
-        //     $('.tambah').val(nama_wisata);
-        // });
-
+        
         $('.itemName').each(function () {
             console.log($(this));
             $(this).select2({
@@ -220,7 +219,7 @@
                     $(wrapper).append(
                         // '<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'
                         // '<div><select class="itemName form-control" name="itemName[]"></select><a href="#" class="remove_field">Remove</a></div>'
-                        '<div><input class="select_wisata" type="text" name="daftar_wisata[]" value="' + nama_wisata + '"> <input type="time" name="waktu_wisata" ></input><a href="#" class="remove_field">Remove</a></div>'
+                        '<div><input class="select_wisata" type="text" name="daftar_wisata[]" value="' + nama_wisata + '"> <input class="form-control" type="time" name="waktu_wisata" ></input><a href="#" class="remove_field">Remove</a></div>'
                     ); //add input box
                 }
             });
