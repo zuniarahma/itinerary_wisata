@@ -15,7 +15,7 @@ $(document).ready(function () {
         .done(function (data) {
             console.log("success");
             console.log(data);
-            var selector = $('#waypoints');
+            var selector = $('#itemName');
             selector.find('option').remove();
             $.each(data, function (key, value) {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
@@ -151,6 +151,7 @@ $(document).ready(function () {
             console.log("DRIVING");
             calculateAndDisplayRoute(directionsService, directionsDisplay);
         }
+
     });
 
     document.getElementById('mode').addEventListener('change', function () {
@@ -181,7 +182,7 @@ $(document).ready(function () {
             });
             nodes.push($(this).val());
         });
-        console.log(waypts);     
+        console.log(waypts);
 
         //Nearest Neighbour Algorithm
         getDurations(function () {
@@ -282,7 +283,7 @@ $(document).ready(function () {
             //rute Start to End
             if (i == 0 && rute.length == 0) {
                 console.log("RUTE DARI " + nodes[0] + "KE " + document.getElementById('end').value)
-                transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
+                transitPanel.innerHTML += '<button  id="transit type="button" class="btn btn-info"' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
                     //getTransit(nodes[0], document.getElementById('end').value);
@@ -380,11 +381,13 @@ function getDriving(asal, tujuan) {
             directionsDisplay.setDirections(response);
             var route = response.routes[0];
             var summaryPanel = document.getElementById('directions-panel');
+            var total_duration = 0;
             summaryPanel.innerHTML = '';
 
             // Informasi Detail jalan
             for (var i = 0; i < route.legs.length; i++) {
                 var routeSegment = i + 1;
+
                 summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
                     '</b><br>';
                 summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
@@ -392,8 +395,15 @@ function getDriving(asal, tujuan) {
                 summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
                 summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
                 var duration = route.legs[i].duration.text + '<br><br>';
-                console.log("duration: " + duration);
+                console.log(Math.round(route.legs[i].duration.value / 60));
+
+                var duration_minutes = Math.round(route.legs[i].duration.value / 60);
+                total_duration = total_duration + duration_minutes; //menjumlah durasi
+                console.log(total_duration)
             }
+
+            getCountDuration(total_duration);
+
             var jumlahTujuan = route.legs.length;
             console.log("JUMLAH TUJUAN: " + route.legs.length);
             console.log("ROUTE: " + route);
@@ -401,4 +411,46 @@ function getDriving(asal, tujuan) {
             window.alert(status + +'\n Oops! Maaf ada kesalahan');
         }
     });
+}
+
+//hitung waktu
+function getCountDuration(total_duration) {
+    var total_start = 0;
+    var total_wisata = 0;
+    
+    //waktu start
+    var waktu_start = new Date ($('.waktu_start').val()); 
+    console.log(waktu_start);
+
+        // var time = $(this).val();
+        // var time_split = time.split(':');
+
+        // var time_minutes = Number(time_split[0] * 60) + Number(time_split[1]); // jadikan menit
+        // total_start = total_start + time_minutes; //menjumlah waktu
+        // console.log($(this).val());
+        // // console.log(time_split);
+        // // console.log(time_minutes);
+        // console.log(total_start);
+
+
+    //waktu wisata
+    $('.waktu_wisata').each(function () {
+
+        var time = $(this).val();
+        var time_split = time.split(':');
+
+        var time_minutes = Number(time_split[0] * 60) + Number(time_split[1]); // jadikan menit
+        total_wisata = total_wisata + time_minutes; //menjumlah waktu
+        console.log($(this).val());
+        // console.log(time_split);
+        // console.log(time_minutes);
+        console.log(total_wisata);
+    });
+
+    var total_perjalanan = total_start + total_duration + total_wisata;
+    console.log(total_perjalanan);
+
+    waktu_start.setMinutes(waktu_start.getMinutes() + total_perjalanan);
+    new Date(waktu_start);
+    console.log(waktu_start);
 }

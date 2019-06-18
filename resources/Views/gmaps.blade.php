@@ -134,33 +134,22 @@
     <div id="right-panel">
         <div>
             <b>Start:</b>
-            <select class="kota form-control" id="start">
-                <option value="Surabaya">Surabaya, ID</option>
-                <option value="Lamongan, ID">Lamongan, ID</option>
-                <option value="Gresik">Gresik</option>
-                <option value="Bojonegoro, ID">Bojonegoro, ID</option>
-            </select>
-
-            <input class="form-control" type="time" name="waktu_start" ></input>
+            <select class="kota form-control" id="start"></select>
+            <input class="waktu_start form-control" type="datetime-local" name="waktu_start" />
             <br>
 
             {{-- <b>Waypoints:</b> <br>
             <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
             <select multiple id="waypoints"></select> --}}
 
+            <b>Tempat Wisata:</b>
             <select class="itemName form-control" name="itemName"></select>
             <button id="tambah_wisata" class="button">Add</button>
             <div class="input_fields_wrap"></div>
             <br>
-            
+
             <b>End:</b>
-            <select class="kota form-control" id="end">
-                <option value="Probolinggo">Probolinggo, ID</option>
-                <option value="Pacitan, ID">Pacitan, ID</option>
-                <option value="Banyuwangi, ID">Banyuwangi, ID</option>
-                <option value="Malang, ID">Malang, ID</option>
-                <option value="Surabaya,ID">Surabaya, ID</option>
-            </select>
+            <select class="kota form-control" id="end"></select>
             <br>
             <input class="button" type="submit" id="submit">
         </div>
@@ -171,17 +160,13 @@
     </div>
     <script type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap" async defer></script> --}}
-
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap">
     </script>
     <script type="text/javascript" src="../resources/js/waypoints_v2.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script type="text/javascript">
-        
         $('.itemName').each(function () {
             console.log($(this));
             $(this).select2({
@@ -206,7 +191,7 @@
         });
 
         $(document).ready(function () {
-            var max_fields = 10; //maximum input boxes allowed
+            var max_fields = 9; //maximum input boxes allowed
             var wrapper = $(".input_fields_wrap"); //Fields wrapper
             var add_button = $("#tambah_wisata"); //Add button ID
 
@@ -217,9 +202,9 @@
                     x++; //text box increment
                     var nama_wisata = $('.itemName :selected').text();
                     $(wrapper).append(
-                        // '<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'
-                        // '<div><select class="itemName form-control" name="itemName[]"></select><a href="#" class="remove_field">Remove</a></div>'
-                        '<div><input class="select_wisata" type="text" name="daftar_wisata[]" value="' + nama_wisata + '"> <input class="form-control" type="time" name="waktu_wisata" ></input><a href="#" class="remove_field">Remove</a></div>'
+                        '<div><input class="select_wisata form-control" type="text" name="daftar_wisata[]" value="' +
+                        nama_wisata +
+                        '"> Waktu Transit:<input class="waktu_wisata form-control" type="time" name="waktu_wisata"></input><a href="#" class="remove_field">Remove</a></div><br>'
                     ); //add input box
                 }
             });
