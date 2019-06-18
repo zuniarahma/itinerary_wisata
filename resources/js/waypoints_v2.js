@@ -21,8 +21,8 @@ $(document).ready(function () {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
                 selector.append("<option value='" + value.latitude + "," + value.longitude + "'>" + value.nama_wisata + "</option>");
 
-                console.log('key', key);
-                console.log('value', value.nama_wisata);
+                // console.log('key', key);
+                // console.log('value', value.nama_wisata);
             });
         })
         .fail(function () {
@@ -42,8 +42,8 @@ $(document).ready(function () {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
                 selector.append("<option value='" + value.nama_kota + "'>" + value.nama_kota + "</option>");
 
-                console.log('key', key);
-                console.log('value', value.nama_kota);
+                // console.log('key', key);
+                // console.log('value', value.nama_kota);
             });
         })
         .fail(function () {
@@ -162,7 +162,7 @@ $(document).ready(function () {
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         var waypts = [];
-        var checkboxArray = document.getElementById('waypoints');
+        // var checkboxArray = document.getElementById('waypoints');
 
         // Select Waypoints
         // for (var i = 0; i < checkboxArray.length; i++) {
@@ -175,13 +175,18 @@ $(document).ready(function () {
         //     }
         // }
         $('.select_wisata').each(function () {
-            console.log($(this).val());
+            var latlng = $(this).val().split(",");
+            console.log("LATLNG");
+            console.log(latlng[0]);
+            
             waypts.push({
-                location: $(this).val(),
+                // location: $(this).val(),
+                location: new google.maps.LatLng(latlng[0],latlng[1]),
                 stopover: true
             });
             nodes.push($(this).val());
         });
+        console.log("ini waypoints");
         console.log(waypts);
 
         //Nearest Neighbour Algorithm
@@ -260,7 +265,7 @@ $(document).ready(function () {
                 rute.push(waypts[DataRoute[i] - 1]);
             }
 
-            console.log("RUTE: " + rute);
+            console.log("RUTE: " , rute);
 
             if (selectedMode == "TRANSIT") {
                 TransitCondition();
@@ -368,7 +373,8 @@ function getTransit(asal, tujuan) {
 
 // Fungsi Get Driving    
 function getDriving(asal, tujuan) {
-    console.log(": " + asal)
+    console.log("get driving");
+    console.log(rute);
     directionsService.route({
         origin: asal,
         destination: tujuan,

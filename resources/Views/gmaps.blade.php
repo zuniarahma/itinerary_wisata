@@ -180,7 +180,7 @@
                             results: $.map(data, function (item) {
                                 return {
                                     text: item.nama_wisata,
-                                    id: item.id_wisata
+                                    id: item.latitude + "," + item.longitude
                                 }
                             })
                         };
@@ -201,10 +201,13 @@
                 if (x < max_fields) { //max input box allowed
                     x++; //text box increment
                     var nama_wisata = $('.itemName :selected').text();
+                    var latlng = $('.itemName :selected').val();
                     $(wrapper).append(
                         '<div><input class="select_wisata form-control" type="text" name="daftar_wisata[]" value="' +
+                        latlng +
+                        '"><input class=" form-control" type="text" value="' +
                         nama_wisata +
-                        '"> Waktu Transit:<input class="waktu_wisata form-control" type="time" name="waktu_wisata"></input><a href="#" class="remove_field">Remove</a></div><br>'
+                        '"> Waktu Transit:<input class="waktu_wisata form-control" type="time" name="waktu_wisata[]"></input><a href="#" class="remove_field">Remove</a></div><br>'
                     ); //add input box
                 }
             });
