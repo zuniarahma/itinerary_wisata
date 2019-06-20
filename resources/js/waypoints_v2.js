@@ -306,17 +306,21 @@ $(document).ready(function () {
     // console.log("RUTE: " + rute)
 
     function TransitCondition() {
+
+        a = nodes [0];
+
         for (let i = 0; i <= rute.length; i++) {
 
             //rute Start to End
             if (i == 0 && rute.length == 0) {
                 console.log("RUTE DARI ", nodes[0], "KE ", document.getElementById('end').value)
-                transitPanel.innerHTML += '<button  id="transit type="button" class="btn btn-info"' + i + '">Rute Transit ' + (i + 1) +
+                transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
-                    //getTransit(nodes[0], document.getElementById('end').value);
-                    getTransit(document.getElementById('start').value, document.getElementById('end').value);
+                    getTransit(a, document.getElementById('end').value);
+                    // getTransit(document.getElementById('start').value, document.getElementById('end').value);
                 });
+                console.log("nodes[0]",nodes[0]);
             }
 
             //rute Start to waypoints [0]
@@ -327,10 +331,12 @@ $(document).ready(function () {
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
                     //getTransit(nodes[0], rute[0].location);
-                    getTransit(document.getElementById('start').value, rute[0].location);
+                    // getTransit(document.getElementById('start').value, rute[0].location);
+                    getTransit(a, rute[0].location);
                 });
                 console.log("rute[0]");
                 console.log(rute[0]);
+                console.log("nodes[0]",nodes[0]);
             }
 
             //rute waypoints[terakhir] ke End

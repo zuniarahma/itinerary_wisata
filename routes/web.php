@@ -146,7 +146,8 @@ Route::get('api/kota', 'KotaRestApiController@index');
 //====================================================
 ///COBA TEMPLATE
 
-Route::get('coba_template1', 'CobaController@index');
+Route::get('coba_template1', 'CobaController@coba1');
+Route::get('coba_template2', 'CobaController@coba2');
 
 //====================================================
 
