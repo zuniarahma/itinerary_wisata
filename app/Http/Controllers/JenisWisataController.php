@@ -14,6 +14,7 @@ class JenisWisataController extends Controller {
     public function insertform(){
         return view('jenis_wisata_create');
     } 
+    
     public function insertjenis(Request $request){
         $id_jenis_wisata = $request->input('id_jenis_wisata');
         $nama_jenis = $request->input('nama_jenis');

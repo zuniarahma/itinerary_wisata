@@ -144,6 +144,11 @@ Route::get('api/kota', 'KotaRestApiController@index');
 //Route::get('api/searchkota', 'KotaRestApiController@dataAjax');
 
 //====================================================
+///WAKTU TEMPUH
+
+Route::get('api/waktu_wisata', 'WaktuTempuhController@index');
+
+//====================================================
 ///COBA TEMPLATE
 
 Route::get('coba_template1', 'CobaController@coba1');

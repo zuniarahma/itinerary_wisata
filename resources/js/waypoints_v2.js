@@ -8,6 +8,8 @@ var a;
 var b;
 var selectedMode = document.getElementById('mode').value;
 var rute = [];
+var waypoints_waktu = [];
+var perjalanan_waktu = [];
 
 //Jalankan Ambil data ketika web sudah ready
 $(document).ready(function () {
@@ -211,7 +213,7 @@ $(document).ready(function () {
         getDurations(function () {
             var datadurasi = durations;
 
-            console.log("DATA DURASI.LENGTH: " , datadurasi.length);
+            console.log("DATA DURASI.LENGTH: ", datadurasi.length);
             var DataRoute = getRute(0, datadurasi.length);
             console.log("DATA ROUTE: " + DataRoute);
 
@@ -288,7 +290,7 @@ $(document).ready(function () {
                 rute.push(waypts[DataRoute[i] - 1]);
             }
 
-            // console.log("RUTE: " , rute);
+            console.log("RUTE: ", rute);
 
             if (selectedMode == "TRANSIT") {
                 TransitCondition();
@@ -296,6 +298,9 @@ $(document).ready(function () {
             } else {
                 getDriving(a, b)
             }
+
+            // simpan history
+            save_history();
 
         });
     }
@@ -307,9 +312,10 @@ $(document).ready(function () {
 
     function TransitCondition() {
 
-        a = nodes [0];
+        a = nodes[0];
 
         for (let i = 0; i <= rute.length; i++) {
+            console.log("rute.length:", rute.length);
 
             //rute Start to End
             if (i == 0 && rute.length == 0) {
@@ -320,7 +326,7 @@ $(document).ready(function () {
                     getTransit(a, document.getElementById('end').value);
                     // getTransit(document.getElementById('start').value, document.getElementById('end').value);
                 });
-                console.log("nodes[0]",nodes[0]);
+                console.log("nodes[0]", nodes[0]);
             }
 
             //rute Start to waypoints [0]
@@ -336,7 +342,7 @@ $(document).ready(function () {
                 });
                 console.log("rute[0]");
                 console.log(rute[0]);
-                console.log("nodes[0]",nodes[0]);
+                console.log("nodes[0]", nodes[0]);
             }
 
             //rute waypoints[terakhir] ke End
@@ -437,8 +443,11 @@ function getDriving(asal, tujuan) {
                 var duration_minutes = Math.round(route.legs[i].duration.value / 60);
                 total_duration = total_duration + duration_minutes; //menjumlah durasi
                 console.log(total_duration)
+
+                perjalanan_waktu.push(duration_minutes);
             }
 
+            console.log("duration_minutes", perjalanan_waktu);
             getCountDuration(total_duration);
 
             var jumlahTujuan = route.legs.length;
@@ -466,17 +475,60 @@ function getCountDuration(total_duration) {
         var time_split = time.split(':');
 
         var time_minutes = Number(time_split[0] * 60) + Number(time_split[1]); // jadikan menit
-        total_wisata = total_wisata + time_minutes; //menjumlah waktu
+        total_wisata = total_wisata + time_minutes; //menjumlah waktu waypoints
         console.log($(this).val());
         // console.log(time_split);
         // console.log(time_minutes);
         console.log(total_wisata);
+
+        waypoints_waktu.push(time_minutes);
     });
 
+    console.log("waypoints_waktu", waypoints_waktu);
+
+    //total waktu perjalanan waypoints
     var total_perjalanan = total_start + total_duration + total_wisata;
     console.log(total_perjalanan);
 
+    //total waktu keseluruhan
     waktu_start.setMinutes(waktu_start.getMinutes() + total_perjalanan);
     new Date(waktu_start);
     console.log(waktu_start);
+
+}
+
+function save_history() {
+
+    var history_start = a.toString();
+    var history_waypoints = [];
+    history_waypoints.push(history_start);
+    $('.nama_wisata').each(function () {
+        history_waypoints.push($(this).val());
+    });
+    var history_end = $('#end').val();
+    history_waypoints.push(history_end);
+
+    console.log("history_waypoints:", history_waypoints);
+    // console.log("history_end", history_end);
+
+    var history_all = [];
+
+    for (var i = 0; i < history_waypoints.length-1; i++) {
+        history_all.push([history_waypoints[i], history_waypoints[i + 1]]);
+    }
+    console.log("history_all :", history_all);
+
+    var data = {
+        waypoints_waktu: waypoints_waktu,
+        perjalanan_waktu: perjalanan_waktu,
+        history_all: history_all
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "api/waktu_wisata",
+        data: data,
+        success: success,
+        dataType: dataType
+    });
 }

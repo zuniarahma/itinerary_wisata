@@ -205,7 +205,7 @@
                     $(wrapper).append(
                         '<div><input class="select_wisata form-control" type="text" name="daftar_wisata[]" value="' +
                         latlng +
-                        '"><input class=" form-control" type="text" value="' +
+                        '"><input class="nama_wisata form-control" type="text" value="' +
                         nama_wisata +
                         '"> Waktu Transit:<input class="waktu_wisata form-control" type="time" name="waktu_wisata[]"></input><a href="#" class="remove_field">Remove</a></div><br>'
                     ); //add input box
