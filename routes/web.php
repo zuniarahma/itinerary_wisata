@@ -146,7 +146,8 @@ Route::get('api/kota', 'KotaRestApiController@index');
 //====================================================
 ///WAKTU TEMPUH
 
-Route::get('api/waktu_wisata', 'WaktuTempuhController@index');
+Route::post('api/history', 'WaktuTempuhController@history');
+Route::post('api/waktu_tempuh', 'WaktuTempuhController@waktu_tempuh');
 
 //====================================================
 ///COBA TEMPLATE

@@ -10,6 +10,8 @@ var selectedMode = document.getElementById('mode').value;
 var rute = [];
 var waypoints_waktu = [];
 var perjalanan_waktu = [];
+var total_perjalanan;
+var waktu_start;
 
 //Jalankan Ambil data ketika web sudah ready
 $(document).ready(function () {
@@ -299,8 +301,6 @@ $(document).ready(function () {
                 getDriving(a, b)
             }
 
-            // simpan history
-            save_history();
 
         });
     }
@@ -453,6 +453,10 @@ function getDriving(asal, tujuan) {
             var jumlahTujuan = route.legs.length;
             // console.log("JUMLAH TUJUAN: " + route.legs.length);
             // console.log("ROUTE: " + route);
+
+            // simpan waktu perjalanan
+            save_history();
+
         } else {
             window.alert(status + +'\n Oops! Maaf ada kesalahan');
         }
@@ -465,7 +469,7 @@ function getCountDuration(total_duration) {
     var total_wisata = 0;
 
     //waktu start
-    var waktu_start = new Date($('.waktu_start').val());
+    waktu_start = new Date($('.waktu_start').val());
     console.log(waktu_start);
 
     //waktu wisata
@@ -487,25 +491,27 @@ function getCountDuration(total_duration) {
     console.log("waypoints_waktu", waypoints_waktu);
 
     //total waktu perjalanan waypoints
-    var total_perjalanan = total_start + total_duration + total_wisata;
-    console.log(total_perjalanan);
+    total_perjalanan = total_start + total_duration + total_wisata;
+    console.log("total waktu perjalanan", total_perjalanan, "menit");
 
     //total waktu keseluruhan
     waktu_start.setMinutes(waktu_start.getMinutes() + total_perjalanan);
     new Date(waktu_start);
-    console.log(waktu_start);
+    console.log("jam sampai", waktu_start);
 
 }
 
-function save_history() {
+function save_waktu_tempuh(id_history) {
 
     var history_start = a.toString();
     var history_waypoints = [];
     history_waypoints.push(history_start);
-    $('.nama_wisata').each(function () {
-        history_waypoints.push($(this).val());
-    });
+
+    for (var i = 0; i < rute.length; i++) {
+        history_waypoints.push(rute[i].location.lat() + ", " + rute[i].location.lng());
+    }
     var history_end = $('#end').val();
+
     history_waypoints.push(history_end);
 
     console.log("history_waypoints:", history_waypoints);
@@ -513,22 +519,54 @@ function save_history() {
 
     var history_all = [];
 
-    for (var i = 0; i < history_waypoints.length-1; i++) {
-        history_all.push([history_waypoints[i], history_waypoints[i + 1]]);
+    for (var i = 0; i < history_waypoints.length - 1; i++) {
+
+        var data = {
+            waypoints_waktu: waypoints_waktu[i],
+            perjalanan_waktu: perjalanan_waktu[i],
+            history_all_start: history_waypoints[i],
+            history_all_end: history_waypoints[i + 1],
+            id_history: id_history
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "api/waktu_tempuh",
+            data: data,
+            async: false,
+            success: function (data) {
+                console.log("sukses waktu_tempuh");
+            }
+
+        });
+
+        // history_all.push([history_waypoints[i], history_waypoints[i + 1]]);
     }
     console.log("history_all :", history_all);
 
+}
+
+function save_history() {
+    var total_perjalanan_waktu = total_perjalanan;
+    var id_user = 1;
+    var time_start = waktu_start;
+
     var data = {
-        waypoints_waktu: waypoints_waktu,
-        perjalanan_waktu: perjalanan_waktu,
-        history_all: history_all
+        total_perjalanan_waktu: total_perjalanan_waktu,
+        id_user: id_user,
+        time_start: time_start.getFullYear() + '-' + (time_start.getMonth() + 1) + '-' + time_start.getDate() + ' ' + time_start.getHours() + ':' + time_start.getMinutes()
     };
+
+    console.log("Ini data");
+    console.log(data);
 
     $.ajax({
         type: "POST",
-        url: "api/waktu_wisata",
+        url: "api/history",
         data: data,
-        success: success,
-        dataType: dataType
+        success: function (data) {
+            save_waktu_tempuh(data);
+            console.log("sukses history");
+        }
     });
 }
