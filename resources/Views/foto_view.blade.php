@@ -42,7 +42,24 @@
     <!-- Google Font -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-</head>
+
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <style>
+            table, td, tr {  
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+    
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+    
+            tr, td {
+                padding: 15px;
+            }
+        </style>
+    </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">

@@ -10,7 +10,6 @@
 <td>ID Kota</td>
 <td>ID Jenis Wisata</td>
 <td>Nama Wisata</td>
-<td>Foto</td>
 <td>Keterangan</td>
 <td>Fasilitas</td>
 <td>Alamat</td>
@@ -28,7 +27,6 @@
 <td>{{ $wisatas->id_kota }}</td>
 <td>{{ $wisatas->id_jenis_wisata }}</td>
 <td>{{ $wisatas->nama_wisata }}</td>
-<td>{{ $wisatas->foto }}</td>
 <td>{{ $wisatas->keterangan }}</td>
 <td>{{ $wisatas->Fasilitas }}</td>
 <td>{{ $wisatas->Alamat }}</td>

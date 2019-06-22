@@ -13,20 +13,20 @@ class KotaRestApiController extends Controller
         return response()->json($kota,200);
     }
 
-    public function dataAjax(Request $request){
-        if($request->has('q')){
+    // public function dataAjax(Request $request){
+    //     if($request->has('q')){
 
-            $search = $request->q;
-            $kota = DB::table("kota")
-                        ->select("*")
-                        ->where('nama_kota','LIKE',"%$search%")
-                        ->get();
-            return response()->json($kota,200);
-        }
-        else{
-            $kota = DB::select('select * from kota');
-            return response()->json($kota,200);
-        }
+    //         $search = $request->q;
+    //         $kota = DB::table("kota")
+    //                     ->select("*")
+    //                     ->where('nama_kota','LIKE',"%$search%")
+    //                     ->get();
+    //         return response()->json($kota,200);
+    //     }
+    //     else{
+    //         $kota = DB::select('select * from kota');
+    //         return response()->json($kota,200);
+    //     }
         
-    }
+    // }
 }
