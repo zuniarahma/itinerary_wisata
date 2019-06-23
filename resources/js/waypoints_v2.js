@@ -50,7 +50,7 @@ function requestKota(selectorStr){
             selector.find('option').remove();
             $.each(data, function (key, value) {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
-                selector.append("<option value='" + value.id_kota + "'>" + value.nama_kota + "</option>");
+                selector.append("<option value='" + value.nama_kota + "'>" + value.nama_kota + "</option>");
 
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);

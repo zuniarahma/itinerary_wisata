@@ -216,7 +216,7 @@
                             <div class="box-body">
                                 <table>
 
-                                    <a href="{{url('/insertwisata')}}" class="btn btn-success" role="button">insert</a>
+                                    <a href="{{url('/insertwisata')}}" class="btn btn-success" role="button">Insert</a>
                                     <p>
                                     <tr>
                                         <td><b>ID Wisata</td>
