@@ -16,6 +16,7 @@
     <div class="container">
         <h2>Insert Jenis Wisata</h2>
         <form class="form-horizontal" action="/TA/itinerary/public/editjenis/<?php echo $jenis_wisata[0]->id_jenis_wisata; ?>" method="post">
+        <input type="hidden" name='id_jenis_wisata' value='<?php echo$jenis_wisata[0]->id_jenis_wisata; ?>'> 
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Nama Jenis Wisata:</label>

@@ -16,7 +16,7 @@
     <div class="container">
         <h2>Insert Kota</h2>
         <form class="form-horizontal" action="kota_create" method="post">
-
+    
             <div class="form-group">
                 <label class="control-label col-sm-2">Nama Kota:</label>
                 <div class="col-sm-10">

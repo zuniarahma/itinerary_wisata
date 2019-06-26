@@ -14,10 +14,12 @@
     <div class="container">
         <h2>Update Wisata</h2>
         <form class="form-horizontal" action="editwisata"<?php echo $wisata[0]->id_wisata; ?>" method="post">
+        <input type="hidden" name='id_wisata' value='<?php echo$wisata[0]->id_wisata; ?>'> 
+
             <div class="form-group">
                 <label class="control-label col-sm-2" for="sel1">ID Kota</label>
                 <div class="col-sm-10">
-                    <select class="kota form-control" name="id_kota" id="sel1">
+                    <select class="kota form-control" name="id_kota" id="sel1" value='<?php echo$wisata[0]->id_kota; ?>'>
                     
                     </select>
                 </div>
@@ -25,7 +27,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="sel1">ID Jenis Wisata</label>
                 <div class="col-sm-10">
-                    <select class="jenis_wisata form-control" name="id_jenis_wisata" id="sel1">
+                    <select class="jenis_wisata form-control" name="id_jenis_wisata" id="sel1" value='<?php echo$wisata[0]->id_jenis_wisata; ?>'>
                     </select>
                 </div>
             </div>
@@ -92,7 +94,8 @@
         </form>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script type="text/javascript" src="http://kvnfile.esy.es/tad/isikota.js"></script>
+    <script type="text/javascript" src="../js/isikota.js"></script>
+    <script type="text/javascript" src="../js/isijenis_wisata.js"></script>
 </body>
 
 </html>

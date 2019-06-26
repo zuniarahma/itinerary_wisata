@@ -106,7 +106,7 @@ function initMap() {
                 posisiawal = new google.maps.LatLng(success.coords.latitude, success.coords.longitude);
                 nodes.push(posisiawal);
 
-                console.log(posisiawal);
+                console.log("posisi awal", posisiawal);
 
                 new google.maps.Marker({
                     position: new google.maps.LatLng(success.coords.latitude, success.coords.longitude),
@@ -326,7 +326,7 @@ $(document).ready(function () {
             //rute Start to End
             if (i == 0 && rute.length == 0) {
                 console.log("RUTE DARI ", nodes[0], "KE ", document.getElementById('end').value)
-                transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
+                transitPanel.innerHTML += '<button id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
                     getTransit(a, document.getElementById('end').value);
@@ -463,6 +463,7 @@ function getDriving(asal, tujuan) {
             // simpan waktu perjalanan
             save_history();
 
+            var modal_wisata = document.getElementById('transits-panel');
         } else {
             window.alert(status + +'\n Oops! Maaf ada kesalahan');
         }
@@ -514,7 +515,7 @@ function save_waktu_tempuh(id_history) {
     history_waypoints.push(history_start);
 
     for (var i = 0; i < rute.length; i++) {
-        history_waypoints.push(rute[i].location.lat() + ", " + rute[i].location.lng());
+        history_waypoints.push("("+ rute[i].location.lat() + ", " + rute[i].location.lng() + ")");
     }
     var history_end = $('#end').val();
 
@@ -576,3 +577,34 @@ function save_history() {
         }
     });
 }
+
+// //lat lng 
+// function ambil_latlng(data){
+
+//     lat_lng = [];
+//     $.ajax({
+//         type: "GET",
+//         url: "api/history",
+//         data: data,
+//         success: function (data) {
+//             save_waktu_tempuh(data);
+//             console.log("sukses history");
+//         }
+//     });
+// }
+
+
+// $('.waktu_wisata').each(function () {
+
+//     var time = $(this).val();
+//     var time_split = time.split(':');
+
+//     var time_minutes = Number(time_split[0] * 60) + Number(time_split[1]); // jadikan menit
+//     total_wisata = total_wisata + time_minutes; //menjumlah waktu waypoints
+//     console.log($(this).val());
+//     // console.log(time_split);
+//     // console.log(time_minutes);
+//     console.log(total_wisata);
+
+//     waypoints_waktu.push(time_minutes);
+// });

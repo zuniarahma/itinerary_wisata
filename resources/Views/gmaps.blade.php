@@ -8,6 +8,10 @@
     <meta charset="utf-8">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <title>Waypoints in Directions</title>
     <style>
         #right-panel {
@@ -153,6 +157,48 @@
             <br>
             <input class="button" type="submit" id="submit">
         </div>
+
+        <div class="container">
+            <h4>Rundown</h4>
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myLargeModalLabel">Open
+                Modal</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myLargeModalLabel" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Rundown Wisata</h4>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
+                            </div>
+                            <div class="row">
+                                <div class="rundown_waktu col-md-4">.col-md-4</div>
+                                <div class="rundown_nama_wisata col-md-4">.col-md-4 .ml-auto</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
+                                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
+                            </div>
+                            <div class="modal-body">
+                                <p>Some text in the modal.</p>
+                               
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <h3>Transit</h3>
         <div id="transits-panel"></div>
         <h3>Detail Informasi</h3>
@@ -164,6 +210,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap">
     </script>
     <script type="text/javascript" src="../resources/js/waypoints_v2.js"></script>
+    <script type="text/javascript" src="../resources/js/waktu_tempuh.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script type="text/javascript">

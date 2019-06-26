@@ -16,6 +16,7 @@
     <div class="container">
         <h2>Update User</h2>
         <form class="form-horizontal" action="/TA/itinerary/public/edituser/<?php echo $user[0]->id_user; ?>" method="post">
+        <input type="hidden" name='id_user' value='<?php echo$user[0]->id_user; ?>'> 
 
             <div class="form-group">
                 <label class="control-label col-sm-2">ID Role:</label>
@@ -50,7 +51,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">Alamat:</label>
                 <div class="col-sm-10">
-                    <textarea type="text" class="form-control" placeholder="Alamat" name='alamat'rows="4" value='<?php echo$user[0]->alamat; ?>'></textarea>
+                    <textarea type="text" class="form-control" placeholder="Alamat" name='alamat'rows="4" value='<?php echo$user[0]->alamat; ?>'><?php echo$user[0]->alamat; ?></textarea>
                 </div>
             </div>
 

@@ -4,11 +4,11 @@ var docReady = false;
 $(document).ready(function () {
     docReady = true;
 
-    requestKota('.kota');
+    requestJenisWisata('.jenis_wisata');
 });
 
-function requestKota(selectorStr){
-    $.ajax("http://localhost/TA/itinerary/public/api/kota")
+function requestJenisWisata(selectorStr){
+    $.ajax("http://localhost/TA/itinerary/public/api/jenis_wisata")
         .done(function (data) {
             console.log("success");
             console.log(data);
@@ -16,7 +16,7 @@ function requestKota(selectorStr){
             selector.find('option').remove();
             $.each(data, function (key, value) {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
-                selector.append("<option value='" + value.id_kota + "'>" + value.nama_kota + "</option>");
+                selector.append("<option value='" + value.id_jenis_wisata + "'>" + value.nama_jenis + "</option>");
 
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);

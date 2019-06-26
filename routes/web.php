@@ -150,6 +150,7 @@ Route::get('api/jenis_wisata', 'JenisWisataRestApiController@index');
 
 Route::post('api/history', 'WaktuTempuhController@history');
 Route::post('api/waktu_tempuh', 'WaktuTempuhController@waktu_tempuh');
+Route::get('api/waktu_wisata', 'WaktuTempuhController@tampil_waktu_tempuh');
 
 //====================================================
 ///COBA TEMPLATE

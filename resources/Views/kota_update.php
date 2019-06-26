@@ -16,6 +16,7 @@
     <div class="container">
         <h2>Update Kota</h2>
         <form class="form-horizontal" action="/TA/itinerary/public/editkota/<?php echo $kota[0]->id_kota; ?>" method="post">
+        <input type="hidden" name='id_kota' value='<?php echo$kota[0]->id_kota; ?>'> 
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Nama Kota:</label>
