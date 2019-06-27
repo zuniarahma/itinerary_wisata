@@ -1,121 +1,141 @@
 <!DOCTYPE html>
-
 <html>
+  <head>
+    <title>Google Calendar API Quickstart</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <p>Google Calendar API Quickstart</p>
 
-<head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Coba Template1</title>
-    <link rel="stylesheet" type="text/css" href="template1.css">
-    <link href = "{{asset ('css/bootstrap.min.css')}}" rel = "stylesheet">
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize_button" style="display: none;">Authorize</button>
+    <button id="signout_button" style="display: none;">Sign Out</button>
 
-</head>
+    <pre id="content" style="white-space: pre-wrap;"></pre>
 
-<body>
-<!--Section: Contact v.1-->
-<section class="section pb-5">
+    <script type="text/javascript">
+      // Client ID and API key from the Developer Console
+      var CLIENT_ID = 'AIzaSyBxLVc-yAMgAqYWvfFf_G4R-dDPMJOu-7U';
+      var API_KEY = 'AIzaSyAahfXrvJL7VqiRaG046he63l5G8yBqNC0';
 
-    <!--Section heading-->
-    <h2 class="section-heading h1 pt-4">Contact us</h2>
-    <!--Section description-->
-    <p class="section-description pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error
-      amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a
-      pariatur accusamus veniam.</p>
-  
-    <div class="row">
-  
-      <!--Grid column-->
-      <div class="col-lg-5 mb-4">
-  
-        <!--Form with header-->
-        <div class="card">
-  
-          <div class="card-body">
-            <!--Header-->
-            <div class="form-header blue accent-1">
-              <h3><i class="fas fa-envelope"></i> Write to us:</h3>
-            </div>
-  
-            <p>We'll write rarely, but only the best content.</p>
-            <br>
-  
-            <!--Body-->
-            <div class="md-form">
-              <i class="fas fa-user prefix grey-text"></i>
-              <input type="text" id="form-name" class="form-control">
-              <label for="form-name">Your name</label>
-            </div>
-  
-            <div class="md-form">
-              <i class="fas fa-envelope prefix grey-text"></i>
-              <input type="text" id="form-email" class="form-control">
-              <label for="form-email">Your email</label>
-            </div>
-  
-            <div class="md-form">
-              <i class="fas fa-tag prefix grey-text"></i>
-              <input type="text" id="form-Subject" class="form-control">
-              <label for="form-Subject">Subject</label>
-            </div>
-  
-            <div class="md-form">
-              <i class="fas fa-pencil-alt prefix grey-text"></i>
-              <textarea id="form-text" class="form-control md-textarea" rows="3"></textarea>
-              <label for="form-text">Icon Prefix</label>
-            </div>
-  
-            <div class="text-center mt-4">
-              <button class="btn btn-light-blue">Submit</button>
-            </div>
-  
-          </div>
-  
-        </div>
-        <!--Form with header-->
-  
-      </div>
-      <!--Grid column-->
-  
-      <!--Grid column-->
-      <div class="col-lg-7">
-  
-        <!--Google map-->
-        <div id="map-container-google-11" class="z-depth-1-half map-container-6" style="height: 400px">
-          <iframe src="https://maps.google.com/maps?q=new%20delphi&t=&z=13&ie=UTF8&iwloc=&output=embed"
-            frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-  
-        <br>
-        <!--Buttons-->
-        <div class="row text-center">
-          <div class="col-md-4">
-            <a class="btn-floating blue accent-1"><i class="fas fa-map-marker-alt"></i></a>
-            <p>San Francisco, CA 94126</p>
-            <p>United States</p>
-          </div>
-  
-          <div class="col-md-4">
-            <a class="btn-floating blue accent-1"><i class="fas fa-phone"></i></a>
-            <p>+ 01 234 567 89</p>
-            <p>Mon - Fri, 8:00-22:00</p>
-          </div>
-  
-          <div class="col-md-4">
-            <a class="btn-floating blue accent-1"><i class="fas fa-envelope"></i></a>
-            <p>info@gmail.com</p>
-            <p>sale@gmail.com</p>
-          </div>
-        </div>
-  
-      </div>
-      <!--Grid column-->
-  
-    </div>
-  
-  </section>
-  <!--Section: Contact v.1-->
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
 
-  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </ script>
-  <script src = "{{asset ('js/bootstrap.min.js')}}"> </script>
-</body>
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+
+      var authorizeButton = document.getElementById('authorize_button');
+      var signoutButton = document.getElementById('signout_button');
+
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;
+        }, function(error) {
+          appendPre(JSON.stringify(error, null, 2));
+        });
+      }
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
+          listUpcomingEvents();
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
+        }
+      }
+
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick(event) {
+        gapi.auth2.getAuthInstance().signIn();
+      }
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+
+      /**
+       * Append a pre element to the body containing the given message
+       * as its text node. Used to display the results of the API call.
+       *
+       * @param {string} message Text to be placed in pre element.
+       */
+      function appendPre(message) {
+        var pre = document.getElementById('content');
+        var textContent = document.createTextNode(message + '\n');
+        pre.appendChild(textContent);
+      }
+
+      /**
+       * Print the summary and start datetime/date of the next ten events in
+       * the authorized user's calendar. If no events are found an
+       * appropriate message is printed.
+       */
+      function listUpcomingEvents() {
+        gapi.client.calendar.events.list({
+          'calendarId': 'primary',
+          'timeMin': (new Date()).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime'
+        }).then(function(response) {
+          var events = response.result.items;
+          appendPre('Upcoming events:');
+
+          if (events.length > 0) {
+            for (i = 0; i < events.length; i++) {
+              var event = events[i];
+              var when = event.start.dateTime;
+              if (!when) {
+                when = event.start.date;
+              }
+              appendPre(event.summary + ' (' + when + ')')
+            }
+          } else {
+            appendPre('No upcoming events found.');
+          }
+        });
+      }
+
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+  </body>
 </html>

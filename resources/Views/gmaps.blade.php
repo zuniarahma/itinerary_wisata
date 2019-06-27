@@ -158,11 +158,12 @@
             <input class="button" type="submit" id="submit">
         </div>
 
-        <div class="container">
-            <h4>Rundown</h4>
+        <div>
+            <br>
+            <b>Lihat Rundown Wisata</b>
+            <br>
             <!-- Trigger the modal with a button -->
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myLargeModalLabel">Open
-                Modal</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myLargeModalLabel">Rundown</button>
 
             <!-- Modal -->
             <div class="modal fade" id="myLargeModalLabel" role="dialog">
@@ -175,19 +176,21 @@
                             <h4 class="modal-title">Rundown Wisata</h4>
                         </div>
                         <div class="container-fluid">
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
-                            </div>
+                            </div> --}}
                             <div class="row">
-                                <div class="rundown_waktu col-md-4">.col-md-4</div>
-                                <div class="rundown_nama_wisata col-md-4">.col-md-4 .ml-auto</div>
+                                <div class="col-md-4"><b>Waktu Wisata</b></div>
+                                <div class="col-md-4"><b>Tempat </div><br>
+                                <div class="rundown_waktu col-md-4"></div>
+                                <div class="rundown_nama_wisata col-md-4"></div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
                                 <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
-                            </div>
+                            </div> --}}
                             <div class="modal-body">
-                                <p>Some text in the modal.</p>
+                                {{-- <p>Some text in the modal.</p> --}}
                                
                             </div>
                         </div>

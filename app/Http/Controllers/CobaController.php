@@ -14,6 +14,10 @@ class CobaController extends Controller {
         
         return view('coba_template2');
     }
+    public function coba3(){
+        
+        return view('coba_template3');
+    }
 
 }
 

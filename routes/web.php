@@ -11,9 +11,9 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('wisata_view');
-});*/
+Route::get('/', function () {
+    return redirect('home');
+});
 
 // // View Data
 // Route::get('wisata_view','WisataViewController@index'); 
@@ -157,7 +157,23 @@ Route::get('api/waktu_wisata', 'WaktuTempuhController@tampil_waktu_tempuh');
 
 Route::get('coba_template1', 'CobaController@coba1');
 Route::get('coba_template2', 'CobaController@coba2');
+Route::get('coba_template3', 'CobaController@coba3');
 
 //====================================================
 
+Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
+
+//====================================================
+///LOGIN USER
+
+Route::get('/home_user', 'User@index');
+Route::get('/login', 'User@login');
+Route::post('/loginPost', 'User@loginPost');
+Route::get('/register', 'User@register');
+Route::post('/registerPost', 'User@registerPost');
+Route::get('/logout', 'User@logout');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
