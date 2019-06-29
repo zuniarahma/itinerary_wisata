@@ -204,9 +204,8 @@
         <div class="sign-in">{{ __('Login') }}</div>
 
         <div class="login-form">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign
-                In</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab"  align="center">Sign In</label>
+            {{-- <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label> --}}
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
@@ -233,9 +232,7 @@
                         {{ __('Password') }}</label>
 
                     {{-- <div class="col-md-6"> --}}
-                    <input id="password" type="password"
-                        class="input form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"
-                        required>
+                    <input id="password" type="password" class="input form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                     @if ($errors->has('password'))
                     <span class="invalid-feedback" role="alert">

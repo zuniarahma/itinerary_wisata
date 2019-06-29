@@ -159,6 +159,7 @@ Route::get('coba_template1', 'CobaController@coba1');
 Route::get('coba_template2', 'CobaController@coba2');
 Route::get('coba_template3', 'CobaController@coba3');
 Route::get('coba_template4', 'CobaController@coba4');
+Route::get('coba_template5', 'CobaController@coba5');
 
 //====================================================
 
