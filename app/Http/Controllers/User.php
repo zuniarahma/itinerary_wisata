@@ -11,13 +11,12 @@ class User extends Controller
 {
     //
     public function index(){
-        echo "hello";
-        // if(!Session::get('login')){
-        //     return redirect('login')->with('alert','Kamu harus login dulu');
-        // }
-        // else{
-        //     return view('user');
-        // }
+        if(!Session::get('login')){
+            return redirect('login')->with('alert','Kamu harus login dulu');
+        }
+        else{
+            return view('user');
+        }
     }
 
     public function login(){

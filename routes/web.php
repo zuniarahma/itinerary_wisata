@@ -158,6 +158,7 @@ Route::get('api/waktu_wisata', 'WaktuTempuhController@tampil_waktu_tempuh');
 Route::get('coba_template1', 'CobaController@coba1');
 Route::get('coba_template2', 'CobaController@coba2');
 Route::get('coba_template3', 'CobaController@coba3');
+Route::get('coba_template4', 'CobaController@coba4');
 
 //====================================================
 
@@ -166,14 +167,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //====================================================
-///LOGIN USER
+// ///LOGIN USER
 
-Route::get('/home_user', 'User@index');
-Route::get('/login', 'User@login');
-Route::post('/loginPost', 'User@loginPost');
-Route::get('/register', 'User@register');
-Route::post('/registerPost', 'User@registerPost');
-Route::get('/logout', 'User@logout');
-Auth::routes();
+// Route::get('/home_user', 'User@index');
+// Route::get('/login', 'User@login');
+// Route::post('/loginPost', 'User@loginPost');
+// Route::get('/register', 'User@register');
+// Route::post('/registerPost', 'User@registerPost');
+// Route::get('/logout', 'User@logout');
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

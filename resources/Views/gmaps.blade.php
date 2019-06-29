@@ -128,7 +128,6 @@
         <select id="mode">
             <option value="DRIVING">Kendaraan Pribadi</option>
             <option value="TRANSIT">Kendaraan Umum</option>
-
         </select>
     </div>
 
