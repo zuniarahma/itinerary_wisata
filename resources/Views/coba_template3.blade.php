@@ -15,7 +15,7 @@
 
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
-      var CLIENT_ID = 'AIzaSyBxLVc-yAMgAqYWvfFf_G4R-dDPMJOu-7U';
+      var CLIENT_ID = '164872324656-t0sd314kq3jdgbdhnb74rc82kghbmptq.apps.googleusercontent.com';
       var API_KEY = 'AIzaSyAahfXrvJL7VqiRaG046he63l5G8yBqNC0';
 
       // Array of API discovery doc URLs for APIs used by the quickstart

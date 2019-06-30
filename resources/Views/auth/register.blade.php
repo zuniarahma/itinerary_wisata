@@ -206,9 +206,9 @@
         {{-- <div class="sign-up-htm"> --}}
         {{-- <div class="col-md-8">
             <div class="card"> --}}
-        <input id="tab-2" type="radio" name="tab" class="sign-up" align="center"><label for="tab-2" class="tab" >{{ __('Register') }}</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up" align="center" checked><label for="tab-2" class="tab" >{{ __('Register') }}</label>
         <div class="login-form">
-            {{-- <div class="sign-up card-header">{{ __('Register') }}</div> --}}
+            <div class="sign-up card-header">{{ __('Register') }}</div>
 
             {{-- <div class="card-body"> --}}
             <form method="POST" action="{{ route('register') }}">
