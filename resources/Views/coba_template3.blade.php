@@ -9,6 +9,7 @@
 
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
+    <button id="request_button" style="display: none;">Request</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '164872324656-t0sd314kq3jdgbdhnb74rc82kghbmptq.apps.googleusercontent.com';
-      var API_KEY = 'AIzaSyAahfXrvJL7VqiRaG046he63l5G8yBqNC0';
+      var API_KEY = 'AIzaSyDeckOX8gEHrniq4nFfLld7Ao69BcYIAAk';
 
       // Array of API discovery doc URLs for APIs used by the quickstart
       var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
@@ -26,6 +27,7 @@
       var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 
       var authorizeButton = document.getElementById('authorize_button');
+      var requestButton = document.getElementById('request_button');
       var signoutButton = document.getElementById('signout_button');
 
       /**
@@ -53,6 +55,7 @@
           updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
           authorizeButton.onclick = handleAuthClick;
           signoutButton.onclick = handleSignoutClick;
+          requestButton.onclick = handleRequest;
         }, function(error) {
           appendPre(JSON.stringify(error, null, 2));
         });
@@ -66,10 +69,12 @@
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
+          requestButton.style.display = 'block';
           listUpcomingEvents();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
+          requestButton.style.display = 'none';
         }
       }
 
@@ -85,6 +90,34 @@
        */
       function handleSignoutClick(event) {
         gapi.auth2.getAuthInstance().signOut();
+      }
+
+      function handleRequest(event) {
+        var myEvent = {
+            'summary': 'Google I/O 2015',
+            'location': '800 Howard St., San Francisco, CA 94103',
+            'description': 'A chance to hear more about Google\'s developer products.',
+                'start': {
+                    'dateTime': new Date(),
+                    'timeZone': 'America/Los_Angeles'
+                },
+                'end': {
+                    'dateTime': new Date(),
+                    'timeZone': 'America/Los_Angeles'
+                }
+            };
+
+            console.log(myEvent);
+
+            var request = gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            "sendUpdates": "all",
+            'resource': myEvent
+            });
+
+            request.execute(function(event) {
+            appendPre('Event created: ' + event.htmlLink);
+        });
       }
 
       /**
