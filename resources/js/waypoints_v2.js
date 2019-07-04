@@ -13,6 +13,7 @@ var perjalanan_waktu = [];
 var total_perjalanan;
 var waktu_start;
 var docReady = false;
+var geocode_end;
 
 //Jalankan Ambil data ketika web sudah ready
 $(document).ready(function () {
@@ -41,7 +42,7 @@ $(document).ready(function () {
     requestKota('.kota');
 });
 
-function requestKota(selectorStr){
+function requestKota(selectorStr) {
     $.ajax("api/kota")
         .done(function (data) {
             console.log("success");
@@ -115,6 +116,31 @@ function initMap() {
             });
         });
     }
+
+    var geocoder = new google.maps.Geocoder();
+
+    document.getElementById('end').addEventListener('click', function () {
+        geocodeAddress(geocoder, map);
+    });
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+    var address = document.getElementById('address').value;
+    geocoder.geocode({
+        'address': address
+    }, function (results, status) {
+        if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location
+            });
+            // console.log(results[0].geometry.location);
+            geocode_end=results[0].geometry.location;
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
 }
 
 // Get all durations depending on travel type
@@ -168,7 +194,8 @@ $(document).ready(function () {
             console.log(a);
         }
 
-        b = document.getElementById('end').value;
+        // b = document.getElementById('end').value;
+        b = geocode_end;
 
         if (selectedMode == "TRANSIT") {
             // getTransit(a, b);
@@ -325,12 +352,12 @@ $(document).ready(function () {
 
             //rute Start to End
             if (i == 0 && rute.length == 0) {
-                console.log("RUTE DARI ", nodes[0], "KE ", document.getElementById('end').value)
+                console.log("RUTE DARI ", nodes[0], "KE ", geocode_end)
                 transitPanel.innerHTML += '<button id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
-                    getTransit(a, document.getElementById('end').value);
-                    // getTransit(document.getElementById('start').value, document.getElementById('end').value);
+                    getTransit(a, geocode_end);
+                    // getTransit(document.getElementById('start').value, geocode_end);
                 });
                 console.log("nodes[0]", nodes[0]);
             }
@@ -353,11 +380,11 @@ $(document).ready(function () {
 
             //rute waypoints[terakhir] ke End
             else if (i == rute.length) {
-                console.log("RUTE DARI ", rute[i - 1], "KE ", document.getElementById('end').value)
+                console.log("RUTE DARI ", rute[i - 1], "KE ", geocode_end)
                 transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
-                    getTransit(rute[i - 1].location, document.getElementById('end').value);
+                    getTransit(rute[i - 1].location, geocode_end);
                 });
             }
 
@@ -407,7 +434,7 @@ function getTransit(asal, tujuan) {
             }
             var jumlahTujuan = route.legs.length;
             // console.log("JUMLAH TUJUAN: " + route.legs.length);
-            // console.log("ROUTE: " + route);
+            console.log("ROUTE: " , route);
         } else {
             window.alert(status + '\n Oops! Data Kendaraan umum belum tersedia');
         }
@@ -458,7 +485,7 @@ function getDriving(asal, tujuan) {
 
             var jumlahTujuan = route.legs.length;
             // console.log("JUMLAH TUJUAN: " + route.legs.length);
-            // console.log("ROUTE: " + route);
+            console.log("ROUTE: ", route);
 
             // simpan waktu perjalanan
             save_history();
@@ -515,7 +542,7 @@ function save_waktu_tempuh(id_history) {
     history_waypoints.push(history_start);
 
     for (var i = 0; i < rute.length; i++) {
-        history_waypoints.push("("+ rute[i].location.lat() + ", " + rute[i].location.lng() + ")");
+        history_waypoints.push("(" + rute[i].location.lat() + ", " + rute[i].location.lng() + ")");
     }
     var history_end = $('#end').val();
 

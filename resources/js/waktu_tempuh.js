@@ -1,12 +1,17 @@
 var docReady = false;
 
 //Jalankan Ambil data ketika web sudah ready
-$(document).ready(function () {
-    docReady = true;
+// $(document).ready(function () {
+//     docReady = true;
 
+//     requestWaktu('.rundown_waktu');
+//     requestNamaWisata('.rundown_nama_wisata');
+// });
+
+function rundown(){
     requestWaktu('.rundown_waktu');
     requestNamaWisata('.rundown_nama_wisata');
-});
+}
 
 function requestWaktu(selectorStr){
     $.ajax("api/waktu_wisata")

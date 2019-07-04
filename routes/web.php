@@ -166,12 +166,13 @@ Route::get('coba_template5', 'CobaController@coba5');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/tampil_wisata', 'HomeController@tampil_wisata')->name('tampil_wisata');
 
 //====================================================
 // ///LOGIN USER
 
 // Route::get('/home_user', 'User@index');
-// Route::get('/login', 'User@login');
+//Route::get('/login', 'User@login');
 // Route::post('/loginPost', 'User@loginPost');
 // Route::get('/register', 'User@register');
 // Route::post('/registerPost', 'User@registerPost');
@@ -179,3 +180,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+
+//====================================================
+///TAMPIL WISATA
+
+// Route::get('/tampil_wisata', function () {
+//     return view('tampil_wisata');
+// });

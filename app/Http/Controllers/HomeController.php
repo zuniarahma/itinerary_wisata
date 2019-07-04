@@ -25,4 +25,7 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function tampil_wisata(){
+        return view('tampil_wisata');
+    }
 }
