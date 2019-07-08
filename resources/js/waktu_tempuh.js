@@ -8,13 +8,14 @@ var docReady = false;
 //     requestNamaWisata('.rundown_nama_wisata');
 // });
 
-function rundown(){
-    requestWaktu('.rundown_waktu');
-    requestNamaWisata('.rundown_nama_wisata');
+function rundown(id){
+    console.log(id);
+    requestWaktu('.rundown_waktu', id);
+    requestNamaWisata('.rundown_nama_wisata', id);
 }
 
-function requestWaktu(selectorStr){
-    $.ajax("api/waktu_wisata")
+function requestWaktu(selectorStr, id){
+    $.ajax("api/waktu_wisata?id=" + id)
         .done(function (data) {
             console.log("success rundown");
             console.log(data);
@@ -36,8 +37,8 @@ function requestWaktu(selectorStr){
         });
 }
 
-function requestNamaWisata(selectorStr){
-    $.ajax("api/waktu_wisata")
+function requestNamaWisata(selectorStr, id){
+    $.ajax("api/waktu_wisata?id=" + id)
         .done(function (data) {
             console.log("success rundown");
             console.log(data);

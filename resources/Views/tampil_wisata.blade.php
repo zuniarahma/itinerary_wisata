@@ -171,7 +171,7 @@
 
                     <select>
                         <h5>Kota</h5>
-                        <option value="volvo">Volvo</option>
+                        <option value="Bangkalan">Bangkalan</option>
                         <option value="saab">Saab</option>
                         <option value="mercedes">Mercedes</option>
                         <option value="audi">Audi</option>
@@ -181,7 +181,7 @@
                 <div class="col-xs-4">
                     <select>
                         <h5>Jenis Wisata</h5>
-                        <option value="volvo">Volvo</option>
+                        <option value="Etnic">Etnic</option>
                         <option value="saab">Saab</option>
                         <option value="mercedes">Mercedes</option>
                         <option value="audi">Audi</option>

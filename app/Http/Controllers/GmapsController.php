@@ -18,6 +18,11 @@ class GmapsController extends Controller{
     	$wisata = DB::table('wisata')->get();
     	return view('transit',compact('wisata'));
     }
+    public function gmapscopy()
+    {
+    	$wisata = DB::table('wisata')->get();
+    	return view('gmapscopy',compact('wisata'));
+    }
 }
 
 ?>

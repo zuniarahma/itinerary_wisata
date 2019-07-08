@@ -14,6 +14,8 @@ var total_perjalanan;
 var waktu_start;
 var docReady = false;
 var geocode_end;
+var geocode_start;
+var id_user;
 
 //Jalankan Ambil data ketika web sudah ready
 $(document).ready(function () {
@@ -22,7 +24,7 @@ $(document).ready(function () {
         .done(function (data) {
             console.log("success");
             console.log(data);
-            var selector = $('#itemName');
+            var selector = $('.itemName');
             selector.find('option').remove();
             $.each(data, function (key, value) {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
@@ -49,6 +51,7 @@ function requestKota(selectorStr) {
             console.log(data);
             var selector = $(selectorStr);
             selector.find('option').remove();
+            selector.append("<option value=0>Pilih Kota</option>");
             $.each(data, function (key, value) {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
                 selector.append("<option value='" + value.nama_kota + "'>" + value.nama_kota + "</option>");
@@ -120,14 +123,20 @@ function initMap() {
     var geocoder = new google.maps.Geocoder();
 
     document.getElementById('end').addEventListener('click', function () {
-        geocodeAddress(geocoder, map);
+        geocodeEndAddress(geocoder, map);
+    });
+
+    document.getElementById('start_geocode').addEventListener('click', function () {
+        geocodeStartAddress(geocoder, map);
     });
 }
 
-function geocodeAddress(geocoder, resultsMap) {
-    var address = document.getElementById('address').value;
+function geocodeStartAddress(geocoder, resultsMap) {
+
+    // Geocode for START Address
+    var start_address = document.getElementById('start_address').value;
     geocoder.geocode({
-        'address': address
+        'address': start_address
     }, function (results, status) {
         if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
@@ -136,7 +145,30 @@ function geocodeAddress(geocoder, resultsMap) {
                 position: results[0].geometry.location
             });
             // console.log(results[0].geometry.location);
-            geocode_end=results[0].geometry.location;
+
+            geocode_start = results[0].geometry.location;
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
+
+function geocodeEndAddress(geocoder, resultsMap) {
+
+    // Geocode for END Address
+    var end_address = document.getElementById('end_address').value;
+    geocoder.geocode({
+        'address': end_address
+    }, function (results, status) {
+        if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location
+            });
+            // console.log(results[0].geometry.location);
+            geocode_end = results[0].geometry.location;
+
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
@@ -179,14 +211,28 @@ function getDurations(callback) {
 
 // Create listeners
 $(document).ready(function () {
-    document.getElementById('submit').addEventListener('click', function () {
 
+
+    document.getElementById('mode').addEventListener('change', function () {
+        selectedMode = document.getElementById('mode').value;
+        // console.log("SELECTED MODE: " + selectedMode);
+        // calculateAndDisplayRoute(directionsService, directionsDisplay);
+    });
+
+    submitForm = function (id) {
+        id_user = id;
+
+        //pilihan Start
         if (nodes.length != 0) {
             a = nodes[0];
             console.log("gunakan my location");
             console.log(a);
+        } else if ($('.kota :selected').val() == 0) {
+            a = geocode_start;
+            nodes.push(a);
+            console.log("gunakan geocode start");
+            console.log(a);
         } else {
-
             console.log("gunakan kota");
             // a = new google.maps.LatLng(-7.8711591, 112.5246605)
             a = $('.kota :selected').val();
@@ -197,6 +243,7 @@ $(document).ready(function () {
         // b = document.getElementById('end').value;
         b = geocode_end;
 
+        // Pilih Mode Transpoortasi
         if (selectedMode == "TRANSIT") {
             // getTransit(a, b);
             calculateAndDisplayRoute(directionsService, directionsDisplay);
@@ -206,29 +253,11 @@ $(document).ready(function () {
             console.log("DRIVING");
             calculateAndDisplayRoute(directionsService, directionsDisplay);
         }
-
-    });
-
-    document.getElementById('mode').addEventListener('change', function () {
-        selectedMode = document.getElementById('mode').value;
-        // console.log("SELECTED MODE: " + selectedMode);
-        // calculateAndDisplayRoute(directionsService, directionsDisplay);
-    });
+    }
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         var waypts = [];
-        // var checkboxArray = document.getElementById('waypoints');
-
-        // Select Waypoints
-        // for (var i = 0; i < checkboxArray.length; i++) {
-        //     if (checkboxArray.options[i].selected) {
-        //         waypts.push({
-        //             location: checkboxArray[i].value,
-        //             stopover: true
-        //         });
-        //         nodes.push(checkboxArray[i].value);
-        //     }
-        // }
+        
         $('.select_wisata').each(function () {
             var latlng = $(this).val().split(",");
             console.log("LATLNG");
@@ -283,7 +312,6 @@ $(document).ready(function () {
                         ruteNN[i + 1] = indexMin;
                     }
                 }
-
                 return ruteNN;
             }
 
@@ -333,8 +361,6 @@ $(document).ready(function () {
             } else {
                 getDriving(a, b)
             }
-
-
         });
     }
 
@@ -416,6 +442,7 @@ function getTransit(asal, tujuan) {
     }, function (response, status) {
         if (status === 'OK') {
             directionsDisplay.setDirections(response);
+            var total_duration = 0;
             var route = response.routes[0];
             var summaryPanel = document.getElementById('directions-panel');
             summaryPanel.innerHTML = '';
@@ -431,14 +458,47 @@ function getTransit(asal, tujuan) {
                 summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
                 var duration = route.legs[i].duration.text + '<br><br>';
                 console.log("DURATION " + duration);
+
+                console.log(Math.round(route.legs[i].duration.value / 60));
+
+                var duration_minutes = Math.round(route.legs[i].duration.value / 60);
+                total_duration = total_duration + duration_minutes; //menjumlah durasi
+                console.log(total_duration)
+
+                perjalanan_waktu.push(duration_minutes);
             }
+
+            console.log("duration_minutes", perjalanan_waktu);
+            getCountDuration(total_duration);
+
             var jumlahTujuan = route.legs.length;
             // console.log("JUMLAH TUJUAN: " + route.legs.length);
-            console.log("ROUTE: " , route);
+            console.log("ROUTE: ", route);
+            // tampilkan rute satu satu
+            displayRoute(route);
+
+            // simpan waktu perjalanan
+            save_history();
+
+            // var modal_wisata = document.getElementById('transits-panel');
         } else {
             window.alert(status + '\n Oops! Data Kendaraan umum belum tersedia');
         }
     });
+}
+
+function displayRoute(route) {
+    console.log("STEP PER STEP");
+    var selector = $('.rute');
+    $(selector).append('<ul>');
+
+    route.legs.forEach(legs => {
+        legs.steps.forEach(step => {
+            console.log(step.instructions);
+            $(selector).append('<li>' + step.instructions + '</li>');
+        });
+    });
+    $(selector).append('</ul>');
 }
 
 // Fungsi Get Driving    
@@ -486,6 +546,7 @@ function getDriving(asal, tujuan) {
             var jumlahTujuan = route.legs.length;
             // console.log("JUMLAH TUJUAN: " + route.legs.length);
             console.log("ROUTE: ", route);
+            displayRoute(route);
 
             // simpan waktu perjalanan
             save_history();
@@ -582,7 +643,6 @@ function save_waktu_tempuh(id_history) {
 
 function save_history() {
     var total_perjalanan_waktu = total_perjalanan;
-    var id_user = 1;
     var time_start = waktu_start;
 
     var data = {
@@ -605,33 +665,4 @@ function save_history() {
     });
 }
 
-// //lat lng 
-// function ambil_latlng(data){
 
-//     lat_lng = [];
-//     $.ajax({
-//         type: "GET",
-//         url: "api/history",
-//         data: data,
-//         success: function (data) {
-//             save_waktu_tempuh(data);
-//             console.log("sukses history");
-//         }
-//     });
-// }
-
-
-// $('.waktu_wisata').each(function () {
-
-//     var time = $(this).val();
-//     var time_split = time.split(':');
-
-//     var time_minutes = Number(time_split[0] * 60) + Number(time_split[1]); // jadikan menit
-//     total_wisata = total_wisata + time_minutes; //menjumlah waktu waypoints
-//     console.log($(this).val());
-//     // console.log(time_split);
-//     // console.log(time_minutes);
-//     console.log(total_wisata);
-
-//     waypoints_waktu.push(time_minutes);
-// });

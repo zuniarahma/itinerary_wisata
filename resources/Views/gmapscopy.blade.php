@@ -1,16 +1,17 @@
+@extends('layouts.app')
 <!DOCTYPE html>
 
 <html>
 
 <head>
 
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    {{-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no"> --}}
+    {{-- <meta charset="utf-8"> --}}
+    {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {{-- <meta name="viewport" content="width=device-width, initial-scale=1"> --}}
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> --}}
+    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
 
     <title>Waypoints in Directions</title>
     <style>
@@ -122,8 +123,8 @@
 </head>
 
 <body>
-
-    <div id="floating-panel">
+    <hr>
+    <div id="floating-panel" style="margin-top: 42px">
         <b>Mode of Travel: </b>
         <select id="mode">
             <option value="DRIVING">Kendaraan Pribadi</option>
@@ -132,8 +133,10 @@
     </div>
 
     <button id="button">My Location</button>
-
+    
     <div id="map"></div>
+
+    {{-- <div id="rute"></div> --}}
     <div id="right-panel">
         <div>
             <b>Start:</b>
@@ -155,10 +158,11 @@
             <input class="form-control" id="address" type="textbox" placeholder="Masukkan Alamat">
             <button id="end" class="button" type="button" value="Alamat">Cari</button>
             <p>
-            {{-- <select class="alamat form-control" id="end" value="Geocode"></select> --}}
-            
-            <br>
-            <input class="btn btn-info btn-lg" type="submit" id="submit">
+                {{-- <select class="alamat form-control" id="end" value="Geocode"></select> --}}
+
+                <br>
+                <button class="btn btn-info btn-lg" id="submit"
+                    onclick="submitForm({{ Auth::user()->id }})">Submit</button>
         </div>
 
         <div>
@@ -166,7 +170,8 @@
             <b>Lihat Rundown Wisata</b>
             <br>
             <!-- Trigger the modal with a button -->
-            <button type="button" onclick="rundown()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myLargeModalLabel">Rundown</button>
+            <button type="button" onclick="rundown({{ Auth::user()->id }})" class="btn btn-info btn-lg"
+                data-toggle="modal" data-target="#myLargeModalLabel">Rundown</button>
 
             <!-- Modal -->
             <div class="modal fade" id="myLargeModalLabel" role="dialog">
@@ -194,7 +199,7 @@
                             </div> --}}
                             <div class="modal-body">
                                 {{-- <p>Some text in the modal.</p> --}}
-                               
+
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -210,6 +215,11 @@
         <h3>Detail Informasi</h3>
         <div id="directions-panel"></div>
     </div>
+
+    <div class="container">
+        <div id="rute"></div>
+    </div>
+
     <script type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script async defer
