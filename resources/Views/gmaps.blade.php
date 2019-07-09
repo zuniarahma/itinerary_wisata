@@ -8,7 +8,7 @@
     {{-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no"> --}}
     {{-- <meta charset="utf-8"> --}}
     {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> --}}
-    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" /> --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     {{-- <meta name="viewport" content="width=device-width, initial-scale=1"> --}}
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> --}}
     {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
@@ -43,9 +43,7 @@
 
         #map {
             height: 100%;
-            float: left;
-            width: 70%;
-            height: 100%;
+            width: 100%;
         }
 
         #right-panel {
@@ -76,8 +74,7 @@
 
         #floating-panel {
             position: absolute;
-            top: 10px;
-            left: 25%;
+            margin-top: 70px;
             z-index: 5;
             background-color: #fff;
             padding: 5px;
@@ -123,94 +120,127 @@
 </head>
 
 <body>
-    <hr>
-    <div id="floating-panel" style="margin-top: 42px">
-        <b>Mode of Travel: </b>
-        <select id="mode">
-            <option value="DRIVING">Kendaraan Pribadi</option>
-            <option value="TRANSIT">Kendaraan Umum</option>
-        </select>
-    </div>
-
-    <button id="button">My Location</button>
-
-    <div id="map"></div>
-    <div id="right-panel">
-        <div>
-            <b>Start:</b>
-            <select class="kota form-control" id="start"></select>
-            <input class="waktu_start form-control" type="datetime-local" name="waktu_start" />
-            <br>
-
-            {{-- <b>Waypoints:</b> <br>
-            <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
-            <select multiple id="waypoints"></select> --}}
-
-            <b>Tempat Wisata:</b>
-            <select class="itemName form-control" name="itemName"></select>
-            <button id="tambah_wisata" class="button">Add</button>
-            <div class="input_fields_wrap"></div>
-            <br>
-
-            <b>End:</b>
-            <input class="form-control" id="address" type="textbox" placeholder="Masukkan Alamat">
-            <button id="end" class="button" type="button" value="Alamat">Cari</button>
-            <p>
-            {{-- <select class="alamat form-control" id="end" value="Geocode"></select> --}}
-            
-            <br>
-            <input class="btn btn-info btn-lg" type="submit" id="submit">
+    <div id="floating-panel">
+        <div class="form-inline">
+            <label><b>Mode of Travel: </b></label>
+            <select id="mode" class="form-control">
+                <option value="DRIVING">Kendaraan Pribadi</option>
+                <option value="TRANSIT">Kendaraan Umum</option>
+            </select>
         </div>
+        {{-- ./floating-panel --}}
+    </div>
+    <button id="button" style="margin-top:70px;margin-right: 10px">My Location</button>
+    <div id="map"></div>
 
-        <div>
-            <br>
-            <b>Lihat Rundown Wisata</b>
-            <br>
-            <!-- Trigger the modal with a button -->
-            <button type="button" onclick="rundown()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myLargeModalLabel">Rundown</button>
+    <section class="container" style="margin-top: 30px ">
 
-            <!-- Modal -->
-            <div class="modal fade" id="myLargeModalLabel" role="dialog">
-                <div class="modal-dialog">
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Rundown Wisata</h4>
-                        </div>
-                        <div class="container-fluid">
-                            {{-- <div class="row">
-                                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
-                            </div> --}}
-                            <div class="row">
-                                <div class="col-md-4"><b>Waktu Wisata</b></div>
-                                <div class="col-md-4"><b>Tempat </div><br>
-                                <div class="rundown_waktu col-md-4"></div>
-                                <div class="rundown_nama_wisata col-md-4"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Start</label>
+                    <select class="kota form-control" id="start"></select>
+                    <input class="form-control" id="start_address" type="textbox" placeholder="Masukkan Alamat">
+                    <button id="start_geocode" class="button" type="button" value="Alamat">Cari</button>
+                    
+                </div>
+                <div class="form-group">
+                    <input class="waktu_start form-control" type="datetime-local" name="waktu_start" />
+                </div>
+                <div class="form-group">
+                    <label>Tempat Wisata</label>
+                    <select class="itemName" name="itemName" style="width: 100%"></select>
+                </div>
+
+                <div class="form-group">
+                    <button id="tambah_wisata" class="btn btn-primary">Add</button>
+                </div>
+
+                <div class="form-group">
+                    <div class="input_fields_wrap"></div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="">End:</label>
+                    <input class="form-control" id="end_address" type="textbox" placeholder="Masukkan Alamat">
+                    <button id="end" class="button" type="button" value="Alamat">Cari</button>
+                </div>
+
+                <div class="form-group">
+                    {{-- <select class="alamat form-control" id="end" value="Geocode"></select> --}}
+                </div>
+
+                {{-- <b>Waypoints:</b> <br>
+                        <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
+                        <select multiple id="waypoints"></select> --}}
+                <button class="btn btn-info" id="submit" onclick="submitForm({{ Auth::user()->id }})">Submit</button>
+                {{-- ./col-md-6 --}}
+            </div>
+            <hr>
+
+            <div class="col-md-6">
+                <b>Lihat Rundown Wisata</b>
+                <br>
+                <!-- Trigger the modal with a button -->
+                <button type="button" onclick="rundown({{ Auth::user()->id }})" class="btn btn-info btn-lg"
+                    data-toggle="modal" data-target="#myLargeModalLabel">Rundown</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myLargeModalLabel" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Rundown Wisata</h4>
                             </div>
-                            {{-- <div class="row">
-                                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
-                                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
-                            </div> --}}
-                            <div class="modal-body">
-                                {{-- <p>Some text in the modal.</p> --}}
-                               
+                            <div class="container-fluid">
+                                {{-- <div class="row">
+                                        <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
+                                    </div> --}}
+                                <div class="row">
+                                    <div class="col-md-4"><b>Waktu Wisata</b></div>
+                                    <div class="col-md-4"><b>Tempat </div><br>
+                                    <div class="rundown_waktu col-md-4"></div>
+                                    <div class="rundown_nama_wisata col-md-4"></div>
+                                </div>
+                                {{-- <div class="row">
+                                        <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
+                                        <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
+                                    </div> --}}
+                                <div class="modal-body">
+                                    {{-- <p>Some text in the modal.</p> --}}
+
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <h3>Transit</h3>
+                <div id="transits-panel"></div>
+                <h3>Detail Informasi</h3>
+                <div class="rute" id="directions-panel"></div>
+                {{-- ./col-md-6 --}}
             </div>
+            {{-- ./row --}}
         </div>
+        {{-- <div class="row">
+            <div class="col-md-12">
+                <div id="rute"></div>
+                {{-- ./col-md-12 --}}
+            </div>
+            {{-- ./row 
+        </div> --}}
+    </section>
 
-        <h3>Transit</h3>
-        <div id="transits-panel"></div>
-        <h3>Detail Informasi</h3>
-        <div id="directions-panel"></div>
-    </div>
+
+
     <script type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script async defer
@@ -237,6 +267,7 @@
                                     id: item.latitude + "," + item.longitude
                                 }
                             })
+                            
                         };
                     },
                     cache: true
@@ -257,7 +288,7 @@
                     var nama_wisata = $('.itemName :selected').text();
                     var latlng = $('.itemName :selected').val();
                     $(wrapper).append(
-                        '<div><input class="select_wisata form-control" type="text" name="daftar_wisata[]" value="' +
+                        '<div><input class="select_wisata form-control" type="hidden" name="daftar_wisata[]" value="' +
                         latlng +
                         '"><input class="nama_wisata form-control" type="text" value="' +
                         nama_wisata +

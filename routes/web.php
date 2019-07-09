@@ -108,6 +108,11 @@ Route::post('editfoto/{id}','FotoController@editfoto');
 Route::get('delete-records','FotoController@index');
 Route::get('deletefoto/{id}','FotoController@destroy'); 
 
+//
+
+Route::get('image_create', 'ImageUploadController@imageUpload')->name('image.upload');
+Route::post('image_create', 'ImageUploadController@imageUploadPost')->name('image.upload.post');
+
 //====================================================
 ///USER
 
@@ -133,6 +138,7 @@ Route::get('deleteuser/{id}','UserController@destroy');
 
 Route::get('gmaps', 'GmapsController@gmaps');
 Route::get('transit', 'GmapsController@transit');
+Route::get('gmapscopy', 'GmapsController@gmapscopy');
 
 //====================================================
 ///REST API

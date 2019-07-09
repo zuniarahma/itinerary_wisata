@@ -8,6 +8,7 @@
 <div class="panel">
     <div id="map" style="height:600px; margin-top: 50px"></div>
     <a href="{{ url('gmaps') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    {{-- <p>{{ Auth::user()->id }}</p> --}}
 </div>
 @endsection
 @section('script-foot')
