@@ -197,16 +197,32 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Rundown Wisata</h4>
                             </div>
-                            <div class="container-fluid">
+                            <div class="container">
                                 {{-- <div class="row">
                                         <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
                                     </div> --}}
-                                <div class="row">
-                                    <div class="col-md-4"><b>Waktu Wisata</b></div>
-                                    <div class="col-md-4"><b>Tempat </div><br>
-                                    <div class="rundown_waktu col-md-4"></div>
-                                    <div class="rundown_nama_wisata col-md-4"></div>
+                                <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>    
+                                        <tr>
+                                            <th>Waktu Wisata</th>
+                                            <th>Tempat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                            <div class="rundown_waktu"></div>
+                                            </td>
+                                            <td> 
+                                            <div class="rundown_nama_wisata"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 </div>
+
+
                                 {{-- <div class="row">
                                         <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
                                         <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
