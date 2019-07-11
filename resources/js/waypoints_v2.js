@@ -212,6 +212,8 @@ function getDurations(callback) {
 // Create listeners
 $(document).ready(function () {
 
+    $("#transit").toggle();
+    
 
     document.getElementById('mode').addEventListener('change', function () {
         selectedMode = document.getElementById('mode').value;
@@ -246,8 +248,15 @@ $(document).ready(function () {
         // Pilih Mode Transpoortasi
         if (selectedMode == "TRANSIT") {
             // getTransit(a, b);
+            $("#transit").toggle();
+            // $("#submit").click(function(){
+            //     $("#transit").toggle();
+            //     console.log("halo");
+            // });
+            
             calculateAndDisplayRoute(directionsService, directionsDisplay);
             console.log("TRANSIT");
+            
         } else {
             //getDriving(a, b);
             console.log("DRIVING");
@@ -364,10 +373,10 @@ $(document).ready(function () {
         });
     }
 
-    // Transit Panel
-    var transitPanel = document.getElementById('transits-panel');
-    transitPanel.innerHTML = '';
-    // console.log("RUTE: " + rute)
+ // Transit Panel
+            var transitPanel = document.getElementById('transits-panel');
+            transitPanel.innerHTML = '';
+            // console.log("RUTE: " + rute)
 
     function TransitCondition() {
 

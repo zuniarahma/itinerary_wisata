@@ -58,7 +58,7 @@
 
         #directions-panel {
             margin-top: 10px;
-            background-color: #FFEE77;
+            background-color: #fff;
             padding: 10px;
             overflow: scroll;
             height: 174px;
@@ -66,7 +66,7 @@
 
         #transits-panel {
             margin-top: 10px;
-            background-color: #FFEE77;
+            background-color: #fff;
             padding: 10px;
             overflow: scroll;
             height: 174px;
@@ -184,7 +184,7 @@
                 <b>Lihat Rundown Wisata</b>
                 <br>
                 <!-- Trigger the modal with a button -->
-                <button type="button" onclick="rundown({{ Auth::user()->id }})" class="btn btn-info btn-lg"
+                <button type="button" onclick="rundown({{ Auth::user()->id }})" class="btn btn-info"
                     data-toggle="modal" data-target="#myLargeModalLabel">Rundown</button>
 
                 <!-- Modal -->
@@ -222,7 +222,6 @@
                                 </table>
                                 </div>
 
-
                                 {{-- <div class="row">
                                         <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
                                         <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
@@ -238,11 +237,18 @@
                         </div>
                     </div>
                 </div>
-                <h3>Transit</h3>
-                <div id="transits-panel"></div>
-                <h3>Detail Informasi</h3>
-                <div class="rute" id="directions-panel"></div>
-                {{-- ./col-md-6 --}}
+
+                <p>
+                <div class="panel panel-info" id="transit">
+                    <div class="panel-heading">Transit</div>
+                    <div class="panel-body" id="transits-panel"></div>
+                </div>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">Detail Informasi</div>
+                    <div class="rute panel-body" id="directions-panel"></div>
+                </div>
+
             </div>
             {{-- ./row --}}
         </div>

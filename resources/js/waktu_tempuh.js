@@ -1,4 +1,6 @@
 var docReady = false;
+var lastTime = null;
+var finishLast = null;
 
 //Jalankan Ambil data ketika web sudah ready
 // $(document).ready(function () {
@@ -8,27 +10,49 @@ var docReady = false;
 //     requestNamaWisata('.rundown_nama_wisata');
 // });
 
-function rundown(id){
-    console.log(id);
+function rundown(id) {
+    lastTime=null;
     requestWaktu('.rundown_waktu', id);
     requestNamaWisata('.rundown_nama_wisata', id);
 }
 
-function toStringtime(waktu){
-    var result = "";
-    if (waktu % 60 < 0 && waktu != null){
+function toStringtime(waktu) {
+    var result;
+    if (waktu < 60 && waktu != null) {
         result = waktu + " menit";
-    } else if (waktu % 60 > 0 && waktu != null ) {
+    } else if (waktu > 60 && waktu != null) {
         var hour = waktu % 60;
         var minutes = waktu - (hour * 60);
         result = hour + " jam " + minutes + " menit";
-    } else {
-        result
     }
+
     return result;
 }
 
-function requestWaktu(selectorStr, id){
+
+
+function toTimeFormat(timestamp, stayTime, duration) {
+    if (timestamp != null) {
+        if(lastTime != null){
+            let date = lastTime;
+            result =  date.getHours() +":" +date.getMinutes();
+            date.setMinutes(date.getMinutes() + stayTime + duration);
+            lastTime = date;
+
+            return result;
+        }else{
+            let date = new Date(timestamp);
+            result = date.getHours() +":" +date.getMinutes();
+            date.setMinutes(date.getMinutes() + stayTime + duration);
+            lastTime = date;
+
+            return result;
+        }
+    }
+}
+
+
+function requestWaktu(selectorStr, id) {
     $.ajax("api/waktu_wisata?id=" + id)
         .done(function (data) {
             console.log("success rundown");
@@ -37,9 +61,9 @@ function requestWaktu(selectorStr, id){
             selector.find('option').remove();
             $.each(data, function (key, value) {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
-                
-                selector.append("<option value='" + value.id_waktu_wisata + "'>" + toStringtime(value.durasi) + "<br>" + toStringtime(value.stay_wisata) + "</option>");
-                
+
+                selector.append("<option value='" + value.id_waktu_wisata + "'>" + toTimeFormat(value.time_start, value.stay_wisata, value.total_perjalanan) + " - "+lastTime.getHours()+":"+lastTime.getMinutes()+"</option>");
+
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);
             });
@@ -52,7 +76,7 @@ function requestWaktu(selectorStr, id){
         });
 }
 
-function requestNamaWisata(selectorStr, id){
+function requestNamaWisata(selectorStr, id) {
     $.ajax("api/waktu_wisata?id=" + id)
         .done(function (data) {
             console.log("success rundown");
@@ -62,7 +86,7 @@ function requestNamaWisata(selectorStr, id){
             $.each(data, function (key, value) {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
                 selector.append("<option value='" + value.id_waktu_wisata + "'>" + value.start_wisata + "-" + value.end_wisata + "</option>");
-                
+
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);
             });
@@ -72,5 +96,6 @@ function requestNamaWisata(selectorStr, id){
         })
         .always(function () {
             console.log("complete");
-}
+
         });
+}
