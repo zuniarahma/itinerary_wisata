@@ -12,6 +12,7 @@ var finishLast = null;
 
 function rundown(id) {
     lastTime=null;
+    console.log(id);
     requestWaktu('.rundown_waktu', id);
     requestNamaWisata('.rundown_nama_wisata', id);
 }

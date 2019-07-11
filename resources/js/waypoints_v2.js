@@ -213,7 +213,6 @@ function getDurations(callback) {
 $(document).ready(function () {
 
     $("#transit").toggle();
-    
 
     document.getElementById('mode').addEventListener('change', function () {
         selectedMode = document.getElementById('mode').value;
