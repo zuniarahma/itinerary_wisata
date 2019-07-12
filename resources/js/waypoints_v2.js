@@ -213,6 +213,7 @@ function getDurations(callback) {
 $(document).ready(function () {
 
     $("#transit").toggle();
+    $("#detail_info").toggle();
 
     document.getElementById('mode').addEventListener('change', function () {
         selectedMode = document.getElementById('mode').value;
@@ -248,17 +249,18 @@ $(document).ready(function () {
         if (selectedMode == "TRANSIT") {
             // getTransit(a, b);
             $("#transit").toggle();
-            // $("#submit").click(function(){
-            //     $("#transit").toggle();
-            //     console.log("halo");
-            // });
+            $("#detail_info").toggle();
             
             calculateAndDisplayRoute(directionsService, directionsDisplay);
             console.log("TRANSIT");
             
+            
         } else {
             //getDriving(a, b);
             console.log("DRIVING");
+
+            $("#detail_info").toggle();
+
             calculateAndDisplayRoute(directionsService, directionsDisplay);
         }
     }
@@ -442,8 +444,7 @@ function getTransit(asal, tujuan) {
         origin: asal,
         destination: tujuan,
         transitOptions: {
-            modes: ['BUS'],
-            routingPreference: 'FEWER_TRANSFERS'
+            routingPreference: 'LESS_WALKING'
         },
         travelMode: google.maps.TravelMode["TRANSIT"]
 
@@ -598,9 +599,9 @@ function getCountDuration(total_duration) {
     console.log("total waktu perjalanan", total_perjalanan, "menit");
 
     //total waktu keseluruhan
-    waktu_start.setMinutes(waktu_start.getMinutes() + total_perjalanan);
-    new Date(waktu_start);
-    console.log("jam sampai", waktu_start);
+    // waktu_start.setMinutes(waktu_start.getMinutes() + total_perjalanan);
+    // new Date(waktu_start);
+    // console.log("jam sampai", waktu_start);
 
 }
 

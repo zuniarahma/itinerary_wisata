@@ -101,4 +101,25 @@ class WaktuTempuhController extends Controller {
 
         return response()->json($waktu_wisata,200);
     }
+
+    public function tampil_history(Request $request){
+        // $waktu_wisata = DB::select('select * from waktu_tempuh');
+        // return response()->json($waktu_wisata,200);
+
+        $id = (int) $request->query('id');
+
+        // dd((int)$id);
+
+        // dd($id_user);
+
+        // $id=1; //buat panggil auth user
+        $max_history = DB::table('history')->where('id_user',$id)->max('id_history');
+        // dd($max_history);
+        // $waktu_wisata = DB::select('select * from waktu_tempuh JOIN history ON history.id_history = waktu_tempuh.id_history');
+        
+        $waktu_wisata = DB::select('select * from waktu_tempuh JOIN history ON history.id_history = waktu_tempuh.id_history where history.id_history = ?',[$max_history]);
+        // dd($waktu_wisata);
+
+        return response()->json($waktu_wisata,200);
+    }
 }

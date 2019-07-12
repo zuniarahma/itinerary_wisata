@@ -150,6 +150,7 @@ Route::get('api/kota', 'KotaRestApiController@index');
 //Route::get('api/searchkota', 'KotaRestApiController@dataAjax');
 
 Route::get('api/jenis_wisata', 'JenisWisataRestApiController@index');
+Route::get('api/history', 'HistoryRestApiController@index');
 
 //====================================================
 ///WAKTU TEMPUH
