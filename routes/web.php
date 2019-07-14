@@ -90,7 +90,7 @@ Route::get('delete-records','KotaController@index');
 Route::get('deletekota/{id}','KotaController@destroy');
 
 //====================================================
-///FOTO
+///IMAGES
 
 // View Data
 Route::get('foto_view','FotoController@index'); 
@@ -112,6 +112,14 @@ Route::get('deletefoto/{id}','FotoController@destroy');
 
 Route::get('image_create', 'ImageUploadController@imageUpload')->name('image.upload');
 Route::post('image_create', 'ImageUploadController@imageUploadPost')->name('image.upload.post');
+
+
+//====================================================
+///FOTO
+
+Route::get('/upload', 'UploadController@upload');
+Route::post('/upload/proses', 'UploadController@proses_upload');
+Route::post('/upload/hapus', 'UploadController@proses_hapus');
 
 //====================================================
 ///USER
@@ -158,6 +166,7 @@ Route::get('api/history', 'HistoryRestApiController@index');
 Route::post('api/history', 'WaktuTempuhController@history');
 Route::post('api/waktu_tempuh', 'WaktuTempuhController@waktu_tempuh');
 Route::get('api/waktu_wisata', 'WaktuTempuhController@tampil_waktu_tempuh');
+Route::get('api/tampil_history', 'WaktuTempuhController@tampil_history');
 
 //====================================================
 ///COBA TEMPLATE

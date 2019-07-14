@@ -20,19 +20,6 @@ function rundown(id) {
     requestHistory('.rundown_history', id);
 }
 
-function toStringtime(waktu) {
-    var result;
-    if (waktu < 60 && waktu != null) {
-        result = waktu + " menit";
-    } else if (waktu > 60 && waktu != null) {
-        var hour = waktu % 60;
-        var minutes = waktu - (hour * 60);
-        result = hour + " jam " + minutes + " menit";
-    }
-
-    return result;
-}
-
 function toTimeFormat(timestamp, stayTime, duration) {
     if (timestamp != null) {
         if(lastTime != null){
@@ -66,7 +53,7 @@ function requestWaktu(selectorStr, id) {
                 console.log("ini value", value);
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
 
-                selector.append("<option value='" + value.id_waktu_wisata + "'>" + "<div>" + toTimeFormat(value.time_start, value.stay_wisata, value.durasi) + "</div>" + "<div>" + lastTime.getHours()+":"+lastTime.getMinutes() + "</div>" + "</option>");
+                selector.append("<option value='" + value.id_waktu_wisata + "'>" + "<div>" + toTimeFormat(value.time_start, value.stay_wisata, value.durasi) + "</div>" + "-" + "<div>" + lastTime.getHours()+":"+lastTime.getMinutes() + "</div>" + "</option>");
 
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);
@@ -105,14 +92,15 @@ function requestNamaWisata(selectorStr, id) {
 }
 
 function requestHistory(selectorStr, id) {
-    $.ajax("api/history?id=" + id)
+    $.ajax("api/tampil_history?id=" + id)
         .done(function (data) {
             console.log("success history");
             console.log(data);
             var selector = $(selectorStr);
+            selector.find('option').remove();
             $.each(data, function (key, value) {
                 
-                selector.append("<p>" + value.id_history + value.time_start + "</p>");
+                selector.append("<option>" + value.time_start + "</option>");
 
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);

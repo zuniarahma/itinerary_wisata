@@ -30,15 +30,33 @@ class WaktuTempuhController extends Controller {
         $history_all_start = $request->input('history_all_start');
         $history_all_end = $request->input('history_all_end');
         
-        $history_all_start = str_replace('(', '', $history_all_start);
-        $history_all_start = str_replace(')', '', $history_all_start);
+        //strpos mencari lat-lng yang tdk ada "(" / bukan lat-lng 
+        if(strpos($history_all_start, '(') !== false){
+            // mereplace lat-lng yang ada "(" ")"
+            $history_all_start = str_replace('(', '', $history_all_start);
+            $history_all_start = str_replace(')', '', $history_all_start);
 
-        $history_all_end = str_replace('(', '', $history_all_end);
-        $history_all_end = str_replace(')', '', $history_all_end);
-
-        // split ke array
-        $start_split = explode(",", $history_all_start);
-        $end_split = explode(",", $history_all_end);
+             // split ke array lat-lng by ","  
+            $start_split = explode(",", $history_all_start);
+        }
+          //untuk selain lat-lng
+        else{
+            $start_split = array($history_all_start);
+        }
+        
+        //strpos mencari lat-lng yang tdk ada "(" / bukan lat-lng 
+        if(strpos($history_all_end, '(') !== false){
+            // mereplace lat-lng yang ada "(" ")"
+            $history_all_end = str_replace('(', '', $history_all_end);
+            $history_all_end = str_replace(')', '', $history_all_end);
+            
+            // split ke array lat-lng by "," 
+            $end_split = explode(",", $history_all_end);
+        }
+        //untuk selain lat-lng
+        else{
+            $end_split = array($history_all_end);
+        }
 
         // cek jika jumlah array lebih 1
         // > 1: coordinat
@@ -117,9 +135,9 @@ class WaktuTempuhController extends Controller {
         // dd($max_history);
         // $waktu_wisata = DB::select('select * from waktu_tempuh JOIN history ON history.id_history = waktu_tempuh.id_history');
         
-        $waktu_wisata = DB::select('select * from waktu_tempuh JOIN history ON history.id_history = waktu_tempuh.id_history where history.id_history = ?',[$max_history]);
+        $history = DB::select('select * from history where id_history = ?',[$max_history]);
         // dd($waktu_wisata);
 
-        return response()->json($waktu_wisata,200);
+        return response()->json($history,200);
     }
 }

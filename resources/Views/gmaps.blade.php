@@ -131,7 +131,7 @@
         </div>
         {{-- ./floating-panel --}}
     </div>
-    <button id="button" style="margin-top:70px;margin-right: 10px">My Location</button>
+    <button id="button" style="margin-top:70px;margin-right: 10px" value="My Location">My Location</button>
     <div id="map"></div>
 
     <section class="container" style="margin-top: 30px ">
@@ -199,10 +199,9 @@
                                 <h4 class="modal-title">Rundown Wisata</h4>
                             </div>
 
-                            <div class="rundown_history"></div>
-                            <p>
                             <div class="container">
-                                
+                                <div class="rundown_history"></div>
+                                <p>
                                 <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>    

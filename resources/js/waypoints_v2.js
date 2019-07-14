@@ -16,14 +16,15 @@ var docReady = false;
 var geocode_end;
 var geocode_start;
 var id_user;
+var alamat;
 
 //Jalankan Ambil data ketika web sudah ready
 $(document).ready(function () {
     docReady = true;
     $.ajax("api/wisata")
         .done(function (data) {
-            console.log("success");
-            console.log(data);
+            // console.log("success");
+            // console.log(data);
             var selector = $('.itemName');
             selector.find('option').remove();
             $.each(data, function (key, value) {
@@ -35,10 +36,10 @@ $(document).ready(function () {
             });
         })
         .fail(function () {
-            console.log("error");
+            // console.log("error");
         })
         .always(function () {
-            console.log("complete");
+            // console.log("complete");
         });
 
     requestKota('.kota');
@@ -47,8 +48,8 @@ $(document).ready(function () {
 function requestKota(selectorStr) {
     $.ajax("api/kota")
         .done(function (data) {
-            console.log("success");
-            console.log(data);
+            // console.log("success");
+            // console.log(data);
             var selector = $(selectorStr);
             selector.find('option').remove();
             selector.append("<option value=0>Pilih Kota</option>");
@@ -61,10 +62,10 @@ function requestKota(selectorStr) {
             });
         })
         .fail(function () {
-            console.log("error");
+            // console.log("error");
         })
         .always(function () {
-            console.log("complete");
+            // console.log("complete");
         });
 }
 
@@ -93,17 +94,12 @@ function initMap() {
 
     function getMyLocation(myLocationDiv, map) {
         var myLocationBtn = document.getElementById('button');
-        // myLocationBtn.innerHTML = 'My Location';
-        // myLocationBtn.className = 'large-btn';
-        // myLocationBtn.style.margin = '5px';
-        // myLocationBtn.style.opacity = '0.95';
-        // myLocationBtn.style.borderRadius = '3px';
         myLocationDiv.appendChild(myLocationBtn);
 
 
         google.maps.event.addDomListener(myLocationBtn, 'click', function () {
 
-            console.log("myLocationBtn");
+            // console.log("myLocationBtn");
             navigator.geolocation.getCurrentPosition(function (success) {
                 map.setCenter(new google.maps.LatLng(success.coords.latitude, success.coords.longitude));
                 map.setZoom(12);
@@ -132,7 +128,7 @@ function initMap() {
 }
 
 function geocodeStartAddress(geocoder, resultsMap) {
-
+    
     // Geocode for START Address
     var start_address = document.getElementById('start_address').value;
     geocoder.geocode({
@@ -144,6 +140,12 @@ function geocodeStartAddress(geocoder, resultsMap) {
                 map: resultsMap,
                 position: results[0].geometry.location
             });
+
+            var alamat = results[0].formatted_address;
+
+            // val() = alamat;
+
+            // console.log("ini result", results);
             // console.log(results[0].geometry.location);
 
             geocode_start = results[0].geometry.location;
@@ -154,7 +156,7 @@ function geocodeStartAddress(geocoder, resultsMap) {
 }
 
 function geocodeEndAddress(geocoder, resultsMap) {
-
+    
     // Geocode for END Address
     var end_address = document.getElementById('end_address').value;
     geocoder.geocode({
@@ -166,6 +168,10 @@ function geocodeEndAddress(geocoder, resultsMap) {
                 map: resultsMap,
                 position: results[0].geometry.location
             });
+            
+            alamat = results[0].formatted_address;
+            // console.log("ini result", results[0].formatted_address);
+            
             // console.log(results[0].geometry.location);
             geocode_end = results[0].geometry.location;
 
@@ -173,6 +179,8 @@ function geocodeEndAddress(geocoder, resultsMap) {
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
+    // document.getElementById('end').value = alamat;
+    // console.log("document.getElementById('end').value ", document.getElementById('end').value);
 }
 
 // Get all durations depending on travel type
@@ -227,19 +235,19 @@ $(document).ready(function () {
         //pilihan Start
         if (nodes.length != 0) {
             a = nodes[0];
-            console.log("gunakan my location");
-            console.log(a);
+            // console.log("gunakan my location");
+            // console.log(a);
         } else if ($('.kota :selected').val() == 0) {
             a = geocode_start;
             nodes.push(a);
-            console.log("gunakan geocode start");
-            console.log(a);
+            // console.log("gunakan geocode start");
+            // console.log(a);
         } else {
-            console.log("gunakan kota");
+            // console.log("gunakan kota");
             // a = new google.maps.LatLng(-7.8711591, 112.5246605)
             a = $('.kota :selected').val();
             nodes.push(a);
-            console.log(a);
+            // console.log(a);
         }
 
         // b = document.getElementById('end').value;
@@ -252,12 +260,12 @@ $(document).ready(function () {
             $("#detail_info").toggle();
             
             calculateAndDisplayRoute(directionsService, directionsDisplay);
-            console.log("TRANSIT");
+            // console.log("TRANSIT");
             
             
         } else {
             //getDriving(a, b);
-            console.log("DRIVING");
+            // console.log("DRIVING");
 
             $("#detail_info").toggle();
 
@@ -270,8 +278,8 @@ $(document).ready(function () {
         
         $('.select_wisata').each(function () {
             var latlng = $(this).val().split(",");
-            console.log("LATLNG");
-            console.log(latlng[0]);
+            // console.log("LATLNG");
+            // console.log(latlng[0]);
 
             waypts.push({
                 // location: $(this).val(),
@@ -280,28 +288,28 @@ $(document).ready(function () {
             });
             nodes.push($(this).val());
         });
-        console.log("ini waypoints");
-        console.log(waypts);
+        // console.log("ini waypoints");
+        // console.log(waypts);
 
         //Nearest Neighbour Algorithm
         getDurations(function () {
             var datadurasi = durations;
 
-            console.log("DATA DURASI.LENGTH: ", datadurasi.length);
+            // console.log("DATA DURASI.LENGTH: ", datadurasi.length);
             var DataRoute = getRute(0, datadurasi.length);
-            console.log("DATA ROUTE: " + DataRoute);
+            // console.log("DATA ROUTE: " + DataRoute);
 
             function getRute(myLocIndex, jumlahKota) {
                 var ruteNN = initZeros(jumlahKota);
                 ruteNN[0] = myLocIndex;
 
-                console.log('ruteNN');
-                console.log(ruteNN);
+                // console.log('ruteNN');
+                // console.log(ruteNN);
 
                 for (let i = 0; i < ruteNN.length; i++) {
                     var tempDuration = getOneRowDuration(ruteNN[i]);
-                    console.log('temp duration');
-                    console.log(tempDuration);
+                    // console.log('temp duration');
+                    // console.log(tempDuration);
 
                     for (let j = 0; j < tempDuration.length; j++) {
                         var indexSudahAdaDiRute = false;
@@ -363,11 +371,11 @@ $(document).ready(function () {
                 rute.push(waypts[DataRoute[i] - 1]);
             }
 
-            console.log("RUTE: ", rute);
+            // console.log("RUTE: ", rute);
 
             if (selectedMode == "TRANSIT") {
                 TransitCondition();
-                //console.log("TRANSIT");
+                // console.log("TRANSIT");
             } else {
                 getDriving(a, b)
             }
@@ -384,23 +392,23 @@ $(document).ready(function () {
         a = nodes[0];
 
         for (let i = 0; i <= rute.length; i++) {
-            console.log("rute.length:", rute.length);
+            // console.log("rute.length:", rute.length);
 
             //rute Start to End
             if (i == 0 && rute.length == 0) {
-                console.log("RUTE DARI ", nodes[0], "KE ", geocode_end)
+                // console.log("RUTE DARI ", nodes[0], "KE ", geocode_end)
                 transitPanel.innerHTML += '<button id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
                     getTransit(a, geocode_end);
                     // getTransit(document.getElementById('start').value, geocode_end);
                 });
-                console.log("nodes[0]", nodes[0]);
+                // console.log("nodes[0]", nodes[0]);
             }
 
             //rute Start to waypoints [0]
             else if (i == 0) {
-                console.log("RUTE DARI ", nodes[0], "KE " + rute[0])
+                // console.log("RUTE DARI ", nodes[0], "KE " + rute[0])
                 // getTransit(nodes[0], rute[0])            
                 transitPanel.innerHTML += '<button id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
@@ -409,14 +417,14 @@ $(document).ready(function () {
                     // getTransit(document.getElementById('start').value, rute[0].location);
                     getTransit(a, rute[0].location);
                 });
-                console.log("rute[0]");
-                console.log(rute[0]);
-                console.log("nodes[0]", nodes[0]);
+                // console.log("rute[0]");
+                // console.log(rute[0]);
+                // console.log("nodes[0]", nodes[0]);
             }
 
             //rute waypoints[terakhir] ke End
             else if (i == rute.length) {
-                console.log("RUTE DARI ", rute[i - 1], "KE ", geocode_end)
+                // console.log("RUTE DARI ", rute[i - 1], "KE ", geocode_end)
                 transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
@@ -426,7 +434,7 @@ $(document).ready(function () {
 
             //rute Waypoints
             else {
-                console.log("RUTE DARI ", rute[i - 1].location, "KE ", rute[i].location)
+                // console.log("RUTE DARI ", rute[i - 1].location, "KE ", rute[i].location)
                 transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
                     '</button><br>';
                 $(document).on('click', '#transit' + i, function () {
@@ -466,23 +474,23 @@ function getTransit(asal, tujuan) {
                 summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
                 summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
                 var duration = route.legs[i].duration.text + '<br><br>';
-                console.log("DURATION " + duration);
+                // console.log("DURATION " + duration);
 
-                console.log(Math.round(route.legs[i].duration.value / 60));
+                // console.log(Math.round(route.legs[i].duration.value / 60));
 
                 var duration_minutes = Math.round(route.legs[i].duration.value / 60);
                 total_duration = total_duration + duration_minutes; //menjumlah durasi
-                console.log(total_duration)
+                // console.log(total_duration)
 
                 perjalanan_waktu.push(duration_minutes);
             }
 
-            console.log("duration_minutes", perjalanan_waktu);
+            // console.log("duration_minutes", perjalanan_waktu);
             getCountDuration(total_duration);
 
             var jumlahTujuan = route.legs.length;
             // console.log("JUMLAH TUJUAN: " + route.legs.length);
-            console.log("ROUTE: ", route);
+            // console.log("ROUTE: ", route);
             // tampilkan rute satu satu
             displayRoute(route);
 
@@ -497,13 +505,13 @@ function getTransit(asal, tujuan) {
 }
 
 function displayRoute(route) {
-    console.log("STEP PER STEP");
+    // console.log("STEP PER STEP");
     var selector = $('.rute');
     $(selector).append('<ul>');
 
     route.legs.forEach(legs => {
         legs.steps.forEach(step => {
-            console.log(step.instructions);
+            // console.log(step.instructions);
             $(selector).append('<li>' + step.instructions + '</li>');
         });
     });
@@ -512,8 +520,8 @@ function displayRoute(route) {
 
 // Fungsi Get Driving    
 function getDriving(asal, tujuan) {
-    console.log("get driving");
-    console.log(rute);
+    // console.log("get driving");
+    // console.log(rute);
     directionsService.route({
         origin: asal,
         destination: tujuan,
@@ -540,21 +548,21 @@ function getDriving(asal, tujuan) {
                 summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
                 summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
                 var duration = route.legs[i].duration.text + '<br><br>';
-                console.log(Math.round(route.legs[i].duration.value / 60));
+                // console.log(Math.round(route.legs[i].duration.value / 60));
 
                 var duration_minutes = Math.round(route.legs[i].duration.value / 60);
                 total_duration = total_duration + duration_minutes; //menjumlah durasi
-                console.log(total_duration)
+                // console.log(total_duration)
 
                 perjalanan_waktu.push(duration_minutes);
             }
 
-            console.log("duration_minutes", perjalanan_waktu);
+            // console.log("duration_minutes", perjalanan_waktu);
             getCountDuration(total_duration);
 
             var jumlahTujuan = route.legs.length;
             // console.log("JUMLAH TUJUAN: " + route.legs.length);
-            console.log("ROUTE: ", route);
+            // console.log("ROUTE: ", route);
             displayRoute(route);
 
             // simpan waktu perjalanan
@@ -574,7 +582,7 @@ function getCountDuration(total_duration) {
 
     //waktu start
     waktu_start = new Date($('.waktu_start').val());
-    console.log(waktu_start);
+    // console.log(waktu_start);
 
     //waktu wisata
     $('.waktu_wisata').each(function () {
@@ -584,19 +592,19 @@ function getCountDuration(total_duration) {
 
         var time_minutes = Number(time_split[0] * 60) + Number(time_split[1]); // jadikan menit
         total_wisata = total_wisata + time_minutes; //menjumlah waktu waypoints
-        console.log($(this).val());
+        // console.log($(this).val());
         // console.log(time_split);
         // console.log(time_minutes);
-        console.log(total_wisata);
+        // console.log(total_wisata);
 
         waypoints_waktu.push(time_minutes);
     });
 
-    console.log("waypoints_waktu", waypoints_waktu);
+    // console.log("waypoints_waktu", waypoints_waktu);
 
     //total waktu perjalanan waypoints
     total_perjalanan = total_start + total_duration + total_wisata;
-    console.log("total waktu perjalanan", total_perjalanan, "menit");
+    // console.log("total waktu perjalanan", total_perjalanan, "menit");
 
     //total waktu keseluruhan
     // waktu_start.setMinutes(waktu_start.getMinutes() + total_perjalanan);
@@ -614,7 +622,10 @@ function save_waktu_tempuh(id_history) {
     for (var i = 0; i < rute.length; i++) {
         history_waypoints.push("(" + rute[i].location.lat() + ", " + rute[i].location.lng() + ")");
     }
+    // $('#end').val() = alamat;
     var history_end = $('#end').val();
+    var history_end = alamat;
+    // console.log("history END", history_end);
 
     history_waypoints.push(history_end);
 
@@ -632,6 +643,7 @@ function save_waktu_tempuh(id_history) {
             history_all_end: history_waypoints[i + 1],
             id_history: id_history
         };
+        console.log("DATA", data);
 
         $.ajax({
             type: "POST",
@@ -639,14 +651,14 @@ function save_waktu_tempuh(id_history) {
             data: data,
             async: false,
             success: function (data) {
-                console.log("sukses waktu_tempuh");
+                // console.log("sukses waktu_tempuh");
             }
 
         });
 
         // history_all.push([history_waypoints[i], history_waypoints[i + 1]]);
     }
-    console.log("history_all :", history_all);
+    // console.log("history_all :", history_all);
 
 }
 
@@ -660,8 +672,8 @@ function save_history() {
         time_start: time_start.getFullYear() + '-' + (time_start.getMonth() + 1) + '-' + time_start.getDate() + ' ' + time_start.getHours() + ':' + time_start.getMinutes()
     };
 
-    console.log("Ini data");
-    console.log(data);
+    // console.log("Ini data");
+    // console.log(data);
 
     $.ajax({
         type: "POST",
@@ -669,7 +681,7 @@ function save_history() {
         data: data,
         success: function (data) {
             save_waktu_tempuh(data);
-            console.log("sukses history");
+            // console.log("sukses history");
         }
     });
 }
