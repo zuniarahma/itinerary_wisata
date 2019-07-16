@@ -53,7 +53,7 @@ function requestWaktu(selectorStr, id) {
                 console.log("ini value", value);
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
 
-                selector.append("<option value='" + value.id_waktu_wisata + "'>" + "<div>" + toTimeFormat(value.time_start, value.stay_wisata, value.durasi) + "</div>" + "-" + "<div>" + lastTime.getHours()+":"+lastTime.getMinutes() + "</div>" + "</option>");
+                selector.append("<option value='" + value.id_waktu_wisata + "'>" + "<div>" + toTimeFormat(value.time_start, value.stay_wisata, value.durasi) + "</div>" + " - " + "<div>" + lastTime.getHours()+":"+lastTime.getMinutes() + "</div>" + "</option>");
 
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);
@@ -76,7 +76,7 @@ function requestNamaWisata(selectorStr, id) {
             selector.find('option').remove();
             $.each(data, function (key, value) {
                 //selector.append("<option value='" + value.nama_wisata + "'>" + value.nama_wisata + "</option>");
-                selector.append("<option value='" + value.id_waktu_wisata + "'>" + value.start_wisata + "-" + value.end_wisata + "</option>");
+                selector.append("<option value='" + value.id_waktu_wisata + "'>" +  "Dari " + value.start_wisata + " ke " + value.end_wisata + "</option>");
 
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);
@@ -100,7 +100,7 @@ function requestHistory(selectorStr, id) {
             selector.find('option').remove();
             $.each(data, function (key, value) {
                 
-                selector.append("<option>" + value.time_start + "</option>");
+                selector.append("<option>" + "Berangkat pada: " +value.time_start +  " WIB" + "</option>");
 
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);

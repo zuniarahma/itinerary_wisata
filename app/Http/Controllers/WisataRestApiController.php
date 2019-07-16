@@ -24,7 +24,8 @@ class WisataRestApiController extends Controller
             return response()->json($wisata,200);
         }
         else{
-            $wisata = DB::select('select * from wisata');
+            $wisata = DB::select('select * from wisata order by nama_wisata asc');
+            
             return response()->json($wisata,200);
         }
         

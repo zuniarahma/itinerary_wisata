@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 use App\Gambar;
 
 class UploadController extends Controller
 {
 	public function upload(){
 		$gambar = Gambar::get();
-		return view('upload',['gambar' => $gambar]);
+		$wisata = DB::select('select * from wisata');
+		// dd($wisata);
+
+		return view('upload',['gambar' => $gambar, 'wisata' => $wisata]);	
 	}
 
 	public function proses_upload(Request $request){

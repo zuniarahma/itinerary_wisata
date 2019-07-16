@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class WisataController extends Controller {
     public function index(){
-        $wisata = DB::select('select * from wisata');
+        $wisata = DB::table('wisata')->paginate(5);
         return view('wisata_view',['wisata'=>$wisata]);
     }
 

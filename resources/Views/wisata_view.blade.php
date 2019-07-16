@@ -213,11 +213,12 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
-                            <div class="box-body">
-                                <table>
+                            <div class="box-body" style="overflow:auto;">
+                                <table class="table-bordered">
 
                                     <a href="{{url('/insertwisata')}}" class="btn btn-success" role="button">Insert</a>
                                     <p>
+                                    <thead>
                                     <tr>
                                         <td><b>ID Wisata</td>
                                         <td><b>ID Kota</td>
@@ -234,7 +235,10 @@
                                         <td><b>Action</td>
                                         <td><b>Action</td>
                                     </tr>
-                                    @foreach ($wisata as $wisatas)
+                                    </thead>
+                                   <tbody>
+                                   
+                                   @foreach ($wisata as $wisatas)
                                     <tr>
                                         <td>{{ $wisatas->id_wisata }}</td>
                                         <td>{{ $wisatas->id_kota }}</td>
@@ -252,7 +256,9 @@
                                         <td><a href='deletewisata/{{ $wisatas->id_wisata }}' class="btn btn-danger" role="button">Delete</a></td>
                                     </tr>
                                     @endforeach
+                                   </tbody> 
                                 </table>
+                                {!!$wisata->links()!!}
                             </div>
                         </div>
                     </div>

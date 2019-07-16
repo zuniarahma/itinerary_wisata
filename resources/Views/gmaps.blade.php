@@ -147,7 +147,8 @@
                     
                 </div>
                 <div class="form-group">
-                    <input class="waktu_start form-control" type="datetime-local" name="waktu_start" />
+                    <label>Waktu Berangkat</label>
+                    <input class="waktu_start form-control" type="datetime-local" name="waktu_start"/>
                 </div>
                 <div class="form-group">
                     <label>Tempat Wisata</label>
@@ -155,7 +156,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button id="tambah_wisata" class="btn btn-primary">Add</button>
+                    <button id="tambah_wisata" class="btn btn-success">Add</button>
                 </div>
 
                 <div class="form-group">
@@ -176,7 +177,7 @@
                 {{-- <b>Waypoints:</b> <br>
                         <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
                         <select multiple id="waypoints"></select> --}}
-                <button class="btn btn-info" id="submit" onclick="submitForm({{ Auth::user()->id }})">Submit</button>
+                <button class="btn btn-primary" id="submit" onclick="submitForm({{ Auth::user()->id }})">Submit</button>
                 {{-- ./col-md-6 --}}
             </div>
             <hr>
@@ -185,7 +186,7 @@
                 <b>Lihat Rundown Wisata</b>
                 <br>
                 <!-- Trigger the modal with a button -->
-                <button type="button" onclick="rundown({{ Auth::user()->id }})" class="btn btn-info"
+                <button type="button" onclick="rundown({{ Auth::user()->id }})" class="btn btn-primary"
                     data-toggle="modal" data-target="#myLargeModalLabel">Rundown</button>
 
                 <!-- Modal -->
@@ -223,12 +224,7 @@
                                 </table>
                                 </div>
 
-                                {{-- <div class="row">
-                                        <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
-                                        <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
-                                    </div> --}}
                                 <div class="modal-body">
-                                    {{-- <p>Some text in the modal.</p> --}}
 
                                 </div>
                             </div>
@@ -247,19 +243,17 @@
 
                 <div class="panel panel-info" id="detail_info">
                     <div class="panel-heading">Detail Informasi</div>
-                    <div class="rute panel-body" id="directions-panel"></div>
+                    <div class="panel-body" id="directions-panel"></div>
+                </div>
+
+                <div class="panel panel-info" id="rute">
+                    <div class="panel-heading">Petunjuk Rute</div>
+                    <div class="rute panel-body" id="rute-panel"></div>
                 </div>
 
             </div>
-            {{-- ./row --}}
         </div>
-        {{-- <div class="row">
-            <div class="col-md-12">
-                <div id="rute"></div>
-                {{-- ./col-md-12 --}}
-            </div>
-            {{-- ./row 
-        </div> --}}
+        
     </section>
 
     <script type="text/javascript"></script>
@@ -320,7 +314,7 @@
                         latlng +
                         '"><input class="nama_wisata form-control" type="text" value="' +
                         nama_wisata +
-                        '"> Waktu Transit:<input class="waktu_wisata form-control" type="time" name="waktu_wisata[]"></input><a href="#" class="remove_field">Remove</a></div><br>'
+                        '"> Waktu Transit:<input class="waktu_wisata form-control" type="time" name="waktu_wisata[]" value="01:00"></input><a href="#" class="remove_field">Remove</a></div><br>'
                     ); //add input box
                 }
             });
@@ -330,6 +324,11 @@
                 $(this).parent('div').remove();
                 x--;
             })
+
+            //set default datetime-local
+            var now = new Date();
+            var waktu_start = new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().substring(0,16)
+            $('.waktu_start').val(waktu_start);
         });
 
     </script>

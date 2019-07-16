@@ -222,6 +222,7 @@ $(document).ready(function () {
 
     $("#transit").toggle();
     $("#detail_info").toggle();
+    $("#rute").toggle();
 
     document.getElementById('mode').addEventListener('change', function () {
         selectedMode = document.getElementById('mode').value;
@@ -258,6 +259,7 @@ $(document).ready(function () {
             // getTransit(a, b);
             $("#transit").toggle();
             $("#detail_info").toggle();
+            $("#rute").toggle();
             
             calculateAndDisplayRoute(directionsService, directionsDisplay);
             // console.log("TRANSIT");
@@ -268,6 +270,7 @@ $(document).ready(function () {
             // console.log("DRIVING");
 
             $("#detail_info").toggle();
+            $("#rute").toggle();
 
             calculateAndDisplayRoute(directionsService, directionsDisplay);
         }
@@ -541,13 +544,13 @@ function getDriving(asal, tujuan) {
             for (var i = 0; i < route.legs.length; i++) {
                 var routeSegment = i + 1;
 
-                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                    '</b><br>';
-                summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-                summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
-                var duration = route.legs[i].duration.text + '<br><br>';
+                summaryPanel.innerHTML += '<b>Rute ' + routeSegment +
+                    ' :<br> <b>Dari ';
+                summaryPanel.innerHTML += route.legs[i].start_address + '<br> <b> Ke ';
+                summaryPanel.innerHTML += route.legs[i].end_address + '<br><br> <b>Jarak ';
+                summaryPanel.innerHTML += route.legs[i].distance.text + '<br> <b>Durasi Perjalanan ';
+                summaryPanel.innerHTML += route.legs[i].duration.text + '<br>' + '<br>';
+                var duration = route.legs[i].duration.text;
                 // console.log(Math.round(route.legs[i].duration.value / 60));
 
                 var duration_minutes = Math.round(route.legs[i].duration.value / 60);
