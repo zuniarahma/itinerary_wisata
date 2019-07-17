@@ -17,6 +17,7 @@ var geocode_end;
 var geocode_start;
 var id_user;
 var alamat;
+var my_loc;
 
 //Jalankan Ambil data ketika web sudah ready
 $(document).ready(function () {
@@ -60,6 +61,7 @@ function requestKota(selectorStr) {
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);
             });
+            selector.append("<option value=39>Lainnya</option>");
         })
         .fail(function () {
             // console.log("error");
@@ -96,9 +98,7 @@ function initMap() {
         var myLocationBtn = document.getElementById('button');
         myLocationDiv.appendChild(myLocationBtn);
 
-
         google.maps.event.addDomListener(myLocationBtn, 'click', function () {
-
             // console.log("myLocationBtn");
             navigator.geolocation.getCurrentPosition(function (success) {
                 map.setCenter(new google.maps.LatLng(success.coords.latitude, success.coords.longitude));
@@ -113,6 +113,7 @@ function initMap() {
                     map: map
                 });
             });
+            
         });
     }
 
@@ -143,7 +144,8 @@ function geocodeStartAddress(geocoder, resultsMap) {
 
             var alamat = results[0].formatted_address;
 
-            // val() = alamat;
+            document.getElementById("start_address").value = alamat;
+            console.log("alamat", alamat);
 
             // console.log("ini result", results);
             // console.log(results[0].geometry.location);
@@ -171,6 +173,9 @@ function geocodeEndAddress(geocoder, resultsMap) {
             
             alamat = results[0].formatted_address;
             // console.log("ini result", results[0].formatted_address);
+
+            document.getElementById("end_address").value = alamat;
+            console.log("alamat", alamat);
             
             // console.log(results[0].geometry.location);
             geocode_end = results[0].geometry.location;
@@ -223,6 +228,20 @@ $(document).ready(function () {
     $("#transit").toggle();
     $("#detail_info").toggle();
     $("#rute").toggle();
+    $("#my_loc").toggle();
+
+    $("#start").hide();
+    $("#start_address").hide();
+    $("#start_geocode").hide();
+
+    document.getElementById('by_kota').addEventListener('click', function () {
+        $("#start").show();
+    });
+
+    document.getElementById('by_alamat').addEventListener('click', function () {
+        $("#start_address").show();
+        $("#start_geocode").show();
+    });
 
     document.getElementById('mode').addEventListener('change', function () {
         selectedMode = document.getElementById('mode').value;
@@ -254,13 +273,15 @@ $(document).ready(function () {
         // b = document.getElementById('end').value;
         b = geocode_end;
 
+
         // Pilih Mode Transpoortasi
         if (selectedMode == "TRANSIT") {
             // getTransit(a, b);
             $("#transit").toggle();
             $("#detail_info").toggle();
             $("#rute").toggle();
-            
+            $("#my_loc").toggle();
+
             calculateAndDisplayRoute(directionsService, directionsDisplay);
             // console.log("TRANSIT");
             
@@ -271,6 +292,7 @@ $(document).ready(function () {
 
             $("#detail_info").toggle();
             $("#rute").toggle();
+            $("#my_loc").toggle();
 
             calculateAndDisplayRoute(directionsService, directionsDisplay);
         }
@@ -470,13 +492,14 @@ function getTransit(asal, tujuan) {
             // Informasi Detail jalan
             for (var i = 0; i < route.legs.length; i++) {
                 var routeSegment = i + 1;
-                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                    '</b><br>';
-                summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-                summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
-                var duration = route.legs[i].duration.text + '<br><br>';
+                summaryPanel.innerHTML += '<b>Rute ' + routeSegment +
+                    ' :<br> <b>Dari ';
+                summaryPanel.innerHTML += route.legs[i].start_address + '<br> <b> Ke ';
+                summaryPanel.innerHTML += route.legs[i].end_address + '<br> <b>Jarak ';
+                summaryPanel.innerHTML += route.legs[i].distance.text + '<br> <b>Durasi Perjalanan ';
+                summaryPanel.innerHTML += route.legs[i].duration.text + '<br>' + '<br>';
+                var duration = route.legs[i].duration.text;
+                
                 // console.log("DURATION " + duration);
 
                 // console.log(Math.round(route.legs[i].duration.value / 60));
@@ -486,7 +509,13 @@ function getTransit(asal, tujuan) {
                 // console.log(total_duration)
 
                 perjalanan_waktu.push(duration_minutes);
+
+                my_loc = route.legs[0].start_address;
+                console.log("my_loc", my_loc);
             }
+            
+            document.getElementById("my_loc").value = my_loc;
+            console.log("my_loc", my_loc);
 
             // console.log("duration_minutes", perjalanan_waktu);
             getCountDuration(total_duration);
@@ -515,7 +544,8 @@ function displayRoute(route) {
     route.legs.forEach(legs => {
         legs.steps.forEach(step => {
             // console.log(step.instructions);
-            $(selector).append('<li>' + step.instructions + '</li>');
+            var rute_panel = $(selector).append('<li>' + step.instructions + '</li>');
+            rute_panel.innerHTML = '';
         });
     });
     $(selector).append('</ul>');
@@ -547,7 +577,7 @@ function getDriving(asal, tujuan) {
                 summaryPanel.innerHTML += '<b>Rute ' + routeSegment +
                     ' :<br> <b>Dari ';
                 summaryPanel.innerHTML += route.legs[i].start_address + '<br> <b> Ke ';
-                summaryPanel.innerHTML += route.legs[i].end_address + '<br><br> <b>Jarak ';
+                summaryPanel.innerHTML += route.legs[i].end_address + '<br> <b>Jarak ';
                 summaryPanel.innerHTML += route.legs[i].distance.text + '<br> <b>Durasi Perjalanan ';
                 summaryPanel.innerHTML += route.legs[i].duration.text + '<br>' + '<br>';
                 var duration = route.legs[i].duration.text;
@@ -558,7 +588,13 @@ function getDriving(asal, tujuan) {
                 // console.log(total_duration)
 
                 perjalanan_waktu.push(duration_minutes);
+  
+                my_loc = route.legs[0].start_address;
+                console.log("my_loc", my_loc);
             }
+
+            document.getElementById("my_loc").value = my_loc;
+            console.log("my_loc", my_loc);
 
             // console.log("duration_minutes", perjalanan_waktu);
             getCountDuration(total_duration);
@@ -618,15 +654,16 @@ function getCountDuration(total_duration) {
 
 function save_waktu_tempuh(id_history) {
 
-    var history_start = a.toString();
+    // var history_start = a.toString();
+    var history_start = my_loc;
     var history_waypoints = [];
     history_waypoints.push(history_start);
 
     for (var i = 0; i < rute.length; i++) {
         history_waypoints.push("(" + rute[i].location.lat() + ", " + rute[i].location.lng() + ")");
     }
-    // $('#end').val() = alamat;
-    var history_end = $('#end').val();
+
+    // var history_end = $('#end').val();
     var history_end = alamat;
     // console.log("history END", history_end);
 

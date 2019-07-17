@@ -136,11 +136,15 @@
 
     <section class="container" style="margin-top: 30px ">
 
-
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Start</label>
+
+                    <label>Start</label><br>
+                    <button id="by_kota" class="btn btn-info">By Kota</button>
+                    <button id="by_alamat" class="btn btn-info">By Alamat</button>
+                    <p><p>
+                    <input class="form-control" id="my_loc" type="textbox"></input>
                     <select class="kota form-control" id="start"></select>
                     <input class="form-control" id="start_address" type="textbox" placeholder="Masukkan Alamat">
                     <button id="start_geocode" class="button" type="button" value="Alamat">Cari</button>
