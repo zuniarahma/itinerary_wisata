@@ -120,7 +120,7 @@
 
 <div class="MyImage">
     <img class="theImage" src="http://localhost/TA/itinerary/public//foto_wisata/maps.png" alt="Snow">
-    <a href="{{ url('gmaps') }}" class="btnmap" type="button">Itinerary</a>
+    <a href="{{ url('gmaps') }}" class="btnmap btn-danger" type="button">Itinerary</a>
 </div>
 
 
@@ -133,8 +133,7 @@
 <!-- <div class="row">  -->
 
 <div class="column">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <img src="http://localhost/TA/itinerary/public//foto_wisata/bromo.jpg" style="width:100%">
+    <div class="tampil_images">
     </div>
 </div>
 
@@ -154,8 +153,48 @@
 
 </script>
 
+<script>
+    // Get the elements with class="column"
+    var elements = document.getElementsByClassName("column");
+    // Declare a loop variable
+    var i;
+    // Full-width images
+    function one() {
+            for (i = 0; i < elements.length; i++) {
+            elements[i].style.msFlex = "100%";  // IE10
+            elements[i].style.flex = "100%";
+        }   
+    }
+    // Two images side by side
+    function two() {
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.msFlex = "50%";  // IE10
+            elements[i].style.flex = "50%";
+        }   
+    }
+    // Four images side by side
+    // function four() {
+    //     for (i = 0; i < elements.length; i++) {
+    //         elements[i].style.msFlex = "25%";  // IE10
+    //         elements[i].style.flex = "25%";
+    //     }
+    // }
+    // Add active class to the current button (highlight it)
+    var header = document.getElementById("myHeader");
+    var btns = header.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+    </script>
+
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="../resources/js/images.js"></script>
+<script>
 
-
-</script>
 @endsection
+

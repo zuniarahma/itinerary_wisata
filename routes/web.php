@@ -119,7 +119,7 @@ Route::post('image_create', 'ImageUploadController@imageUploadPost')->name('imag
 
 Route::get('/upload', 'UploadController@upload');
 Route::post('/upload/proses', 'UploadController@proses_upload');
-Route::post('/upload/hapus', 'UploadController@proses_hapus');
+Route::get('/upload/hapus/{id}', 'UploadController@proses_hapus');
 
 //====================================================
 ///USER
@@ -159,6 +159,8 @@ Route::get('api/kota', 'KotaRestApiController@index');
 
 Route::get('api/jenis_wisata', 'JenisWisataRestApiController@index');
 Route::get('api/history', 'HistoryRestApiController@index');
+Route::get('api/images', 'ImagesRestApiController@index');
+
 
 //====================================================
 ///WAKTU TEMPUH
