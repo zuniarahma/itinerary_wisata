@@ -138,21 +138,28 @@
 
         <div class="row">
             <div class="col-md-6">
+
+                <div class="panel panel-info" id="transit">
+                    <div class="panel-heading">Transit</div>
+                    <div class="panel-body" id="transits-panel"></div>
+                </div>
+                
                 <div class="form-group">
 
                     <label>Start</label><br>
                     <button id="by_kota" class="btn btn-info">By Kota</button>
                     <button id="by_alamat" class="btn btn-info">By Alamat</button>
-                    <p><p>
-                    <input class="form-control" id="my_loc" type="textbox"></input>
-                    <select class="kota form-control" id="start"></select>
-                    <input class="form-control" id="start_address" type="textbox" placeholder="Masukkan Alamat">
-                    <button id="start_geocode" class="button" type="button" value="Alamat">Cari</button>
-                    
+                    <p>
+                        <p>
+                            <input class="form-control" id="my_loc" type="textbox"></input>
+                            <select class="kota form-control" id="start"></select>
+                            <input class="form-control" id="start_address" type="textbox" placeholder="Masukkan Alamat">
+                            <button id="start_geocode" class="button" type="button" value="Alamat">Cari</button>
+
                 </div>
                 <div class="form-group">
                     <label>Waktu Berangkat</label>
-                    <input class="waktu_start form-control" type="datetime-local" name="waktu_start"/>
+                    <input class="waktu_start form-control" type="datetime-local" name="waktu_start" />
                 </div>
                 <div class="form-group">
                     <label>Tempat Wisata</label>
@@ -207,30 +214,30 @@
                             <div class="container">
                                 <div class="rundown_history"></div>
                                 <p>
-                                <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>    
-                                        <tr>
-                                            <th>Waktu Wisata</th>
-                                            <th>Tempat</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                            <div class="rundown_waktu"></div>
-                                            </td>
-                                            <td> 
-                                            <div class="rundown_nama_wisata"></div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Waktu Wisata</th>
+                                                    <th>Tempat</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="rundown_waktu"></div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="rundown_nama_wisata"></div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                                <div class="modal-body">
+                                    <div class="modal-body">
 
-                                </div>
+                                    </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -240,24 +247,20 @@
                 </div>
 
                 <p>
-                <div class="panel panel-info" id="transit">
-                    <div class="panel-heading">Transit</div>
-                    <div class="panel-body" id="transits-panel"></div>
-                </div>
 
-                <div class="panel panel-info" id="detail_info">
-                    <div class="panel-heading">Detail Informasi</div>
-                    <div class="panel-body" id="directions-panel"></div>
-                </div>
+                    <div class="panel panel-info" id="detail_info">
+                        <div class="panel-heading">Detail Informasi</div>
+                        <div class="panel-body" id="directions-panel"></div>
+                    </div>
 
-                <div class="panel panel-info" id="rute">
-                    <div class="panel-heading">Petunjuk Rute</div>
-                    <div class="rute panel-body" id="rute-panel"></div>
-                </div>
+                    <div class="panel panel-info" id="rute">
+                        <div class="panel-heading">Petunjuk Rute</div>
+                        <div class="rute panel-body" id="rute-panel"></div>
+                    </div>
 
             </div>
         </div>
-        
+
     </section>
 
     <script type="text/javascript"></script>
@@ -270,7 +273,6 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script type="text/javascript">
-
         function myFunction() {
             var elmnt = document.getElementById("floating-panel");
             elmnt.scrollLeft = 0;
@@ -293,7 +295,7 @@
                                     id: item.latitude + "," + item.longitude
                                 }
                             })
-                            
+
                         };
                     },
                     cache: true
@@ -331,7 +333,8 @@
 
             //set default datetime-local
             var now = new Date();
-            var waktu_start = new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().substring(0,16)
+            var waktu_start = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().substring(
+                0, 16)
             $('.waktu_start').val(waktu_start);
         });
 

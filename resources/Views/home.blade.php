@@ -119,7 +119,7 @@
 </style>
 
 <div class="MyImage">
-    <img class="theImage" src="http://localhost/TA/itinerary/public//foto_wisata/maps.png" alt="Snow">
+    <img class="theImage" src="http://localhost/TA/itinerary/public/foto_wisata/maps.png" alt="Snow">
     <a href="{{ url('gmaps') }}" class="btnmap btn-danger" type="button">Itinerary</a>
 </div>
 
