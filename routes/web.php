@@ -180,11 +180,17 @@ Route::get('coba_template4', 'CobaController@coba4');
 Route::get('coba_template5', 'CobaController@coba5');
 
 //====================================================
+// HOME
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tampil_wisata', 'HomeController@tampil_wisata')->name('tampil_wisata');
+
+//====================================================
+// TUTORIAL
+
+Route::get('tutorial', 'TutorialController@index');
 
 //====================================================
 // ///LOGIN USER

@@ -113,7 +113,7 @@ function initMap() {
                     map: map
                 });
             });
-            
+
         });
     }
 
@@ -129,7 +129,7 @@ function initMap() {
 }
 
 function geocodeStartAddress(geocoder, resultsMap) {
-    
+
     // Geocode for START Address
     var start_address = document.getElementById('start_address').value;
     geocoder.geocode({
@@ -158,7 +158,7 @@ function geocodeStartAddress(geocoder, resultsMap) {
 }
 
 function geocodeEndAddress(geocoder, resultsMap) {
-    
+
     // Geocode for END Address
     var end_address = document.getElementById('end_address').value;
     geocoder.geocode({
@@ -170,13 +170,13 @@ function geocodeEndAddress(geocoder, resultsMap) {
                 map: resultsMap,
                 position: results[0].geometry.location
             });
-            
+
             alamat = results[0].formatted_address;
             // console.log("ini result", results[0].formatted_address);
 
             document.getElementById("end_address").value = alamat;
             console.log("alamat", alamat);
-            
+
             // console.log(results[0].geometry.location);
             geocode_end = results[0].geometry.location;
 
@@ -257,6 +257,7 @@ $(document).ready(function () {
             a = nodes[0];
             // console.log("gunakan my location");
             // console.log(a);
+            console.log(a);
         } else if ($('.kota :selected').val() == 0) {
             a = geocode_start;
             nodes.push(a);
@@ -284,8 +285,8 @@ $(document).ready(function () {
 
             calculateAndDisplayRoute(directionsService, directionsDisplay);
             // console.log("TRANSIT");
-            
-            
+
+
         } else {
             //getDriving(a, b);
             // console.log("DRIVING");
@@ -300,7 +301,7 @@ $(document).ready(function () {
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         var waypts = [];
-        
+
         $('.select_wisata').each(function () {
             var latlng = $(this).val().split(",");
             // console.log("LATLNG");
@@ -407,10 +408,10 @@ $(document).ready(function () {
         });
     }
 
- // Transit Panel
-            var transitPanel = document.getElementById('transits-panel');
-            transitPanel.innerHTML = '';
-            // console.log("RUTE: " + rute)
+    // Transit Panel
+    var transitPanel = document.getElementById('transits-panel');
+    transitPanel.innerHTML = '';
+    // console.log("RUTE: " + rute)
 
     function TransitCondition() {
 
@@ -422,8 +423,8 @@ $(document).ready(function () {
             //rute Start to End
             if (i == 0 && rute.length == 0) {
                 // console.log("RUTE DARI ", nodes[0], "KE ", geocode_end)
-                transitPanel.innerHTML += '<button id="transit' + i + '">Rute Transit ' + (i + 1) +
-                    '</button><br>';
+                transitPanel.innerHTML += '<button type="submit" class="btn btn-primary"  id="transit' + i + '">Rute Transit ' + (i + 1) +
+                    '</button><br><p>';
                 $(document).on('click', '#transit' + i, function () {
                     getTransit(a, geocode_end);
                     // getTransit(document.getElementById('start').value, geocode_end);
@@ -435,8 +436,8 @@ $(document).ready(function () {
             else if (i == 0) {
                 // console.log("RUTE DARI ", nodes[0], "KE " + rute[0])
                 // getTransit(nodes[0], rute[0])            
-                transitPanel.innerHTML += '<button id="transit' + i + '">Rute Transit ' + (i + 1) +
-                    '</button><br>';
+                transitPanel.innerHTML += '<button type="submit" class="btn btn-primary" id="transit' + i + '">Rute Transit ' + (i + 1) +
+                    '</button><br><p>';
                 $(document).on('click', '#transit' + i, function () {
                     //getTransit(nodes[0], rute[0].location);
                     // getTransit(document.getElementById('start').value, rute[0].location);
@@ -450,8 +451,8 @@ $(document).ready(function () {
             //rute waypoints[terakhir] ke End
             else if (i == rute.length) {
                 // console.log("RUTE DARI ", rute[i - 1], "KE ", geocode_end)
-                transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
-                    '</button><br>';
+                transitPanel.innerHTML += '<button type="submit" class="btn btn-primary" id="transit' + i + '">Rute Transit ' + (i + 1) +
+                    '</button><br><p>';
                 $(document).on('click', '#transit' + i, function () {
                     getTransit(rute[i - 1].location, geocode_end);
                 });
@@ -460,8 +461,8 @@ $(document).ready(function () {
             //rute Waypoints
             else {
                 // console.log("RUTE DARI ", rute[i - 1].location, "KE ", rute[i].location)
-                transitPanel.innerHTML += '<button  id="transit' + i + '">Rute Transit ' + (i + 1) +
-                    '</button><br>';
+                transitPanel.innerHTML += '<button type="submit" class="btn btn-primary" id="transit' + i + '">Rute Transit ' + (i + 1) +
+                    '</button><br><p>';
                 $(document).on('click', '#transit' + i, function () {
                     getTransit(rute[i - 1].location, rute[i].location);
                 });
@@ -499,7 +500,7 @@ function getTransit(asal, tujuan) {
                 summaryPanel.innerHTML += route.legs[i].distance.text + '<br> <b>Durasi Perjalanan ';
                 summaryPanel.innerHTML += route.legs[i].duration.text + '<br>' + '<br>';
                 var duration = route.legs[i].duration.text;
-                
+
                 // console.log("DURATION " + duration);
 
                 // console.log(Math.round(route.legs[i].duration.value / 60));
@@ -513,7 +514,7 @@ function getTransit(asal, tujuan) {
                 my_loc = route.legs[0].start_address;
                 console.log("my_loc", my_loc);
             }
-            
+
             document.getElementById("my_loc").value = my_loc;
             console.log("my_loc", my_loc);
 
@@ -588,7 +589,7 @@ function getDriving(asal, tujuan) {
                 // console.log(total_duration)
 
                 perjalanan_waktu.push(duration_minutes);
-  
+
                 my_loc = route.legs[0].start_address;
                 console.log("my_loc", my_loc);
             }
@@ -654,52 +655,86 @@ function getCountDuration(total_duration) {
 
 function save_waktu_tempuh(id_history) {
 
-    // var history_start = a.toString();
-    var history_start = my_loc;
-    var history_waypoints = [];
-    history_waypoints.push(history_start);
+    var history_start;
 
-    for (var i = 0; i < rute.length; i++) {
-        history_waypoints.push("(" + rute[i].location.lat() + ", " + rute[i].location.lng() + ")");
-    }
+    // reverse geocode and process all
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode({
+        'location': a
+    }, function (results, status) {
+        if (status === 'OK') {
+            if (results[0]) {
+                history_start = results[0].formatted_address;
 
-    // var history_end = $('#end').val();
-    var history_end = alamat;
-    // console.log("history END", history_end);
+                var history_waypoints = [];
+                history_waypoints.push(history_start);
 
-    history_waypoints.push(history_end);
+                for (var i = 0; i < rute.length; i++) {
+                    history_waypoints.push("(" + rute[i].location.lat() + ", " + rute[i].location.lng() + ")");
+                }
 
-    console.log("history_waypoints:", history_waypoints);
-    // console.log("history_end", history_end);
+                // var history_end = $('#end').val();
+                var history_end = alamat;
+                // console.log("history END", history_end);
 
-    var history_all = [];
+                history_waypoints.push(history_end);
 
-    for (var i = 0; i < history_waypoints.length - 1; i++) {
+                console.log("history_waypoints:", history_waypoints);
+                // console.log("history_end", history_end);
 
-        var data = {
-            waypoints_waktu: waypoints_waktu[i],
-            perjalanan_waktu: perjalanan_waktu[i],
-            history_all_start: history_waypoints[i],
-            history_all_end: history_waypoints[i + 1],
-            id_history: id_history
-        };
-        console.log("DATA", data);
+                var history_all = [];
 
-        $.ajax({
-            type: "POST",
-            url: "api/waktu_tempuh",
-            data: data,
-            async: false,
-            success: function (data) {
-                // console.log("sukses waktu_tempuh");
+                for (var i = 0; i < history_waypoints.length - 1; i++) {
+
+                    var data = {
+                        waypoints_waktu: waypoints_waktu[i],
+                        perjalanan_waktu: perjalanan_waktu[i],
+                        history_all_start: history_waypoints[i],
+                        history_all_end: history_waypoints[i + 1],
+                        id_history: id_history
+                    };
+                    console.log("DATA", data);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "api/waktu_tempuh",
+                        data: data,
+                        async: false,
+                        success: function (data) {
+                            // console.log("sukses waktu_tempuh");
+                        }
+
+                    });
+
+                    // history_all.push([history_waypoints[i], history_waypoints[i + 1]]);
+                }
+                // console.log("history_all :", history_all);
+            } else {
+                alert('No results found')
             }
+        } else {
+            alert('Geocoder failed due to: ' + status);
+        }
+    });
 
-        });
+}
 
-        // history_all.push([history_waypoints[i], history_waypoints[i + 1]]);
-    }
-    // console.log("history_all :", history_all);
+function geocodeLatLng() {
+    var geocoder = new google.maps.Geocoder;
+    geocoder.geocode({
+        'location': a
+    }, function (results, status) {
+        if (status === 'OK') {
+            if (results[0]) {
+                infowindow.setContent(results[0].formatted_address);
 
+            } else {
+                alert('No results found')
+            }
+        } else {
+            alert('Geocoder failed due to: ' + status);
+        }
+    });
 }
 
 function save_history() {
@@ -725,5 +760,3 @@ function save_history() {
         }
     });
 }
-
-

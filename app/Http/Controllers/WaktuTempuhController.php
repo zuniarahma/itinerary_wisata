@@ -90,6 +90,10 @@ class WaktuTempuhController extends Controller {
             $select_nama_wisata_end = $end_split[0];
         }
 
+        if($perjalanan_waktu == null){
+            $perjalanan_waktu = "tidak diketahui";
+        }
+
         $data=array("id_history"=>$id_history,"stay_wisata"=>$waypoints_waktu,"durasi"=>$perjalanan_waktu,"start_wisata"=>$select_nama_wisata_start,"end_wisata"=>$select_nama_wisata_end);
         
         $waktu_tempuh=DB::table('waktu_tempuh')->insertGetId($data);

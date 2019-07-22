@@ -247,7 +247,6 @@
                 </div>
 
                 <p>
-
                     <div class="panel panel-info" id="detail_info">
                         <div class="panel-heading">Detail Informasi</div>
                         <div class="panel-body" id="directions-panel"></div>

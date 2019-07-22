@@ -101,7 +101,7 @@ function requestHistory(selectorStr, id) {
             $.each(data, function (key, value) {
                 
                 selector.append("<option>" + "Berangkat pada: " +value.time_start +  " WIB" + "</option>");
-
+                
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);
             });

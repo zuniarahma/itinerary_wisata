@@ -2,11 +2,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> @endsection @section('content')
 
 <style>
-    /* .container {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-} */
 
     .container img {
         margin-top: 70px;
