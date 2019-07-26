@@ -288,7 +288,6 @@ $(document).ready(function () {
             calculateAndDisplayRoute(directionsService, directionsDisplay);
             // console.log("TRANSIT");
 
-
         } else {
             //getDriving(a, b);
             // console.log("DRIVING");
@@ -315,91 +314,6 @@ $(document).ready(function () {
                 stopover: true
             });
             nodes.push($(this).val());
-        });
-        // console.log("ini waypoints");
-        // console.log(waypts);
-
-        //Nearest Neighbour Algorithm
-        getDurations(function () {
-            var datadurasi = durations;
-
-            // console.log("DATA DURASI.LENGTH: ", datadurasi.length);
-            var DataRoute = getRute(0, datadurasi.length);
-            // console.log("DATA ROUTE: " + DataRoute);
-
-            function getRute(myLocIndex, jumlahKota) {
-                var ruteNN = initZeros(jumlahKota);
-                ruteNN[0] = myLocIndex;
-
-                // console.log('ruteNN');
-                // console.log(ruteNN);
-
-                for (let i = 0; i < ruteNN.length; i++) {
-                    var tempDuration = getOneRowDuration(ruteNN[i]);
-                    // console.log('temp duration');
-                    // console.log(tempDuration);
-
-                    for (let j = 0; j < tempDuration.length; j++) {
-                        var indexSudahAdaDiRute = false;
-                        for (const route of ruteNN) {
-                            if (j == route)
-                                indexSudahAdaDiRute = true;
-                        }
-
-                        if (tempDuration[j] == 0 || indexSudahAdaDiRute == true) {
-                            tempDuration[j] = Number.MAX_SAFE_INTEGER
-                        }
-                    }
-
-                    var min = getMin(tempDuration);
-                    var indexMin = getIndexMin(min, tempDuration);
-
-                    if (i < jumlahKota - 1) {
-                        ruteNN[i + 1] = indexMin;
-                    }
-                }
-                return ruteNN;
-            }
-
-            function getMin(tempDurasi) {
-                var min = Number.MAX_SAFE_INTEGER;
-                for (var i = 0; i < tempDurasi.length; i++) {
-                    if (tempDurasi[i] < min)
-                        min = tempDurasi[i];
-                }
-                return min;
-            }
-
-            //untuk mencari array sepa
-            function initZeros(num) {
-                var arr = [];
-                for (var i = 0; i < num; i++) {
-                    arr[i] = 0;
-                }
-                return arr;
-            }
-
-            function getOneRowDuration(route) {
-                return datadurasi[route];
-            }
-
-            function getIndexMin(min, tempDurasi) {
-                var found;
-                for (var i = 0; i < tempDurasi.length; i++) {
-                    if (tempDurasi[i] == min) {
-                        found = i;
-                        break;
-                    }
-                }
-                return found;
-            }
-
-            DataRoute.shift();
-            for (let i = 0; i < DataRoute.length; i++) {
-                rute.push(waypts[DataRoute[i] - 1]);
-            }
-
-            // console.log("RUTE: ", rute);
 
             if (selectedMode == "TRANSIT") {
                 TransitCondition();
@@ -408,6 +322,126 @@ $(document).ready(function () {
                 getDriving(a, b)
             }
         });
+
+        // console.log("ini waypoints");
+        // console.log(waypts);
+
+        //Waypoints on Google Maps API
+        // directionsService.route({
+        //     origin: document.getElementById('start').value,
+        //     destination: document.getElementById('end').value,
+        //     waypoints: waypts,
+        //     optimizeWaypoints: true,
+        //     travelMode: 'DRIVING'
+        //   }, function(response, status) {
+        //     if (status === 'OK') {
+        //       directionsDisplay.setDirections(response);
+        //       var route = response.routes[0];
+        //       var summaryPanel = document.getElementById('directions-panel');
+        //       summaryPanel.innerHTML = '';
+        //       // For each route, display summary information.
+        //       for (var i = 0; i < route.legs.length; i++) {
+        //         var routeSegment = i + 1;
+        //         summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+        //             '</b><br>';
+        //         summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+        //         summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+        //         summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+        //       }
+        //     } else {
+        //       window.alert('Directions request failed due to ' + status);
+        //     }
+        //   });
+
+        //Nearest Neighbour Algorithm
+        // getDurations(function () {
+        //     var datadurasi = durations;
+
+        //     // console.log("DATA DURASI.LENGTH: ", datadurasi.length);
+        //     var DataRoute = getRute(0, datadurasi.length);
+        //     // console.log("DATA ROUTE: " + DataRoute);
+
+        //     function getRute(myLocIndex, jumlahKota) {
+        //         var ruteNN = initZeros(jumlahKota);
+        //         ruteNN[0] = myLocIndex;
+
+        //         // console.log('ruteNN');
+        //         // console.log(ruteNN);
+
+        //         for (let i = 0; i < ruteNN.length; i++) {
+        //             var tempDuration = getOneRowDuration(ruteNN[i]);
+        //             // console.log('temp duration');
+        //             // console.log(tempDuration);
+
+        //             for (let j = 0; j < tempDuration.length; j++) {
+        //                 var indexSudahAdaDiRute = false;
+        //                 for (const route of ruteNN) {
+        //                     if (j == route)
+        //                         indexSudahAdaDiRute = true;
+        //                 }
+
+        //                 if (tempDuration[j] == 0 || indexSudahAdaDiRute == true) {
+        //                     tempDuration[j] = Number.MAX_SAFE_INTEGER
+        //                 }
+        //             }
+
+        //             var min = getMin(tempDuration);
+        //             var indexMin = getIndexMin(min, tempDuration);
+
+        //             if (i < jumlahKota - 1) {
+        //                 ruteNN[i + 1] = indexMin;
+        //             }
+        //         }
+        //         return ruteNN;
+        //     }
+
+        //     function getMin(tempDurasi) {
+        //         var min = Number.MAX_SAFE_INTEGER;
+        //         for (var i = 0; i < tempDurasi.length; i++) {
+        //             if (tempDurasi[i] < min)
+        //                 min = tempDurasi[i];
+        //         }
+        //         return min;
+        //     }
+
+        //     //untuk mencari array sepa
+        //     function initZeros(num) {
+        //         var arr = [];
+        //         for (var i = 0; i < num; i++) {
+        //             arr[i] = 0;
+        //         }
+        //         return arr;
+        //     }
+
+        //     function getOneRowDuration(route) {
+        //         return datadurasi[route];
+        //     }
+
+        //     function getIndexMin(min, tempDurasi) {
+        //         var found;
+        //         for (var i = 0; i < tempDurasi.length; i++) {
+        //             if (tempDurasi[i] == min) {
+        //                 found = i;
+        //                 break;
+        //             }
+        //         }
+        //         return found;
+        //     }
+
+        //     DataRoute.shift();
+        //     for (let i = 0; i < DataRoute.length; i++) {
+        //         rute.push(waypts[DataRoute[i] - 1]);
+        //     }
+
+        //     // console.log("RUTE: ", rute);
+
+        //     if (selectedMode == "TRANSIT") {
+        //         TransitCondition();
+        //         // console.log("TRANSIT");
+        //     } else {
+        //         getDriving(a, b)
+        //     }
+        // });
     }
 
     // Transit Panel
@@ -551,9 +585,9 @@ function displayRoute(route) {
             // console.log("step.instructions1", step.instructions);
             var rute_panel = $(selector).append('<li>' + step.instructions + '</li>');
             rute_panel.innerHTML = '';
-            
+
             // console.log("step.instructions2", step.instructions);
-            
+
         });
     });
     $(selector).append('</ul>');

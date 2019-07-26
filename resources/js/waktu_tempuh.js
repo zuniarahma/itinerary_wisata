@@ -100,7 +100,7 @@ function requestHistory(selectorStr, id) {
             selector.find('option').remove();
             $.each(data, function (key, value) {
                 
-                selector.append("<option>" + "Berangkat pada: " +value.time_start +  " WIB" + "</option>");
+                selector.append("<option>" + "Berangkat pada: " + value.time_start +  " WIB" + "</option>");
                 
                 // console.log('key', key);
                 // console.log('value', value.nama_kota);

@@ -193,35 +193,49 @@ function getDurations(callback) {
 
     var service = new google.maps.DistanceMatrixService();
     //var selectedMode = document.getElementById('mode').value;
-    service.getDistanceMatrix({
-        origins: nodes,
-        destinations: nodes,
-        travelMode: google.maps.TravelMode["DRIVING"]
-        // travelMode: google.maps.TravelMode[selectedMode]
-        //travelMode: google.maps.TravelMode[$('#travel-type').val()],
-        //avoidHighways: parseInt($('#avoid-highways').val()) > 0 ? true : false,
-        //avoidTolls: false,
-    }, function (distanceData) {
-        // Create duration data array
-        var nodeDistanceData;
-        for (originNodeIndex in distanceData.rows) {
-            nodeDistanceData = distanceData.rows[originNodeIndex].elements;
-            durations[originNodeIndex] = [];
-            for (destinationNodeIndex in nodeDistanceData) {
-                if (durations[originNodeIndex][destinationNodeIndex] = nodeDistanceData[destinationNodeIndex].duration == undefined) {
-                    alert('Error: couldn\'t get a trip duration from API');
-                    return;
-                }
-                durations[originNodeIndex][destinationNodeIndex] = nodeDistanceData[destinationNodeIndex].duration.value;
-                // console.log("DURATIONS", nodeDistanceData[destinationNodeIndex].duration.value);
-                console.log("DURATIONS", nodeDistanceData[destinationNodeIndex].distance.value);
-            }
-        }
+    console.log("NODES", nodes);
 
-        if (callback != undefined) {
-            callback();
+    for (let i = 0; i < nodes.length; i++) {
+        durations[i] = [];
+        for (let j = 0; j < nodes.length; j++) {
+            durations[i][j] = euclidean_distance(nodes[i], nodes[j]);
         }
-    });
+    }
+    if (callback != undefined) {
+        callback();
+    }
+
+    // Milik GMAPS
+    // service.getDistanceMatrix({
+    //     origins: nodes,
+    //     destinations: nodes,
+    //     travelMode: google.maps.TravelMode["DRIVING"]
+    //     // travelMode: google.maps.TravelMode[selectedMode]
+    //     //travelMode: google.maps.TravelMode[$('#travel-type').val()],
+    //     //avoidHighways: parseInt($('#avoid-highways').val()) > 0 ? true : false,
+    //     //avoidTolls: false,
+    // }, function (distanceData) {
+    //     // Create duration data array
+    //     var nodeDistanceData;
+    //     for (originNodeIndex in distanceData.rows) {
+    //         nodeDistanceData = distanceData.rows[originNodeIndex].elements;
+    //         durations[originNodeIndex] = [];
+    //         for (destinationNodeIndex in nodeDistanceData) {
+    //             if (durations[originNodeIndex][destinationNodeIndex] = nodeDistanceData[destinationNodeIndex].duration == undefined) {
+    //                 alert('Error: couldn\'t get a trip duration from API');
+    //                 return;
+    //             }
+    //             durations[originNodeIndex][destinationNodeIndex] = nodeDistanceData[destinationNodeIndex].duration.value;
+
+    //              console.log("DURATIONS", nodeDistanceData[destinationNodeIndex].duration.value);
+    //         }
+    //     }
+
+    //     console.log("DURATIONS", durations);
+    //     if (callback != undefined) {
+    //         callback();
+    //     }
+    // });
 }
 
 // Create listeners
@@ -548,12 +562,8 @@ function displayRoute(route) {
         legs.steps.forEach(step => {
             // console.log(step.instructions);
             step.instructions = step.instructions.replace(/Bus/g, "Angkutan umum");
-            // console.log("step.instructions1", step.instructions);
             var rute_panel = $(selector).append('<li>' + step.instructions + '</li>');
             rute_panel.innerHTML = '';
-            
-            // console.log("step.instructions2", step.instructions);
-            
         });
     });
     $(selector).append('</ul>');
@@ -766,4 +776,56 @@ function save_history() {
             // console.log("sukses history");
         }
     });
+}
+
+//Haversine Formula
+function euclidean_distance(asal, tujuan) {
+    Number.prototype.toRad = function () {
+        return this * Math.PI / 180;
+    }
+
+    //apakah asal/tujuan string??
+    //jika asal string
+    if (typeof asal == "string") {
+        var arrayasal = asal.split(",");
+        var lat1 = Number(arrayasal[0]);
+        var lon1 = Number(arrayasal[1]);
+    }
+    //jika asal tidak
+    else {
+        var lat1 = Number(asal.lat());
+        var lon1 = Number(asal.lng());
+    }
+
+    //jika tujuan string
+    if (typeof tujuan == "string") {
+        var arraytujuan = tujuan.split(",");
+        var lat2 = Number(arraytujuan[0]);
+        var lon2 = Number(arraytujuan[1]);
+    }
+    //jika tujuan tidak
+    else {
+        var lat2 = Number(tujuan.lat());
+        var lon2 = Number(tujuan.lng());
+    }
+
+    // var lat2 = 42.741;
+    // var lon2 = -71.3161;
+    // var lat1 = 42.806911;
+    // var lon1 = -71.290611;
+
+    var R = 6371; // km 
+    //has a problem with the .toRad() method below.
+    var x1 = lat2 - lat1;
+    var dLat = x1.toRad();
+    var x2 = lon2 - lon1;
+    var dLon = x2.toRad();
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+
+    console.log(d);
+    return d;
 }

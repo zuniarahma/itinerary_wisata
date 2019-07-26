@@ -92,26 +92,26 @@ Route::get('deletekota/{id}','KotaController@destroy');
 //====================================================
 ///IMAGES
 
-// View Data
-Route::get('foto_view','FotoController@index'); 
+// // View Data
+// Route::get('foto_view','FotoController@index'); 
 
-//insert data
-Route::get('insertfoto','FotoController@insertform');
-Route::post('foto_create','FotoController@insertfoto'); 
+// //insert data
+// Route::get('insertfoto','FotoController@insertform');
+// Route::post('foto_create','FotoController@insertfoto'); 
 
-//Update data
-Route::get('edit-records','FotoController@index');
-Route::get('editfoto/{id}','FotoController@show');
-Route::post('editfoto/{id}','FotoController@editfoto'); 
+// //Update data
+// Route::get('edit-records','FotoController@index');
+// Route::get('editfoto/{id}','FotoController@show');
+// Route::post('editfoto/{id}','FotoController@editfoto'); 
 
-//delete data
-Route::get('delete-records','FotoController@index');
-Route::get('deletefoto/{id}','FotoController@destroy'); 
+// //delete data
+// Route::get('delete-records','FotoController@index');
+// Route::get('deletefoto/{id}','FotoController@destroy'); 
 
-//
+// //
 
-Route::get('image_create', 'ImageUploadController@imageUpload')->name('image.upload');
-Route::post('image_create', 'ImageUploadController@imageUploadPost')->name('image.upload.post');
+// Route::get('image_create', 'ImageUploadController@imageUpload')->name('image.upload');
+// Route::post('image_create', 'ImageUploadController@imageUploadPost')->name('image.upload.post');
 
 
 //====================================================
@@ -153,6 +153,7 @@ Route::get('gmapscopy', 'GmapsController@gmapscopy');
 
 Route::get('api/wisata', 'WisataRestApiController@index');
 Route::get('api/searchwisata', 'WisataRestApiController@dataAjax');
+Route::get('api/joinwisata', 'WisataRestApiController@tampil_wisata');
 
 Route::get('api/kota', 'KotaRestApiController@index');
 //Route::get('api/searchkota', 'KotaRestApiController@dataAjax');

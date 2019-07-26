@@ -1,8 +1,8 @@
 @extends('layouts.app') @section('script-head')
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> @endsection @section('content')
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> @endsection
+@section('content')
 
 <style>
-
     .container img {
         margin-top: 70px;
         width: 100%;
@@ -128,8 +128,11 @@
 <!-- <div class="row">  -->
 
 <div class="column">
-    <div class="tampil_images">
+    <div class="tampil_images" onclick="detail_wisata">
+        <div class="nama_wisata">
+        </div>
     </div>
+
 </div>
 
 @endsection @section('script-foot')
@@ -155,17 +158,17 @@
     var i;
     // Full-width images
     function one() {
-            for (i = 0; i < elements.length; i++) {
-            elements[i].style.msFlex = "100%";  // IE10
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.msFlex = "100%"; // IE10
             elements[i].style.flex = "100%";
-        }   
+        }
     }
     // Two images side by side
     function two() {
         for (i = 0; i < elements.length; i++) {
-            elements[i].style.msFlex = "50%";  // IE10
+            elements[i].style.msFlex = "50%"; // IE10
             elements[i].style.flex = "50%";
-        }   
+        }
     }
     // Four images side by side
     // function four() {
@@ -178,18 +181,20 @@
     var header = document.getElementById("myHeader");
     var btns = header.getElementsByClassName("btn");
     for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
+        btns[i].addEventListener("click", function () {
             var current = document.getElementsByClassName("active");
             current[0].className = current[0].className.replace(" active", "");
             this.className += " active";
         });
     }
-    </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</script>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap">
+    < script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" >
+
+</script>
 <script type="text/javascript" src="../resources/js/images.js"></script>
 <script>
-
-@endsection
-
+    @endsection

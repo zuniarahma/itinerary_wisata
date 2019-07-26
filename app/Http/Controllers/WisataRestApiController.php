@@ -27,7 +27,11 @@ class WisataRestApiController extends Controller
             $wisata = DB::select('select * from wisata order by nama_wisata asc');
             
             return response()->json($wisata,200);
-        }
-        
+        }    
+    }
+
+    public function tampil_wisata(Request $request){
+        $tampil_wisata = DB::select('select * from gambar JOIN wisata WHERE wisata.id_wisata = gambar.id_wisata');
+        return response()->json($tampil_wisata,200);
     }
 }

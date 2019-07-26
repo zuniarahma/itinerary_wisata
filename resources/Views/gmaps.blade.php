@@ -267,11 +267,13 @@
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap">
     </script>
-    <script type="text/javascript" src="../resources/js/waypoints_v2.js"></script>
+    <script type="text/javascript" src="../resources/js/waypoints_v1.js"></script>
     <script type="text/javascript" src="../resources/js/waktu_tempuh.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script type="text/javascript">
+     var nama_wisata;
+
         function myFunction() {
             var elmnt = document.getElementById("floating-panel");
             elmnt.scrollLeft = 0;
@@ -312,14 +314,19 @@
                 e.preventDefault();
                 if (x < max_fields) { //max input box allowed
                     x++; //text box increment
-                    var nama_wisata = $('.itemName :selected').text();
+                    nama_wisata = $('.itemName :selected').text();
                     var latlng = $('.itemName :selected').val();
+
+                    // //Panggil Alamat wisata
+                    // var geocoder = new google.maps.Geocoder();
+                    // geocodeWisataAddress(geocoder, map);
+
                     $(wrapper).append(
                         '<div><input class="select_wisata form-control" type="hidden" name="daftar_wisata[]" value="' +
                         latlng +
-                        '"><input class="nama_wisata form-control" type="text" value="' +
+                        '">Alamat:<input class="nama_wisata form-control" type="text" value="' +
                         nama_wisata +
-                        '"> Waktu Transit:<input class="waktu_wisata form-control" type="time" name="waktu_wisata[]" value="01:00"></input><a href="#" class="remove_field">Remove</a></div><br>'
+                        '"><input  id="select_wisata" class="form-control" type="text"> Waktu Transit:<input class="waktu_wisata form-control" type="time" name="waktu_wisata[]" value="01:00"></input><a href="#" class="remove_field">Remove</a></div><br>'
                     ); //add input box
                 }
             });
@@ -336,6 +343,26 @@
                 0, 16)
             $('.waktu_start').val(waktu_start);
         });
+
+        // function geocodeWisataAddress(geocoder) {
+
+        //     // Geocode for Wisata Address
+        //     // var start_address = document.getElementById('select_wisata').value;
+        //     geocoder.geocode({
+        //         'address': nama_wisata
+        //     }, function (results, status) {
+        //         if (status === 'OK') {
+                    
+        //             var alamat = results[0].formatted_address;
+
+        //             document.getElementById("select_wisata").value = alamat;
+                
+        //             geocode_start = results[0].geometry.location;
+        //         } else {
+        //             alert('Geocode was not successful for the following reason: ' + status);
+        //         }
+        //     });
+        // }
 
     </script>
 

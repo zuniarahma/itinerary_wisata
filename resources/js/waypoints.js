@@ -72,6 +72,7 @@ var directionsDisplay;
                         return;
                     }
                     durations[originNodeIndex][destinationNodeIndex] = nodeDistanceData[destinationNodeIndex].duration.value;
+                    
                 }
             }
             
@@ -105,15 +106,15 @@ var directionsDisplay;
             nodes.push(checkboxArray[i].value);
           }
         }
-        console.log(waypts);
-        console.log(selectedMode);
+        // console.log(waypts);
+        // console.log(selectedMode);
         getDurations(function () {
           var datadurasi = durations;
           var rute = [];
 
-          console.log(datadurasi.length);
+          // console.log(datadurasi.length);
           var DataRoute = getRute(0,datadurasi.length);
-          console.log(DataRoute);
+          // console.log(DataRoute);
                 
           function getRute(myLocIndex, jumlahKota) {
             var ruteNN = initZeros(jumlahKota);
@@ -183,7 +184,7 @@ var directionsDisplay;
             rute.push(waypts[DataRoute[i]-1]);
           }
 
-          console.log(rute);
+          // console.log(rute);
 
           directionsService.route({
             origin: nodes[0],
@@ -209,11 +210,11 @@ var directionsDisplay;
                 summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
                 summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
                 var duration = route.legs[i].duration.text + '<br><br>';
-                console.log (duration);            
+                // console.log (duration);            
               }
               var jumlahTujuan = route.legs.length;
-              console.log ( route.legs.length);
-              console.log(route);
+              // console.log ( route.legs.length);
+              // console.log(route);
             } else {
               window.alert('Directions request failed due to ' + status);
             }
