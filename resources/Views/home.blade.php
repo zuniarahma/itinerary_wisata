@@ -114,7 +114,7 @@
 </style>
 
 <div class="MyImage">
-    <img class="theImage" src="http://localhost/TA/itinerary/public/foto_wisata/maps.png" alt="Snow">
+    <img class="theImage" src="{{ asset('foto_wisata/maps.png')}}" alt="Snow">
     <a href="{{ url('gmaps') }}" class="btnmap btn-danger" type="button">Itinerary</a>
 </div>
 
@@ -128,7 +128,7 @@
 <!-- <div class="row">  -->
 
 <div class="column">
-    <div class="tampil_images" onclick="detail_wisata">
+    <div class="tampil_images" >
         <div class="nama_wisata">
         </div>
     </div>

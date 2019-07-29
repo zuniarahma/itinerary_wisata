@@ -147,6 +147,7 @@ Route::get('deleteuser/{id}','UserController@destroy');
 Route::get('gmaps', 'GmapsController@gmaps');
 Route::get('transit', 'GmapsController@transit');
 Route::get('gmapscopy', 'GmapsController@gmapscopy');
+Route::get('detail_wisata/{id}', 'GmapsController@detail_wisata');
 
 //====================================================
 ///REST API

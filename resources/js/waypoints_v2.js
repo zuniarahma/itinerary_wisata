@@ -214,7 +214,7 @@ function getDurations(callback) {
                 }
                 durations[originNodeIndex][destinationNodeIndex] = nodeDistanceData[destinationNodeIndex].duration.value;
                 // console.log("DURATIONS", nodeDistanceData[destinationNodeIndex].duration.value);
-                console.log("DURATIONS", nodeDistanceData[destinationNodeIndex].distance.value);
+                console.log("JARAK", nodeDistanceData[destinationNodeIndex].distance.value);
             }
         }
 

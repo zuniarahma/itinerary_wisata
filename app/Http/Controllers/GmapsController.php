@@ -23,6 +23,17 @@ class GmapsController extends Controller{
     	$wisata = DB::table('wisata')->get();
     	return view('gmapscopy',compact('wisata'));
     }
+
+    public function detail_wisata($id)
+    {
+    	$wisata = DB::table('wisata')->join('gambar', 'gambar.id_wisata', '=', 'wisata.id_wisata')->select("*")
+        ->where('wisata.id_wisata', $id)->first();
+        // dd($wisata);
+
+        // SELECT * FROM `wisata` JOIN gambar WHERE wisata.id_wisata=gambar.id_wisata;
+
+    	return view('detail_wisata',compact('wisata'));
+    }
 }
 
 ?>
