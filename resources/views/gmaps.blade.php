@@ -266,8 +266,8 @@
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9wpdoXipOnUsg4ucjOsRNFkkUPYyMK48&callback=initMap">
     </script>
-    <script type="text/javascript" src="../resources/js/waypoints_v3.js"></script>
-    <script type="text/javascript" src="../resources/js/waktu_tempuh.js"></script>
+    <script type="text/javascript" src="{{ asset('js/new/waypoints_v3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/new/waktu_tempuh.js') }}"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script type="text/javascript">

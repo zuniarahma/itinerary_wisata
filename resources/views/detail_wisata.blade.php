@@ -9,7 +9,8 @@
 
 <div class="column">
     <div>
-        <img src="http://localhost/TA/itinerary/public/data_file/{{ $wisata->file }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- <img src="data_file/{{ $wisata->file }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
+        <img src="{{ asset('data_file') }}/{{ $wisata->file }}  " class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     </div>
 
     <hr>

@@ -74,7 +74,7 @@
                   <span class="icon-bar"></span>
                 </button>
                 <!-- <a class="navbar-brand" href="#">{{ config('app.name', 'ITINERARY') }}</a> -->
-                <a class="navbar-brand" href="#">ITINERARY</a>
+                <a class="navbar-brand" href="{{ url('/') }}">ITINERARY</a>
               </div>
               <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
